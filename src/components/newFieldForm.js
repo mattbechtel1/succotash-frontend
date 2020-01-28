@@ -32,11 +32,21 @@ class NewFieldForm extends React.Component {
     submitHandler = (e) => {
         e.preventDefault()
         console.log("Submitted:", this.state)
-        // fetch('http://localhost:3838/fields', {
-        //     method: 'POST',
-        //     headers:
-        // }
-        )
+        fetch('http://localhost:1986/fields', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.fieldName,
+                x_axis_count: this.state.xAxis,
+                y_axis_count: this.state.yAxis,
+                user_id: null
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Data:', data, 'Connect data with store'))
     }
 
 
