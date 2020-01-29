@@ -1,24 +1,47 @@
 import React from 'react';
 import './App.css';
-import NewFieldForm from './components/newFieldForm';
+import FieldDisplay from './containers/FieldDisplay'
 import { connect } from 'react-redux'
 import CalendarBar from './components/DateBar'
+import Navigation from './components/NavBar'
+import { Route, Switch } from 'react-router-dom'
+import { fetchFields } from './redux_files/actions'
 
-const App = ({date}) => {
+class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchFields()
+  }
   
-  function formatDate(date) {
+  formatDate(date) {
     return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear()
   }
-  console.log('rendering App')
-  return (
-    <div className="App">
-      <CalendarBar />
-      <NewFieldForm />
-      <p>The store's date is {formatDate(date)}</p>
+
+  render() {
+    return <div className="App">
+        <Navigation />
+        <Switch>
+          <Route path='/login'>
+            Login Component goes here
+          </Route>
+          <Route path='/signup'>
+            Signup Component goes here
+          </Route>
+          <Route path='/profile'>
+            Profile component goes here
+          </Route>
+          <Route path='/field'>
+            <FieldDisplay />
+          </Route>
+          <Route exact path='/'>
+            Homepage goes here
+            <CalendarBar />
+            <p>The store's date is {this.formatDate(this.props.date)}</p>
+          </Route>
+        </Switch>
     </div>
-  );
+  }
 }
 
 const mapStateToProps = ({date}) => ({date})
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {fetchFields})(App);

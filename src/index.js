@@ -4,16 +4,21 @@ import './index.css';
 import App from './App';
 import 'semantic-ui-css/semantic.min.css'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './redux_files/reducer'
+import {BrowserRouter as Router} from 'react-router-dom'
+import thunk from 'redux-thunk'
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
+    <Router>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </Router>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

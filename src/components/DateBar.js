@@ -4,10 +4,6 @@ import { tomorrow, nextWeek, yesterday, lastWeek, setNewDate } from '../redux_fi
 import Calendar from 'react-calendar'
 import { Container, Button, Icon, Grid } from 'semantic-ui-react'
 
-// class CalendarBar extends React.Component {
-
-// }
-
 const CalendarBar = ({date, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}) => {
 
     return (
