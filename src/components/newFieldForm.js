@@ -31,8 +31,7 @@ class NewFieldForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        console.log("Submitted:", this.state)
-        fetch('http://localhost:1986/fields', {
+        fetch('http://localhost:2020/fields', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
