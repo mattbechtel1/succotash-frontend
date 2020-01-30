@@ -28,3 +28,7 @@ export function fetchFields() {
         })
     }
 }
+
+export function setBed(bed) {
+    return {type: 'SET_BED', bed}
+}

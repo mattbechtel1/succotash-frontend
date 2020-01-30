@@ -23,9 +23,9 @@ function fieldsReducer(state={
     loading: false}, action) {
     switch(action.type) {
         case 'SEED_FIELDS':
-            return {fields: action.fields, loading: false}
+            return {...state, fields: action.fields, loading: false}
         case 'ADD_FIELD':
-            return {fields: state.concat(action.fieldObj), loading: false}
+            return {...state, fields: state.concat(action.fieldObj), loading: false}
         case 'LOADING_FIELDS':
             return {...state, loading: true}
         default:
@@ -33,9 +33,19 @@ function fieldsReducer(state={
     }
 }
 
+function bedReducer(state={}, action) {
+    switch(action.type) {
+        case 'SET_BED':
+            return action.bed
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
-    fields: fieldsReducer
+    fields: fieldsReducer,
+    bed: bedReducer
 })
 
 export default rootReducer
