@@ -32,3 +32,7 @@ export function fetchFields() {
 export function setBed(bed) {
     return {type: 'SET_BED', bed}
 }
+
+export function unsetBed() {
+    return {type: 'UNSET_BED'}
+}

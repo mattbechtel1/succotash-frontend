@@ -33,10 +33,12 @@ function fieldsReducer(state={
     }
 }
 
-function bedReducer(state={}, action) {
+function bedReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
             return action.bed
+        case 'UNSET_BED':
+            return null
         default:
             return state
     }
