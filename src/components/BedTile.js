@@ -4,6 +4,6 @@ import { Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { setBed } from '../redux_files/actions'
 
-const BedTile = ({bed, setBed}) => <div onClick={(e) => setBed(bed)}><Image src={dirt} rounded /></div>
+const BedTile = ({bed, setBed}) => <div onClick={() => setBed(bed)}><Image src={dirt} rounded /></div>
 
 export default connect(null, {setBed})(BedTile)

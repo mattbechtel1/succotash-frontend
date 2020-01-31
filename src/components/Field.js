@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Icon, Button } from 'semantic-ui-react'
+import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Icon, Button, Input } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import BedTile from './BedTile'
-import { unsetBed, setNewDate } from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, updateBedName } from '../redux_files/actions'
 import DateBar from './DateBar'
 
 function dateUnformat(dashedDate) {
@@ -19,14 +19,11 @@ function dateUnformat(dashedDate) {
 }
 
 
-const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, date, location, match: {params: {slug}}}) => {
-    console.log("location.search is", location.search)
+const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
-    // console.log(datetime)
 
     if (datetime) {
-        console.log('datetime exists!')
         const dateForDispatch = dateUnformat(datetime)
         if (dateForDispatch.getTime() !== date.getTime()) {
             setNewDate(dateForDispatch)
@@ -79,10 +76,17 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, date,
             // onHide={unsetBed}
             vertical
             visible={!!activeBed}
-            width='thin'
+            width='wide'
             >
             <Menu.Item as='a'>
-             <Header as='h5'>{activeBed ? activeBed.name : ''}</Header>
+                { sidebar.loadingTitle ? <Loader /> : 
+                <Header as='h5'>
+                    { sidebar.titleInput ? 
+                        <Input placeholder={activeBed.name} onBlur={(e) => updateBedName(activeBed.id, e.target.value)} />
+                        :
+                        <span>{activeBed ? activeBed.name : ''} <Icon name='pencil' onClick={openBedInput} /></span> }
+                </Header>
+                }
             </Menu.Item>
             <Menu.Item as='a'>
             <Icon name='gamepad' />
@@ -101,15 +105,15 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, date,
     }
 }
 
-const mapStateToProps = ({fields, bed, date}, {match}) => {
-    // debugger
+const mapStateToProps = ({fields, bed, date, sidebar}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
         beds: fields.fields.find(field => field.slug === match.params.slug) ? fields.fields.find(field => field.slug === match.params.slug).beds : [],
         activeBed: bed,
-        date
+        date,
+        sidebar
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, setNewDate})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, setNewDate, openBedInput, updateBedName})(FieldGrid))

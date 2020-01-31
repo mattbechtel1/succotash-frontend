@@ -26,8 +26,7 @@ function dateReducer(state=today, action) {
             return editingDate
         case "SET_DATE":
             if (action.slug) {
-                window.history.pushState({date: action.date}, '', '/field/' + action.slug + '?date=' + dateFormatter(action.date))
-                console.log('window.location.href is', window.location.href)
+                window.location.href = 'http://localhost:3000/field/' + action.slug + '?date=' + dateFormatter(action.date)
             } 
             return action.date
         default:
@@ -45,6 +44,15 @@ function fieldsReducer(state={
             return {...state, fields: state.concat(action.fieldObj), loading: false}
         case 'LOADING_FIELDS':
             return {...state, loading: true}
+        case 'REPLACE_SINGLE_BED':
+            const targetFieldIdx = state.fields.findIndex(field => field.id === action.bed.field_id)
+            const replacementBedIdx = state.fields[targetFieldIdx].beds.findIndex(bed => bed.id === action.bed.id)
+            const reconstructedFieldBedList = [...state.fields[targetFieldIdx].beds.slice(0, replacementBedIdx), action.bed, ...state.fields[targetFieldIdx].beds.slice(replacementBedIdx + 1)]
+            const reconstrutedField = {...state.fields[targetFieldIdx], beds: reconstructedFieldBedList}
+            
+            return {...state, 
+                fields: [...state.fields.slice(0, targetFieldIdx), reconstrutedField, ...state.fields.slice(targetFieldIdx + 1)]
+            }
         default:
             return state
     }
@@ -61,10 +69,27 @@ function bedReducer(state=null, action) {
     }
 }
 
+function sidebarStateReducer(state={
+    titleInput: false,
+    loadingTitle: true
+}, action) {
+    switch(action.type) {
+        case 'SET_BED':
+            return {...state, loadingTitle: false}
+        case 'EDIT_BED_TITLE':
+            return {...state, titleInput: true}
+        case 'UPDATING_BED':
+            return {...state, titleInput: false, laodingTitle: true}
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     fields: fieldsReducer,
-    bed: bedReducer
+    bed: bedReducer,
+    sidebar: sidebarStateReducer
 })
 
 export default rootReducer

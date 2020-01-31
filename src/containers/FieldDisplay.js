@@ -1,6 +1,5 @@
 import React from 'react'
-import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
-import { connect } from 'react-redux'
+import {Switch, Route} from 'react-router-dom'
 import NewFieldForm from '../components/newFieldForm'
 import Field from '../components/Field'
 

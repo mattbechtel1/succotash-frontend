@@ -36,3 +36,28 @@ export function setBed(bed) {
 export function unsetBed() {
     return {type: 'UNSET_BED'}
 }
+
+export function openBedInput() {
+    return {type: 'EDIT_BED_TITLE'}
+}
+
+export function updateBedName(bedId, newName) {
+    return (dispatch) => {
+        dispatch({type: 'UPDATING_BED'})
+        fetch('http://localhost:2020/beds/' + bedId, {
+            method: 'PATCH',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: newName
+            })
+        })
+        .then(response => response.json())
+        .then(updatedBed => {
+            dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
+            dispatch({type: 'SET_BED', bed: updatedBed})
+        })
+    }
+}
