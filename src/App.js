@@ -27,7 +27,7 @@ class App extends React.Component {
             Signup Component goes here
           </Route>
           <Route path='/profile'>
-            Profile component goes here
+            PROFILE GOES HERE
           </Route>
           <Route path='/field'>
             <FieldDisplay />

@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 const NavBar = () => {
-    return <Fragment />
+    return <h1>NAVBAR HERE</h1>
 }
 
 export default NavBar

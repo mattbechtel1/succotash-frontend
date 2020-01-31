@@ -1,42 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { tomorrow, nextWeek, yesterday, lastWeek, setNewDate } from '../redux_files/actions'
-import Calendar from 'react-calendar'
-import { Container, Button, Icon, Grid } from 'semantic-ui-react'
+import { setNewDate } from '../redux_files/actions'
+import { DatePicker } from '@material-ui/pickers'
+import { Container } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 
-const CalendarBar = ({date, slug, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}) => {
 
+const CalendarBar = ({date, slug, setNewDate}) => {
     return (
         <Container>
-            <Grid>
-                <Grid.Column width='5'>
-                    <Button icon onClick={lastWeek}>
-                        <Icon name='angle double left' />
-                    </Button>
-                    <Button icon onClick={yesterday}>
-                        <Icon name='angle left' />
-                    </Button>
-                </ Grid.Column>
-                <Grid.Column width='6' >
-                    <Calendar 
-                        className='center'
-                        value={date}
-                        onChange={(d) => setNewDate(d, slug)}
-                        />
-                </Grid.Column>
-                <Grid.Column width='5'>
-                    <Button icon onClick={tomorrow}>
-                        <Icon name='angle right' />
-                    </Button>
-                    <Button icon onClick={nextWeek}>
-                        <Icon name='angle double right' />
-                    </Button>
-                </Grid.Column>
-            </Grid>
+            <DatePicker 
+                value={date}
+                onChange={d => setNewDate(d, slug)}
+                animateYearScrolling /> 
         </Container>
     )
 }
 const mapStateToProps = ({date}, {match}) => ({date, slug: match.params.slug})
 
-export default withRouter(connect(mapStateToProps, {tomorrow, nextWeek, yesterday, lastWeek, setNewDate})(CalendarBar))
+export default withRouter(connect(mapStateToProps, {setNewDate})(CalendarBar))

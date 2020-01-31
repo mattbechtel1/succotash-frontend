@@ -1,10 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Icon, Button, Input } from 'semantic-ui-react'
+import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Icon, Input } from 'semantic-ui-react'
+import { DatePicker } from '@material-ui/pickers'
 import { withRouter } from 'react-router-dom'
 import BedTile from './BedTile'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import { unsetBed, setNewDate, openBedInput, updateBedName } from '../redux_files/actions'
 import DateBar from './DateBar'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    }
+  }));
 
 function dateUnformat(dashedDate) {
     let dateArray = dashedDate.split('-')
@@ -18,8 +30,13 @@ function dateUnformat(dashedDate) {
     return new Date(...dateArray)
 }
 
-
 const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+    const materialClasses = useStyles()
+    let presentStage
+    if (activeBed && date) {
+        presentStage = activeBed.stages.find(stage => date.getTime() >= dateUnformat(stage.start_date).getTime() && (!stage.due_date || date.getTime() < dateUnformat(stage.due_date).getTime()))
+    }
+
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
 
@@ -36,8 +53,7 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updat
         return <Container>
             <DateBar />
             <Header as='h3'>{fieldName}</Header>
-                <Loader>Loading...</Loader>
-            {/* <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' /> */}
+                <Loader active>Loading...</Loader>
         </Container>
         
     } else {
@@ -62,7 +78,7 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updat
             rows.push(<Grid.Row key={`row-${rowCounter}`} columns={x_axis_count}>{columns}</Grid.Row>)
             rowCounter++
         }
-
+    
     return <Container>
         <DateBar />
         <Header as='h3'>{fieldName}</Header>
@@ -79,7 +95,7 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updat
             width='wide'
             >
             <Menu.Item as='a'>
-                { sidebar.loadingTitle ? <Loader /> : 
+                { sidebar.loadingTitle ? <Loader active /> : 
                 <Header as='h5'>
                     { sidebar.titleInput ? 
                         <Input placeholder={activeBed.name} onBlur={(e) => updateBedName(activeBed.id, e.target.value)} />
@@ -88,13 +104,62 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updat
                 </Header>
                 }
             </Menu.Item>
+            
+            {/* Display/change crop */}
             <Menu.Item as='a'>
-            <Icon name='gamepad' />
-            Games
+                {activeBed ?
+                <span>
+                Crop: { presentStage && presentStage.tempCrop ? presentStage.tempCrop : 'No crop set' } <Icon name='pencil' onClick={() => console.log("This should open the crop selector option")} />
+                </span>
+                : <Loader active />
+            }
             </Menu.Item>
+
+            {/* Display/Change Status */}
+            <Menu.Item>
+                <FormControl>
+                    <Select value={presentStage ? presentStage.status : 'unused'} onChange={console.log("This should change the current stage in state OR overwrite the current stage in state")} displayEmpty className={materialClasses.selectEmpty}>
+                        <MenuItem value='unused'><em>Unused</em></MenuItem>
+                        <MenuItem value='tilled'>Tilled</MenuItem>
+                        <MenuItem value='planted'>Planted</MenuItem>
+                        <MenuItem value='growth'>Growth</MenuItem>
+                        <MenuItem value='harvest'>Harvest</MenuItem>
+                        <MenuItem value='barren'>Barren</MenuItem>
+                    </Select>
+                    <FormHelperText>Present Stage</FormHelperText>
+                </FormControl>
+            </Menu.Item>
+
+            {/* Display/Change Start Date */}
+            <Menu.Item as='a'>
+                <span className='vert-center-span'>
+                    Stage Start Date: {presentStage && presentStage.start_date ? 
+                        <DatePicker 
+                            value={presentStage.start_date}
+                            onChange={() => console.log("This should change the start date in state OR overwrite the current stage in state")}
+                            animateYearScrolling /> 
+                        : 'None'}
+                </span>
+            </Menu.Item>
+
+            {/* Display/Change End Date */}
+            <Menu.Item as='a'>
+                <span className='vert-center-span'>
+                    Stage End Date: {presentStage && presentStage.due_date ? 
+                        <DatePicker 
+                            value={presentStage.due_date}
+                            onChange={() => console.log("This should change the end date in state OR overwrite the current stage in state")}
+                            animateYearScrolling /> 
+                        : 'None'}
+                </span>
+            </Menu.Item>
+
+            {/* SAVE BUTTON */}
+
+            {/* Closed Bed without Persisting Changes to DB */}
             <Menu.Item as='a' onClick={unsetBed}>
-            <Icon name='camera' />
-            Close Sidebar
+                <Icon name='close' />
+                Close Sidebar
             </Menu.Item>
         </Sidebar>
         <Sidebar.Pusher>

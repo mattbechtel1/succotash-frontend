@@ -71,7 +71,8 @@ function bedReducer(state=null, action) {
 
 function sidebarStateReducer(state={
     titleInput: false,
-    loadingTitle: true
+    loadingTitle: true,
+    // loadingStage: true
 }, action) {
     switch(action.type) {
         case 'SET_BED':
