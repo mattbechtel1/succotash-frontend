@@ -1,13 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Icon, Input } from 'semantic-ui-react'
+import {FormControl, Select, MenuItem, FormHelperText, Button} from '@material-ui/core'
 import { DatePicker } from '@material-ui/pickers'
 import { withRouter } from 'react-router-dom'
 import BedTile from './BedTile'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import { unsetBed, setNewDate, openBedInput, updateBedName } from '../redux_files/actions'
 import DateBar from './DateBar'
 import { makeStyles } from '@material-ui/core/styles';
@@ -154,7 +151,10 @@ const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updat
                 </span>
             </Menu.Item>
 
-            {/* SAVE BUTTON */}
+                {/* SAVE BUTTON */}
+            <Menu.Item>
+                <Button variant='contained' color='secondary' onClick={() => console.log("If this were hooked up, you would have saved your changes.")}>SAVE CHANGES</Button>
+            </Menu.Item>
 
             {/* Closed Bed without Persisting Changes to DB */}
             <Menu.Item as='a' onClick={unsetBed}>
