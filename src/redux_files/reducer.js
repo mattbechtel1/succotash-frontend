@@ -2,6 +2,19 @@ import { combineReducers } from 'redux'
 
 var today = new Date()
 
+function dateFormatter(date) {
+    let month = '' + (date.getMonth() + 1)
+    let day = '' + date.getDate()
+    let year = date.getFullYear()
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 function dateReducer(state=today, action) {
     let editingDate = new Date(state)
     switch(action.type) {
@@ -12,6 +25,10 @@ function dateReducer(state=today, action) {
             editingDate.setDate(state.getDate() - action.days)
             return editingDate
         case "SET_DATE":
+            if (action.slug) {
+                window.history.pushState({date: action.date}, '', '/field/' + action.slug + '?date=' + dateFormatter(action.date))
+                console.log('window.location.href is', window.location.href)
+            } 
             return action.date
         default:
             return state

@@ -14,8 +14,8 @@ export function lastWeek() {
     return {type: 'DATE_BACKWARD', days: 7}
 }
 
-export function setNewDate(date) {
-    return {type: 'SET_DATE', date: date}
+export function setNewDate(date, urlSlug) {
+    return {type: 'SET_DATE', date, slug: urlSlug}
 }
 
 export function fetchFields() {

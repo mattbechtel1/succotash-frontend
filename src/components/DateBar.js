@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { tomorrow, nextWeek, yesterday, lastWeek, setNewDate } from '../redux_files/actions'
 import Calendar from 'react-calendar'
 import { Container, Button, Icon, Grid } from 'semantic-ui-react'
+import {withRouter} from 'react-router-dom'
 
-const CalendarBar = ({date, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}) => {
+const CalendarBar = ({date, slug, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}) => {
 
     return (
         <Container>
@@ -21,7 +22,7 @@ const CalendarBar = ({date, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}
                     <Calendar 
                         className='center'
                         value={date}
-                        onChange={setNewDate}
+                        onChange={(d) => setNewDate(d, slug)}
                         />
                 </Grid.Column>
                 <Grid.Column width='5'>
@@ -36,6 +37,6 @@ const CalendarBar = ({date, setNewDate, tomorrow, yesterday, lastWeek, nextWeek}
         </Container>
     )
 }
-const mapStateToProps = ({date}) => ({date})
+const mapStateToProps = ({date}, {match}) => ({date, slug: match.params.slug})
 
-export default connect(mapStateToProps, {tomorrow, nextWeek, yesterday, lastWeek, setNewDate})(CalendarBar)
+export default withRouter(connect(mapStateToProps, {tomorrow, nextWeek, yesterday, lastWeek, setNewDate})(CalendarBar))

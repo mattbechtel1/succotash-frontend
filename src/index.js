@@ -8,10 +8,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './redux_files/reducer'
 import {BrowserRouter as Router} from 'react-router-dom'
 import thunk from 'redux-thunk'
+// import createBrowserHistory from 'history/createBrowserHistory';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+// let history = createBrowserHistory({})
 
 ReactDOM.render(
     <Router>
