@@ -60,6 +60,8 @@ function bedReducer(state=null, action) {
 function sidebarStateReducer(state={
     titleInput: false,
     loadingTitle: true,
+    timeRangeWarning: false,
+    successMessage: false
 }, action) {
     switch(action.type) {
         case 'SET_BED':
@@ -68,6 +70,14 @@ function sidebarStateReducer(state={
             return {...state, titleInput: true}
         case 'UPDATING_BED':
             return {...state, titleInput: false, loadingTitle: true}
+        case 'INVALID_TIME_RANGE':
+            return {...state, timeRangeWarning: true}
+        case 'TIME_RANGE_RESET':
+            return {...state, timeRangeWarning: false}
+        case 'SAVE_SUCCESS':
+            return {...state, successMessage: true}
+        case 'SAVE_RESET':
+            return {...state, successMessage: false}
         default:
             return state
     }
@@ -76,7 +86,8 @@ function sidebarStateReducer(state={
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
-            return action.bed.stages.find(stage => action.date.getTime() >= dateUnformat(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() < dateUnformat(stage.due_date).getTime()))
+            debugger
+            return action.bed.stages.find(stage => action.date.getTime() >= dateUnformat(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() <= dateUnformat(stage.due_date).getTime()))
         case 'UNSET_BED':
             return null
         case 'EDIT_STAGE_DATE':
@@ -90,7 +101,6 @@ function stageReducer(state=null, action) {
                 status: action.status
             }
         case 'EDIT_TEMP_CROP': 
-            debugger
             return {
                 ...state,
                 tempCrop: action.crop

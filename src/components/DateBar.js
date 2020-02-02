@@ -11,6 +11,7 @@ const CalendarBar = ({date, slug, setNewDate}) => {
         <Container>
             <DatePicker 
                 value={date}
+                minDate={Date(2010, 1, 1)}
                 onChange={d => setNewDate(d, slug)}
                 animateYearScrolling /> 
         </Container>

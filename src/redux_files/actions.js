@@ -1,19 +1,3 @@
-// export function tomorrow() {
-//     return {type: 'DATE_FORWARD', days: 1}
-// }
-
-// export function nextWeek() {
-//     return {type: 'DATE_FORWARD', days: 7}
-// }
-
-// export function yesterday() {
-//     return {type: 'DATE_BACKWARD', days: 1}
-// }
-
-// export function lastWeek() {
-//     return {type: 'DATE_BACKWARD', days: 7}
-// }
-
 export function setNewDate(date, urlSlug) {
     return {type: 'SET_DATE', date, slug: urlSlug}
 }
@@ -74,27 +58,44 @@ export function changeCrop(crop) {
     return {type: 'EDIT_TEMP_CROP', crop}
 }
 
-export function saveStage(stage) {
-    return (dispatch) => {
-        dispatch({type: 'UPDATING_BED'})
-        fetch('http://localhost:2020/stages/', {
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                status: stage.status,
-                bed_id: stage.bed_id,
-                start_date: stage.start_date,
-                due_date: stage.due_date,
-                temp_crop: stage.temp_crop
+export function saveStage(stage, date) {
+    if (!!stage.due_date && !!stage.start_date && new Date(stage.start_date) < new Date(stage.due_date)) {
+        return (dispatch) => {
+            dispatch({type: 'UPDATING_BED'})
+            fetch('http://localhost:2020/stages/', {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: stage.status,
+                    bed_id: stage.bed_id,
+                    start_date: stage.start_date,
+                    due_date: stage.due_date,
+                    temp_crop: stage.temp_crop
+                })
             })
-        })
-        .then(response => response.json())
-        .then(updatedBed => {
-            dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
-            dispatch({type: 'SET_BED', bed: updatedBed, date: stage.start_date})
-        })
+            .then(response => response.json())
+            .then(updatedBed => {
+                dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
+                dispatch({type: 'SET_BED', bed: updatedBed, date})
+            })
+            .then(() => {dispatch({type:'SAVE_SUCCESS'})} )
+        }
+    } else {
+        return invalidTimeRange()
     }
+}
+
+export function invalidTimeRange() {
+    return {type: 'INVALID_TIME_RANGE'}
+}
+
+export function removeTimeMessage() {
+    return {type: 'TIME_RANGE_RESET'}
+}
+
+export function saveReset() {
+    return {type:'SAVE_RESET'}
 }
