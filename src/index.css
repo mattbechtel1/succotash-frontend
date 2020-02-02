@@ -24,4 +24,13 @@ code {
 
 .background-field {
   background-image: url(./assets/wheat.jpg);
+  min-height: 450px;
+}
+
+.container {
+  text-align: center;
+}
+
+.contained {
+  display: 'inline-block'
 }

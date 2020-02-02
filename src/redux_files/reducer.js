@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux'
-import { dateUnformat, dateFormatter } from '../helpers/dates'
+import { dateFormatter, constructDate } from '../helpers/dates'
 
-var today = new Date()
+var today = constructDate(new Date())
 
 function dateReducer(state=today, action) {
-    let editingDate = new Date(state)
+    // let editingDate = new Date(state)
     switch(action.type) {
-        case "DATE_FORWARD":
-            editingDate.setDate(state.getDate() + action.days)
-            return editingDate
-        case "DATE_BACKWARD":
-            editingDate.setDate(state.getDate() - action.days)
-            return editingDate
+        // case "DATE_FORWARD":
+        //     editingDate.setDate(state.getDate() + action.days)
+        //     return editingDate
+        // case "DATE_BACKWARD":
+        //     editingDate.setDate(state.getDate() - action.days)
+        //     return editingDate
         case "SET_DATE":
             if (action.slug) {
                 window.location.href = 'http://localhost:3000/field/' + action.slug + '?date=' + dateFormatter(action.date)
@@ -61,6 +61,7 @@ function sidebarStateReducer(state={
     titleInput: false,
     loadingTitle: true,
     timeRangeWarning: false,
+    saving: false,
     successMessage: false
 }, action) {
     switch(action.type) {
@@ -75,9 +76,11 @@ function sidebarStateReducer(state={
         case 'TIME_RANGE_RESET':
             return {...state, timeRangeWarning: false}
         case 'SAVE_SUCCESS':
-            return {...state, successMessage: true}
+            return {...state, successMessage: true, saving: false}
         case 'SAVE_RESET':
-            return {...state, successMessage: false}
+            return {...state, successMessage: false, saving: false}
+        case 'SAVING_STAGE':
+            return {...state, saving: true}
         default:
             return state
     }
@@ -86,8 +89,9 @@ function sidebarStateReducer(state={
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
-            debugger
-            return action.bed.stages.find(stage => action.date.getTime() >= dateUnformat(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() <= dateUnformat(stage.due_date).getTime()))
+            return action.bed.stages.find(stage => {
+                return action.date.getTime() >= constructDate(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() <= constructDate(stage.due_date).getTime())
+            })
         case 'UNSET_BED':
             return null
         case 'EDIT_STAGE_DATE':

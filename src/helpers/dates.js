@@ -22,3 +22,20 @@ export function dateFormatter(date) {
 
     return [year, month, day].join('-');
 }
+
+export function constructDate(date) {
+    switch(typeof date) {
+        case 'string':
+            return dateUnformat(date)
+        case 'object':
+            switch (date) {
+                case null:
+                    return null
+                default:
+                    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+            }
+        default:
+            return null
+    }
+}
+            

@@ -1,3 +1,5 @@
+import {constructDate} from '../helpers/dates'
+
 export function setNewDate(date, urlSlug) {
     return {type: 'SET_DATE', date, slug: urlSlug}
 }
@@ -59,9 +61,13 @@ export function changeCrop(crop) {
 }
 
 export function saveStage(stage, date) {
-    if (!!stage.due_date && !!stage.start_date && new Date(stage.start_date) < new Date(stage.due_date)) {
+    const start_date = constructDate(stage.start_date)
+    const due_date = constructDate(stage.due_date)
+    
+    if (start_date && (!due_date || start_date < due_date)) {
         return (dispatch) => {
             dispatch({type: 'UPDATING_BED'})
+            dispatch({type: 'SAVING_STAGE'})
             fetch('http://localhost:2020/stages/', {
                 method: 'POST',
                 headers: {
@@ -73,15 +79,20 @@ export function saveStage(stage, date) {
                     bed_id: stage.bed_id,
                     start_date: stage.start_date,
                     due_date: stage.due_date,
-                    temp_crop: stage.temp_crop
+                    tempCrop: stage.tempCrop
                 })
             })
             .then(response => response.json())
             .then(updatedBed => {
-                dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
-                dispatch({type: 'SET_BED', bed: updatedBed, date})
+                setTimeout(() => {
+                    dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
+                    dispatch({type: 'SET_BED', bed: updatedBed, date})
+                    dispatch({type: 'SAVE_SUCCESS'})
+                }, 2000)
+                setTimeout(() => {
+                    dispatch({type: 'SAVE_RESET'})
+                }, 6000)
             })
-            .then(() => {dispatch({type:'SAVE_SUCCESS'})} )
         }
     } else {
         return invalidTimeRange()

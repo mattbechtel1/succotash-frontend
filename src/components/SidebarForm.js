@@ -1,12 +1,14 @@
 import React from 'react'
-import { FormControl, Select, MenuItem, FormHelperText, Button, Input, Snackbar, Slide } from '@material-ui/core'
+import SaveButton from './SaveButton'
+import { FormControl, Select, MenuItem, FormHelperText, Input, Snackbar, Slide } from '@material-ui/core'
 import { Alert } from '@material-ui/lab';
 import { DatePicker } from '@material-ui/pickers'
 import { Edit as EditIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { saveStage, editStageDate, editStageStatus, saveReset, changeCrop, invalidTimeRange, removeTimeMessage } from '../redux_files/actions'
+import { editStageDate, editStageStatus, changeCrop, invalidTimeRange, removeTimeMessage } from '../redux_files/actions'
+import { constructDate } from '../helpers/dates'
 
 class SidebarForm extends React.Component {
     constructor(props) {
@@ -38,6 +40,7 @@ class SidebarForm extends React.Component {
         const materialClasses = this.useStyles
         const {cropWriter} = this.state
         const {start_date, due_date, status, tempCrop: crop } = this.props.stage
+        const { sidebar } = this.props
 
         function SlideTransition(props) {
             return <Slide {...props} directon='right' />
@@ -47,21 +50,11 @@ class SidebarForm extends React.Component {
             <Snackbar 
                 anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 TransitionComponent={SlideTransition}
-                open={this.props.sidebar.timeRangeWarning}
+                open={sidebar.timeRangeWarning}
                 onClose={this.props.removeTimeMessage}
             >
                 <Alert variant='filled' severity='error'>The end date cannot occur prior to the start date.</Alert> 
             </Snackbar>
-
-            <Snackbar 
-                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-                TransitionComponent={SlideTransition}
-                open={this.props.sidebar.successMessage}
-                onClose={this.props.saveReset}
-            >
-                <Alert variant='filled' severity='success'>Successfully Saved!</Alert> 
-            </Snackbar>
-
 
             {/* Display/change crop */}
             <Menu.Item as='a'>
@@ -83,7 +76,7 @@ class SidebarForm extends React.Component {
             {/* Display/Change Status */}
             <Menu.Item>
                 <FormControl>
-                    <Select name='startDate' value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty className={materialClasses.selectEmpty}>
+                    <Select value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty className={materialClasses.selectEmpty}>
                         <MenuItem value='unused'><em>Unused</em></MenuItem>
                         <MenuItem value='tilled'>Tilled</MenuItem>
                         <MenuItem value='planted'>Planted</MenuItem>
@@ -100,7 +93,7 @@ class SidebarForm extends React.Component {
                 <span className='vert-center-span'>
                     Stage Start Date:
                         <DatePicker 
-                            value={start_date}
+                            value={constructDate(start_date)}
                             onChange={(date) => this.props.editStageDate('start_date', date)}
                             animateYearScrolling /> 
                 </span>
@@ -111,24 +104,20 @@ class SidebarForm extends React.Component {
                 <span className='vert-center-span'>
                     Stage End Date:
                         <DatePicker 
-                            value={due_date}
+                            value={constructDate(due_date)}
                             onChange={this.changeDueDate}
                             animateYearScrolling /> 
                 </span>
             </Menu.Item>
 
-                {/* SAVE BUTTON */}
-            <Menu.Item>
-                <Button variant='contained' 
-                    color='secondary' 
-                    onClick={() => this.props.saveStage(this.props.stage, this.props.date)}>
-                    SAVE CHANGES
-                </Button>
+            {/* SAVE BUTTON */}
+            <Menu.Item as='a'>
+                <SaveButton />
             </Menu.Item>
         </>
     }
 }
 
-const mapStateToProps = ({stage, date, sidebar}) => ({stage, date, sidebar})
+const mapStateToProps = ({stage, sidebar}) => ({stage, sidebar})
 
-export default connect(mapStateToProps, {saveStage, saveReset, editStageDate, editStageStatus, removeTimeMessage, changeCrop, invalidTimeRange})(SidebarForm)
+export default connect(mapStateToProps, { editStageDate, editStageStatus, removeTimeMessage, changeCrop, invalidTimeRange})(SidebarForm)

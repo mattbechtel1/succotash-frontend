@@ -5,7 +5,7 @@ import Field from '../components/Field'
 
 const FieldDisplay = () => {
     return <Switch>
-        <Route path='/field/new' component={NewFieldForm} />
+        <Route exact path='/field/new' component={NewFieldForm} />
         <Route exact path='/field/:slug'>
             <Field />
         </Route>
