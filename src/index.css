@@ -21,3 +21,7 @@ code {
   display: inline-flex;
   align-items: center;
 }
+
+.background-field {
+  background-image: url(./assets/wheat.jpg);
+}

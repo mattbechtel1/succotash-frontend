@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { setNewDate } from '../redux_files/actions'
 import { DatePicker } from '@material-ui/pickers'
 import { Container } from 'semantic-ui-react'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 const CalendarBar = ({date, slug, setNewDate}) => {

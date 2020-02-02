@@ -19,25 +19,28 @@ class App extends React.Component {
   render() {
     return <div className="App">
         <Navigation />
-        <Switch>
-          <Route path='/login'>
-            Login Component goes here
-          </Route>
-          <Route path='/signup'>
-            Signup Component goes here
-          </Route>
-          <Route path='/profile'>
-            PROFILE GOES HERE
-          </Route>
-          <Route path='/field'>
-            <FieldDisplay />
-          </Route>
-          <Route exact path='/'>
-            Homepage goes here
-            <CalendarBar />
-            <p>The store's date is {this.formatDate(this.props.date)}</p>
-          </Route>
-        </Switch>
+        {/* <div style={{ backgroundImage:`url(${scenic_field})` }}> */}
+        <div className='background-field'>
+          <Switch>
+            <Route path='/login'>
+              Login Component goes here
+            </Route>
+            <Route path='/signup'>
+              Signup Component goes here
+            </Route>
+            <Route path='/profile'>
+              PROFILE GOES HERE
+            </Route>
+            <Route path='/field'>
+              <FieldDisplay />
+            </Route>
+            <Route exact path='/'>
+              Homepage goes here
+              <CalendarBar />
+              <p>The store's date is {this.formatDate(this.props.date)}</p>
+            </Route>
+          </Switch>
+        </div>
     </div>
   }
 }

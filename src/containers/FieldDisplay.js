@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
-import NewFieldForm from '../components/newFieldForm'
+import NewFieldForm from '../components/NewFieldForm'
 import Field from '../components/Field'
 
 const FieldDisplay = () => {

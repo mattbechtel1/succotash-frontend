@@ -1,19 +1,7 @@
 import { combineReducers } from 'redux'
+import { dateUnformat, dateFormatter } from '../helpers/dates'
 
 var today = new Date()
-
-function dateFormatter(date) {
-    let month = '' + (date.getMonth() + 1)
-    let day = '' + date.getDate()
-    let year = date.getFullYear()
-
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-
-    return [year, month, day].join('-');
-}
 
 function dateReducer(state=today, action) {
     let editingDate = new Date(state)
@@ -72,7 +60,6 @@ function bedReducer(state=null, action) {
 function sidebarStateReducer(state={
     titleInput: false,
     loadingTitle: true,
-    // loadingStage: true
 }, action) {
     switch(action.type) {
         case 'SET_BED':
@@ -80,8 +67,35 @@ function sidebarStateReducer(state={
         case 'EDIT_BED_TITLE':
             return {...state, titleInput: true}
         case 'UPDATING_BED':
-            return {...state, titleInput: false, laodingTitle: true}
+            return {...state, titleInput: false, loadingTitle: true}
         default:
+            return state
+    }
+}
+
+function stageReducer(state=null, action) {
+    switch(action.type) {
+        case 'SET_BED':
+            return action.bed.stages.find(stage => action.date.getTime() >= dateUnformat(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() < dateUnformat(stage.due_date).getTime()))
+        case 'UNSET_BED':
+            return null
+        case 'EDIT_STAGE_DATE':
+            return {
+                ...state,
+                [action.dateType]: action.date
+            }
+        case 'EDIT_STAGE_STATUS':
+            return {
+                ...state,
+                status: action.status
+            }
+        case 'EDIT_TEMP_CROP': 
+            debugger
+            return {
+                ...state,
+                tempCrop: action.crop
+            }
+        default: 
             return state
     }
 }
@@ -90,7 +104,8 @@ const rootReducer = combineReducers({
     date: dateReducer,
     fields: fieldsReducer,
     bed: bedReducer,
-    sidebar: sidebarStateReducer
+    sidebar: sidebarStateReducer,
+    stage: stageReducer
 })
 
 export default rootReducer
