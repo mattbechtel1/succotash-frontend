@@ -19,4 +19,8 @@ const CalendarBar = ({date, slug, setNewDate}) => {
 }
 const mapStateToProps = ({date}, {match}) => ({date, slug: match.params.slug})
 
-export default withRouter(connect(mapStateToProps, {setNewDate})(CalendarBar))
+const mapDispatchToProps = (dispatch, {history}) => {
+    return { setNewDate: (date, slug) => dispatch(setNewDate(date, slug, history)) }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CalendarBar))

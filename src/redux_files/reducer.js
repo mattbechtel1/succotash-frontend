@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { dateFormatter, constructDate } from '../helpers/dates'
+import { constructDate } from '../helpers/dates'
 
 var today = constructDate(new Date())
 
@@ -13,9 +13,6 @@ function dateReducer(state=today, action) {
         //     editingDate.setDate(state.getDate() - action.days)
         //     return editingDate
         case "SET_DATE":
-            if (action.slug) {
-                window.location.href = 'http://localhost:3000/field/' + action.slug + '?date=' + dateFormatter(action.date)
-            } 
             return action.date
         default:
             return state

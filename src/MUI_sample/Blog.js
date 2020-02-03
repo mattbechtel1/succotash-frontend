@@ -41,7 +41,7 @@ const sidebar = {
 
 const Blog = ({fields: {fields}}) => {
   const classes = useStyles();
-  debugger  
+
   return (
     <React.Fragment>
       <CssBaseline />

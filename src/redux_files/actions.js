@@ -1,8 +1,10 @@
-import {constructDate} from '../helpers/dates'
-import {useHistory} from 'react-router-dom'
+import {constructDate, dateFormatter} from '../helpers/dates'
 
-export function setNewDate(date, urlSlug) {
-    return {type: 'SET_DATE', date, slug: urlSlug}
+export function setNewDate(date, urlSlug, history) {
+    return (dispatch) => {
+        dispatch({type: 'SET_DATE', date})
+        history.push(`/field/${urlSlug}?=${dateFormatter(date)}`)
+    }
 }
 
 export function fetchFields() {
@@ -101,7 +103,7 @@ export function saveStage(stage, date) {
 }
 
 
-export function saveNewField(field) {
+export function saveNewField(field, history) {
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
         fetch('http://localhost:2020/fields', {
@@ -120,6 +122,7 @@ export function saveNewField(field) {
         .then(response => response.json())
         .then(newField => {
             dispatch({type: 'ADD_FIELD', fieldObj: newField})
+            history.push(`/field/${newField.slug}`)
         })
     }
 }

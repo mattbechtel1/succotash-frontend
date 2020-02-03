@@ -1,6 +1,6 @@
 import React from 'react'
-// import { Button, Form, Dropdown, Input, Container } from "semantic-ui-react";
 import {makeStyles} from '@material-ui/core/styles'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { removeModal, saveNewField } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
@@ -117,4 +117,11 @@ class NewFieldForm extends React.Component {
     }
 }
 
-export default connect(null, {removeModal, saveNewField})(NewFieldForm)
+const mapDispatchToProps = (dispatch, {history}) => {
+    return {
+        removeModal,
+        saveNewField: field => dispatch(saveNewField(field, history))
+    }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(NewFieldForm))
