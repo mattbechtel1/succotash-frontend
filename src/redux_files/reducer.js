@@ -29,7 +29,7 @@ function fieldsReducer(state={
         case 'SEED_FIELDS':
             return {...state, fields: action.fields, loading: false}
         case 'ADD_FIELD':
-            return {...state, fields: state.concat(action.fieldObj), loading: false}
+            return {...state, fields: state.fields.concat(action.fieldObj), loading: false}
         case 'LOADING_FIELDS':
             return {...state, loading: true}
         case 'REPLACE_SINGLE_BED':
@@ -86,6 +86,17 @@ function sidebarStateReducer(state={
     }
 }
 
+function modalReducer(state=false, action) {
+    switch(action.type) {
+        case 'DISPLAY_MODAL':
+            return true 
+        case 'REMOVE_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
@@ -119,7 +130,8 @@ const rootReducer = combineReducers({
     fields: fieldsReducer,
     bed: bedReducer,
     sidebar: sidebarStateReducer,
-    stage: stageReducer
+    stage: stageReducer,
+    modal: modalReducer
 })
 
 export default rootReducer

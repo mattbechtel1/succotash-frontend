@@ -22,15 +22,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const mainFeaturedPost = {
-  title: 'Title of a longer featured blog post',
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://source.unsplash.com/random',
-  imgText: 'main image description',
-  linkText: 'Continue reading…',
-};
-
 const posts = [post1, post2, post3];
 
 const sidebar = {
@@ -39,6 +30,7 @@ const sidebar = {
     'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
   archives: [
     { title: 'March 2020', url: '#' },
+    { title: 'February 2020', url: '#' }
   ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
@@ -49,13 +41,13 @@ const sidebar = {
 
 const Blog = ({fields: {fields}}) => {
   const classes = useStyles();
-    
+  debugger  
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
+          <MainFeaturedPost />
           <Grid container spacing={4}>
             {fields.map(field => (
               <FieldLink key={field.name} field={field} />

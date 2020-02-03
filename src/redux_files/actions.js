@@ -1,4 +1,5 @@
 import {constructDate} from '../helpers/dates'
+import {useHistory} from 'react-router-dom'
 
 export function setNewDate(date, urlSlug) {
     return {type: 'SET_DATE', date, slug: urlSlug}
@@ -99,6 +100,31 @@ export function saveStage(stage, date) {
     }
 }
 
+
+export function saveNewField(field) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch('http://localhost:2020/fields', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: field.fieldName,
+                x_axis_count: field.xAxis,
+                y_axis_count: field.yAxis,
+                user_id: null
+            })
+        })
+        .then(response => response.json())
+        .then(newField => {
+            dispatch({type: 'ADD_FIELD', fieldObj: newField})
+        })
+    }
+}
+
+
 export function invalidTimeRange() {
     return {type: 'INVALID_TIME_RANGE'}
 }
@@ -109,4 +135,12 @@ export function removeTimeMessage() {
 
 export function saveReset() {
     return {type:'SAVE_RESET'}
+}
+
+export function displayModal() {
+    return {type: 'DISPLAY_MODAL'}
+}
+
+export function removeModal() {
+    return {type: 'REMOVE_MODAL'}
 }

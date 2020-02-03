@@ -29,7 +29,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
   return (
     <Grid item xs={12} md={6}>
       <Link to={`/field/${slug}`}>
-        <CardActionArea component="a">
+        <CardActionArea>
           <Card className={classes.card}>
             <div className={classes.cardDetails}>
               <CardContent>

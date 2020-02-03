@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 export default function Sidebar(props) {
   const classes = useStyles();
   const { archives, description, social, title } = props;
-
+  // debugger
   return (
     <Grid item xs={12} md={4}>
       <Paper elevation={0} className={classes.sidebarAboutBox}>
@@ -40,7 +40,7 @@ export default function Sidebar(props) {
         Social
       </Typography>
       {social.map(network => (
-        <Link display="block" variant="body1" href="#" key={network}>
+        <Link display="block" variant="body1" href="#" key={network.name}>
           <Grid container direction="row" spacing={1} alignItems="center">
             <Grid item>
               <network.icon />
