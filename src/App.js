@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import FieldDisplay from './containers/FieldDisplay'
 import { connect } from 'react-redux'
-import CalendarBar from './components/DateBar'
-import Navigation from './components/NavBar'
+import Navigation from './components/Header'
 import { Route, Switch } from 'react-router-dom'
 import { fetchFields } from './redux_files/actions'
+import Profile from './containers/ProfileView'
 
 class App extends React.Component {
   componentDidMount() {
@@ -29,15 +29,13 @@ class App extends React.Component {
               Signup Component goes here
             </Route>
             <Route path='/profile'>
-              PROFILE GOES HERE
+              <Profile />
             </Route>
             <Route path='/field'>
               <FieldDisplay />
             </Route>
             <Route exact path='/'>
               Homepage goes here
-              <CalendarBar />
-              <p>The store's date is {this.formatDate(this.props.date)}</p>
             </Route>
           </Switch>
         </div>

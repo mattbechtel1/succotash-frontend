@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { green } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { saveStage } from '../redux_files/actions'
 
 const useStyles = makeStyles(theme => ({
@@ -45,17 +45,6 @@ const CircularIntegrationSave = ({sidebar, stage, date, saveStage}) => {
 
   return (
     <div className={classes.root}>
-      {/* <div className={classes.wrapper}>
-        <Fab
-          aria-label="save"
-          color="primary"
-          className={buttonClassname}
-          onClick={handleButtonClick}
-        >
-          {success ? <CheckIcon /> : <SaveIcon />}
-        </Fab>
-        {loading && <CircularProgress size={68} className={classes.fabProgress} />}
-      </div> */}
       <div className={classes.wrapper}>
         <Button
           variant="contained"
@@ -64,7 +53,7 @@ const CircularIntegrationSave = ({sidebar, stage, date, saveStage}) => {
           disabled={sidebar.saving}
           onClick={handleButtonClick}
         >
-          SAVE
+          {sidebar.successMessage ? <>SAVED!</> : <>SAVE</> }
         </Button>
         {sidebar.saving && <CircularProgress size={24} className={classes.buttonProgress} />}
       </div>

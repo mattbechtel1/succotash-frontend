@@ -6,6 +6,11 @@ export function dateUnformat(dashedDate) {
     } else {
         dateArray[1] = dateArray[1] - 1
     }
+    
+    if (dateArray.length > 3) {
+        dateArray[2].split('T')
+        dateArray = dateArray.flat().slice(0, 2)
+    }
 
     return new Date(...dateArray)
 }
@@ -21,6 +26,10 @@ export function dateFormatter(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+export function unformatThenFormat(date) {
+    return dateFormatter(dateUnformat(date))
 }
 
 export function constructDate(date) {
