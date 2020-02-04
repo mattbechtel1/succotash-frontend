@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { Grid, Paper, Typography, Link } from '@material-ui/core/';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -18,15 +15,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 export default function Sidebar() {
   const classes = useStyles();
 
   const social = [
-    { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
+    { name: 'GitHub', icon: GitHubIcon, link: 'https://github.com/mattbechtel1/succotash-frontend' },
+    { name: 'Twitter', icon: TwitterIcon, link: '#' },
+    { name: 'Facebook', icon: FacebookIcon, link: '#' },
   ]
 
   return (
@@ -43,7 +38,7 @@ export default function Sidebar() {
         Social
       </Typography>
       {social.map(network => (
-        <Link display="block" variant="body1" href="#" key={network.name}>
+        <Link display="block" href={network.link} key={network.name}>
           <Grid container direction="row" spacing={1} alignItems="center">
             <Grid item>
               <network.icon />

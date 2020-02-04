@@ -127,7 +127,6 @@ export function saveNewField(field, history) {
     }
 }
 
-
 export function invalidTimeRange() {
     return {type: 'INVALID_TIME_RANGE'}
 }
@@ -146,4 +145,23 @@ export function displayModal() {
 
 export function removeModal() {
     return {type: 'REMOVE_MODAL'}
+}
+
+export function deleteField(field, history) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        dispatch({type: 'REMOVE_MODAL'})
+        fetch(`http://localhost:2020/fields/${field.id}`, {
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(fields => {
+            history.push('/profile')
+            dispatch({type: 'SEED_FIELDS', fields})
+        })
+    }
 }

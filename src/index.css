@@ -50,3 +50,8 @@ code {
 .center-list-item-25 {
   transform: translate(25%, 0%);
 }
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}

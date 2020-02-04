@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import FieldDisplay from './containers/FieldDisplay'
+import Field from './containers/Field'
 import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
@@ -28,8 +28,8 @@ class App extends React.Component {
             <Route path='/profile'>
               <Profile />
             </Route>
-            <Route path='/field'>
-              <FieldDisplay />
+            <Route path='/field/:slug'>
+              <Field />
             </Route>
             <Route exact path='/'>
               <Redirect to='/profile' />

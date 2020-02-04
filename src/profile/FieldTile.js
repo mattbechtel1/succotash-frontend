@@ -1,12 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
+import { Typography, Grid, Card, CardActionArea, CardContent, CardMedia, Hidden } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { unformatThenFormat } from '../helpers/dates'
 import Flowers from '../assets/flowers.jpg'
@@ -28,7 +22,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
   const classes = useStyles();
   return (
     <Grid item xs={12} md={6}>
-      <Link to={`/field/${slug}`}>
+      <Link to={`/field/${slug}`} className='text-link'>
         <CardActionArea>
           <Card className={classes.card}>
             <div className={classes.cardDetails}>
