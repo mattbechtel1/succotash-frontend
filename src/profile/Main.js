@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import { Grid, Typography, Divider } from '@material-ui/core/';
 import Markdown from './Markdown';
 
 const useStyles = makeStyles(theme => ({
@@ -13,14 +10,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Main(props) {
+export default function Main() {
   const classes = useStyles();
-  const { posts, title } = props;
+  const posts = [];
 
   return (
     <Grid item xs={12} md={8}>
       <Typography variant="h6" gutterBottom>
-        {title + 'hi'}
+        SOMETHING GOES HERE
       </Typography>
       <Divider />
       {posts.map(post => (
@@ -31,8 +28,3 @@ export default function Main(props) {
     </Grid>
   );
 }
-
-Main.propTypes = {
-  posts: PropTypes.array,
-  title: PropTypes.string,
-};

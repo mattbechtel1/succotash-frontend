@@ -68,7 +68,7 @@ class NewFieldForm extends React.Component {
             <form className={classes.root} onSubmit={this.submitHandler}>
                 <DialogContent>
                     <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We will send updates occasionally.
+                        Add a New Field to Manage through Your Profile
                     </DialogContentText>
 
                     <div>
@@ -84,6 +84,7 @@ class NewFieldForm extends React.Component {
                             fullWidth
                         />          
                     </div>
+                    
                     <span className='vert-center-span'>
                         <FormControl className={classes.formControl}>
                             <Select
@@ -119,7 +120,7 @@ class NewFieldForm extends React.Component {
 
 const mapDispatchToProps = (dispatch, {history}) => {
     return {
-        removeModal,
+        removeModal: () => dispatch(removeModal()),
         saveNewField: field => dispatch(saveNewField(field, history))
     }
 }

@@ -24,10 +24,10 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     right: 0,
     left: 0,
-    cursor: 'pointer',
     backgroundColor: 'rgba(0,0,0,.3)',
   },
   mainFeaturedPostContent: {
+    cursor: 'pointer',
     position: 'relative',
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {

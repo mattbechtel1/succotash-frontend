@@ -48,7 +48,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
               </CardContent>
             </div>
             <Hidden xsDown>
-              <CardMedia className={classes.cardMedia} image={Flowers} title='an image'/>
+              <CardMedia className={classes.cardMedia} image={Flowers} title='flowers'/>
             </Hidden>
           </Card>
         </CardActionArea>

@@ -34,3 +34,7 @@ code {
 .contained {
   display: 'inline-block'
 }
+
+.pointer {
+  cursor: 'pointer'
+}

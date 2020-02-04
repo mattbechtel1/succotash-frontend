@@ -1,22 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Header, Dimmer, Loader, Sidebar, Segment, Menu, Input } from 'semantic-ui-react'
+import { Grid, Container, Header, Loader, Sidebar, Segment, Menu, Input } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
-import BedTile from './BedTile'
+import BedTile from '../components/BedTile'
 import { unsetBed, setNewDate, openBedInput, updateBedName } from '../redux_files/actions'
-import DateBar from './DateBar'
-import SidebarForm from './SidebarForm'
+import DateBar from '../components/DateBar'
+import SidebarForm from '../components/SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { dateUnformat } from '../helpers/dates'
 
-const FieldGrid = ({field, loading, beds, activeBed, unsetBed, setNewDate, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDate, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
-
+    
     if (datetime) {
         const dateForDispatch = dateUnformat(datetime)
         if (dateForDispatch.getTime() !== date.getTime()) {
-            setNewDate(dateForDispatch)
+            setNewDate(dateForDispatch, slug, history)
         }
     }
 

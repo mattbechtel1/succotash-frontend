@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { Container, Typography } from '@material-ui/core/';
+import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link to="/">
+        Succotash
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -26,26 +24,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Footer(props) {
+export default function Footer() {
   const classes = useStyles();
-  const { description, title } = props;
 
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
-          {title}
+          Succotash
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          {description}
+          A Product of Matt Bechtel & the Flatiron School
         </Typography>
         <Copyright />
       </Container>
     </footer>
   );
 }
-
-Footer.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
-};

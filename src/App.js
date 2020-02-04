@@ -1,19 +1,16 @@
 import React from 'react';
 import './App.css';
 import FieldDisplay from './containers/FieldDisplay'
+import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch } from 'react-router-dom'
 import { fetchFields } from './redux_files/actions'
-import Profile from './containers/ProfileView'
+import Profile from './profile/Profile'
 
 class App extends React.Component {
   componentDidMount() {
     this.props.fetchFields()
-  }
-  
-  formatDate(date) {
-    return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear()
   }
 
   render() {
@@ -39,10 +36,9 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
+        <Footer />
     </div>
   }
 }
 
-const mapStateToProps = ({date}) => ({date})
-
-export default connect(mapStateToProps, {fetchFields})(App);
+export default connect(null, {fetchFields})(App);

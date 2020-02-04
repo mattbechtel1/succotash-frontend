@@ -3,7 +3,7 @@ import {constructDate, dateFormatter} from '../helpers/dates'
 export function setNewDate(date, urlSlug, history) {
     return (dispatch) => {
         dispatch({type: 'SET_DATE', date})
-        history.push(`/field/${urlSlug}?=${dateFormatter(date)}`)
+        history.push(`/field/${urlSlug}?date=${dateFormatter(date)}`)
     }
 }
 

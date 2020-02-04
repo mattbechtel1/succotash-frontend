@@ -1,6 +1,6 @@
 export function dateUnformat(dashedDate) {
     let dateArray = dashedDate.split('-')
-
+    
     if (dateArray[1] === 0) {
         dateArray[1] = 12
     } else {
@@ -8,8 +8,8 @@ export function dateUnformat(dashedDate) {
     }
     
     if (dateArray.length > 3) {
-        dateArray[2].split('T')
-        dateArray = dateArray.flat().slice(0, 2)
+        dateArray[2] = dateArray[2].split('T')
+        dateArray = dateArray.flat().slice(0, 3)
     }
 
     return new Date(...dateArray)
