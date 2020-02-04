@@ -4,7 +4,7 @@ import FieldDisplay from './containers/FieldDisplay'
 import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { fetchFields } from './redux_files/actions'
 import Profile from './profile/Profile'
 
@@ -32,7 +32,7 @@ class App extends React.Component {
               <FieldDisplay />
             </Route>
             <Route exact path='/'>
-              Homepage goes here
+              <Redirect to='/profile' />
             </Route>
           </Switch>
         </div>

@@ -1,11 +1,10 @@
 import React from 'react'
 import SaveButton from './SaveButton'
-import { FormControl, Select, MenuItem, FormHelperText, Input, Snackbar, Slide } from '@material-ui/core'
+import { FormControl, Select, MenuItem, FormHelperText, Input, Snackbar, Slide, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Alert } from '@material-ui/lab';
 import { DatePicker } from '@material-ui/pickers'
-import { Edit as EditIcon } from '@material-ui/icons'
+import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
-import { Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { editStageDate, editStageStatus, changeCrop, invalidTimeRange, removeTimeMessage } from '../redux_files/actions'
 import { constructDate } from '../helpers/dates'
@@ -57,24 +56,27 @@ class SidebarForm extends React.Component {
             </Snackbar>
 
             {/* Display/change crop */}
-            <Menu.Item as='a'>
+            <ListItem button>
                 <span className='vert-center-span'>
                 {cropWriter ? 
                     <Input value={crop || ''} 
-                        placeholder='Crop for this stage' 
-                        onChange={(e) => this.props.changeCrop(e.target.value)} 
-                        variant='filled' 
-                        onBlur={this.toggleCropWriter} />
-                : 
+                    placeholder='Crop for this stage' 
+                    onChange={(e) => this.props.changeCrop(e.target.value)} 
+                    variant='filled' 
+                    onBlur={this.toggleCropWriter} />
+                    : 
                     <>
-                        Crop: { crop ? crop : 'No crop set' } <EditIcon onClick={this.toggleCropWriter} />
+                        <ListItemIcon onClick={this.toggleCropWriter}><EditIcon /></ListItemIcon>
+                        <ListItemText primary={crop ? 'Crop: ' + crop : 'Crop: No crop set'} />
                     </>
                 }
                 </span>
-            </Menu.Item>
+            </ListItem>
+            < Divider />
 
             {/* Display/Change Status */}
-            <Menu.Item>
+            <ListItem button>
+                <ListItemIcon><EcoIcon /></ListItemIcon>
                 <FormControl>
                     <Select value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty className={materialClasses.selectEmpty}>
                         <MenuItem value='unused'><em>Unused</em></MenuItem>
@@ -86,34 +88,37 @@ class SidebarForm extends React.Component {
                     </Select>
                     <FormHelperText>Present Stage</FormHelperText>
                 </FormControl>
-            </Menu.Item>
+            </ListItem>
+            <Divider />
 
             {/* Display/Change Start Date */}
-            <Menu.Item as='a'>
+            <ListItem button>
                 <span className='vert-center-span'>
-                    Stage Start Date:
-                        <DatePicker 
-                            value={constructDate(start_date)}
-                            onChange={(date) => this.props.editStageDate('start_date', date)}
-                            animateYearScrolling /> 
+                    <ListItemIcon><CalIcon /></ListItemIcon>
+                    Stage Start Date: <DatePicker 
+                        value={constructDate(start_date)}
+                        onChange={(date) => this.props.editStageDate('start_date', date)}
+                        animateYearScrolling /> 
                 </span>
-            </Menu.Item>
+            </ListItem>
+            <Divider />
 
             {/* Display/Change End Date */}
-            <Menu.Item as='a'>
+            <ListItem button>
                 <span className='vert-center-span'>
-                    Stage End Date:
-                        <DatePicker 
-                            value={constructDate(due_date)}
-                            onChange={this.changeDueDate}
-                            animateYearScrolling /> 
+                    <ListItemIcon><CalIcon /></ListItemIcon>
+                    Stage End Date: <DatePicker 
+                        value={constructDate(due_date)}
+                        onChange={this.changeDueDate}
+                        animateYearScrolling /> 
                 </span>
-            </Menu.Item>
+            </ListItem>
+            <Divider />
 
             {/* SAVE BUTTON */}
-            <Menu.Item as='a'>
+            <ListItem button className='center-list-item-33'>
                 <SaveButton />
-            </Menu.Item>
+            </ListItem>
         </>
     }
 }

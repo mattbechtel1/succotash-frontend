@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setNewDate, setBed } from '../redux_files/actions'
 import { DatePicker } from '@material-ui/pickers'
-import { Container } from 'semantic-ui-react'
+import { Container } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 
 

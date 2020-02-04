@@ -16,8 +16,7 @@ class NewFieldForm extends React.Component {
             yAxis: 1
         }
     }
-    
-    
+      
     options = [
         { key: 1, value: 1, text: '1 bed' },
         { key: 2, value: 2, text: '2 beds' },

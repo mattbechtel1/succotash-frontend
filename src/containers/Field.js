@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Header, Loader, Sidebar, Segment, Menu, Input } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
+import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import BedTile from '../components/BedTile'
 import { unsetBed, setNewDate, openBedInput, updateBedName } from '../redux_files/actions'
@@ -9,7 +11,17 @@ import SidebarForm from '../components/SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { dateUnformat } from '../helpers/dates'
 
+const useStyles = makeStyles({
+    list: {
+      width: 275,
+    },
+    fullList: {
+      width: 'auto',
+    }
+});
+
 const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDate, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+    const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
     
@@ -25,8 +37,8 @@ const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDa
         
         return <Container>
             <DateBar />
-            <Header as='h3'>{fieldName}</Header>
-                <Loader active>Loading...</Loader>
+            <h3>{fieldName}</h3>
+                <CircularProgress color='primary' thickness={3} />
         </Container>
         
     } else {
@@ -51,44 +63,44 @@ const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDa
             rows.push(<Grid.Row key={`row-${rowCounter}`} columns={x_axis_count}>{columns}</Grid.Row>)
             rowCounter++
         }
+
     
     return <Container>
         <DateBar />
-        <Header as='h3'>{fieldName}</Header>
+        <h3>{fieldName}</h3>
 
-        <Sidebar.Pushable as={Segment} className='background-field'>
-         <Sidebar
-            as={Menu}
-            animation='scale down'
-            direction='right'
-            icon='labeled'
-            // onHide={unsetBed}
-            vertical
-            visible={!!activeBed}
-            width='wide'
-            >
-            <Menu.Item as='a'>
-                { sidebar.loadingTitle ? <Loader active /> : 
-                <Header as='h5'>
-                    { sidebar.titleInput ? 
-                        <Input placeholder={activeBed.name} onBlur={(e) => updateBedName(activeBed.id, e.target.value, date)} />
-                        :
-                        <span>{activeBed ? activeBed.name : ''} <EditIcon name='pencil' onClick={openBedInput} /></span> }
-                </Header>
-                }
-            </Menu.Item>
+        <Grid>{rows}</Grid>
 
-            {activeBed ? <SidebarForm /> : <Loader active>Loading...</Loader>}
-
-            {/* Close Bed without Persisting Changes to DB */}
-            <Menu.Item as='a' onClick={unsetBed}>
-                <span className='vert-center-span'><CancelIcon name='close' /> Close Sidebar</span>
-            </Menu.Item>
-        </Sidebar>
-        <Sidebar.Pusher>
-            <Grid>{rows}</Grid>
-        </Sidebar.Pusher>
-    </Sidebar.Pushable>
+        <Drawer anchor='right' open={!!activeBed} onClose={unsetBed}>
+            <div className={classes.list} role='presentation'>
+                <List>
+                    <ListItem button>
+                        { sidebar.loadingTitle ? 
+                            <CircularProgress />
+                        : 
+                            <>
+                                { sidebar.titleInput ? 
+                                    <Input placeholder={activeBed.name} onBlur={(e) => updateBedName(activeBed.id, e.target.value, date)} /> 
+                                :
+                                    <>
+                                        <ListItemIcon onClick={openBedInput}><EditIcon /></ListItemIcon>
+                                        <strong><ListItemText primary={activeBed ? activeBed.name : ''} /></strong>
+                                    </>
+                                }
+                            </>
+                        }
+                    </ListItem>
+                    <Divider />
+                    {activeBed ? <SidebarForm /> : <ListItem button><CircularProgress color='primary' thickness={3} /></ListItem> }
+                    <Divider />
+                    {/* Close Bed without Persisting Changes to DB */}
+                    <ListItem button onClick={unsetBed}>
+                        <ListItemIcon><CancelIcon /></ListItemIcon>
+                        <ListItemText primary='Close Sidebar' />
+                    </ListItem>
+                </List>
+            </div>
+        </Drawer>
     </Container>
     }
 }

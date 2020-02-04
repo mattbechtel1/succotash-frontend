@@ -38,3 +38,15 @@ code {
 .pointer {
   cursor: 'pointer'
 }
+
+.rounded-corner {
+  border-radius: 25px;
+}
+
+.center-list-item-33 {
+  transform: translate(33.333%, 0%);
+}
+
+.center-list-item-25 {
+  transform: translate(25%, 0%);
+}
