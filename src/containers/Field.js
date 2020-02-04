@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
-import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText } from '@material-ui/core'
+import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import BedTile from '../components/BedTile'
@@ -54,13 +53,28 @@ const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDa
                 let bedCounter = (rowCounter * x_axis_count) + colCounter
                
                 columns.push(
-                    <Grid.Column key={`${rowCounter}-${colCounter}`}>
+                    <Grid 
+                        item
+                        xs={12/x_axis_count}
+                        key={`${rowCounter}-${colCounter}`}
+                    >
                         <BedTile bed={beds[bedCounter]} />
-                    </Grid.Column>)
+                    </Grid>
+                )
                 colCounter++
             }
 
-            rows.push(<Grid.Row key={`row-${rowCounter}`} columns={x_axis_count}>{columns}</Grid.Row>)
+            rows.push(
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={3}
+                    key={`row-${rowCounter}`}
+                >
+                    {columns}
+                </Grid>
+            )
             rowCounter++
         }
 
@@ -69,7 +83,15 @@ const FieldGrid = ({history, field, loading, beds, activeBed, unsetBed, setNewDa
         <DateBar />
         <h3>{fieldName}</h3>
 
-        <Grid>{rows}</Grid>
+        <Grid
+            container
+            direction='row'
+            spacing={1}
+            justify='space-evenly'
+            alignItems='center'  
+        >
+            {rows}
+        </Grid>
 
         <Drawer anchor='right' open={!!activeBed} onClose={unsetBed}>
             <div className={classes.list} role='presentation'>
