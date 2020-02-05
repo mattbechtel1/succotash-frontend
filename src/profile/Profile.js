@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {CssBaseline, Grid, Container, CircularProgress, Backdrop} from '@material-ui/core';
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
-import Main from './Main';
 import Sidebar from './Sidebar';
 
 
@@ -36,7 +35,6 @@ const Profile = ({fields: {fields, loading}}) => {
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            {/* <Main /> */}
             <Sidebar />
           </Grid>
         </main>
