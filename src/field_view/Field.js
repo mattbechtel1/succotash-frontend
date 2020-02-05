@@ -48,7 +48,7 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
         
         return <Container>
             <DateBar />
-            <h3 className='brown-text'>{fieldName}</h3>
+            <h1 className='field-text'>{fieldName}</h1>
                 <CircularProgress color='primary' thickness={3} />
         </Container>
         
@@ -92,7 +92,7 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
     
         return <Container>
             <DateBar />
-            <h3>{fieldName}</h3>
+            <h1 className='brown-text'>{fieldName}</h1>
 
             <Grid
                 container

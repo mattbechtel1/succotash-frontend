@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     picker: {
-        color: 'brown',
+        color: 'black',
         fontSize:'2em'
     },
 })); 

@@ -7,7 +7,8 @@ import { convertBedToCurrentStage } from '../helpers/conversions'
 
 const BedTile = ({bed, date, setBed}) => <div onClick={() => setBed(bed, date)} className='extend-bottom'>
     <Image src={dirt} className='rounded-corner' />
-    <h4>{convertBedToCurrentStage(bed, date).tempCrop || 'No Current Crop'}</h4>
+    <h2 className='field-text'>{convertBedToCurrentStage(bed, date).tempCrop || 'No Current Crop'}</h2>
+    <h2 className='field-text'>Stage: {convertBedToCurrentStage(bed, date).status}</h2>
 </div>
 
 const mapStateToProps = ({date}) => ({date})
