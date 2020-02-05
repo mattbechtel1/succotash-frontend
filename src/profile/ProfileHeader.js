@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {Typography, Paper, Dialog, Grid} from '@material-ui/core/';
 import Vegetables from '../assets/vegetables.jpg'
 import {displayModal, removeModal} from '../redux_files/actions'
-import NewFieldForm from '../components/NewFieldForm'
+import NewFieldForm from './NewFieldForm'
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {
@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 const AddFieldLink = ({displayModal, removeModal, modal}) => {
   const classes = useStyles();
-  // console.log(modal)
-  return <>
+
+return <>
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${Vegetables})` }}>
       {/* Increase the priority of the hero background image */}
       {<img style={{ display: 'none' }} src={Vegetables} alt='vegetables' />}

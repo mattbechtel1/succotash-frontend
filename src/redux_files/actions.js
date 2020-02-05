@@ -150,7 +150,6 @@ export function removeModal() {
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
-        dispatch({type: 'REMOVE_MODAL'})
         fetch(`http://localhost:2020/fields/${field.id}`, {
             method: 'DELETE',
             headers: {

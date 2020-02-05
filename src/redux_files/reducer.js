@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { constructDate } from '../helpers/dates'
+import { convertBedToCurrentStage } from '../helpers/conversions'
 
 var today = constructDate(new Date())
 
@@ -97,9 +98,7 @@ function modalReducer(state=false, action) {
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
-            return action.bed.stages.find(stage => {
-                return action.date.getTime() >= constructDate(stage.start_date).getTime() && (!stage.due_date || action.date.getTime() <= constructDate(stage.due_date).getTime())
-            })
+            return convertBedToCurrentStage(action.bed, action.date)
         case 'UNSET_BED':
             return null
         case 'EDIT_STAGE_DATE':

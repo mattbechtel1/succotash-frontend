@@ -18,8 +18,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 const Profile = ({fields: {fields, loading}}) => {
   const classes = useStyles();
 

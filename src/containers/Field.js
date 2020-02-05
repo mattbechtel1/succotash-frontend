@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const FieldGrid = ({modal, history, field, loading, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -38,7 +38,10 @@ const FieldGrid = ({modal, history, field, loading, beds, displayModal, activeBe
         if (!loading) {displayModal()}
     }
 
-    const confirmDelete = () => deleteField(field, history)
+    const confirmDelete = () => {
+        removeModal()
+        deleteField(field, history)
+    }
 
     if (loading || !field) {
         const fieldName = slug.split('-').join(' ')
@@ -63,7 +66,7 @@ const FieldGrid = ({modal, history, field, loading, beds, displayModal, activeBe
                 columns.push(
                     <Grid 
                         item
-                        xs={Math.floor(12/x_axis_count)}
+                        xs={Math.min(Math.floor(12/x_axis_count), 4)}
                         key={`${rowCounter}-${colCounter}`}
                     >
                         <BedTile className={classes.gridPad} bed={beds[bedCounter]} />

@@ -23,14 +23,18 @@ class NewFieldForm extends React.Component {
         { key: 3, value: 3, text: '3 beds' },
         { key: 4, value: 4, text: '4 beds' },
         { key: 5, value: 5, text: '5 beds' },
-        { key: 6, value: 6, text: '6 beds' },
-        { key: 7, value: 7, text: '7 beds' },
-        { key: 8, value: 8, text: '8 beds' }
+        { key: 6, value: 6, text: '6 beds' }
     ]
 
     changeHandler = (e) => {
         this.setState({
             [e.target.name]: parseInt(e.target.value, 10) || e.target.value
+        })
+    }
+
+    fieldNameChangeHandler = (e) => {
+        this.setState({
+            fieldName: e.target.value
         })
     }
 
@@ -67,7 +71,7 @@ class NewFieldForm extends React.Component {
             <form className={classes.root} onSubmit={this.submitHandler}>
                 <DialogContent>
                     <DialogContentText>
-                        Add a New Field to Manage through Your Profile
+                        Add a New Field to Manage on Succotash
                     </DialogContentText>
 
                     <div>
@@ -78,7 +82,7 @@ class NewFieldForm extends React.Component {
                             label="Field Name"
                             type="text"
                             value={fieldName}
-                            onChange={this.changeHandler}
+                            onChange={this.fieldNameChangeHandler}
                             placeholder='New District Farm'              
                             fullWidth
                         />          
