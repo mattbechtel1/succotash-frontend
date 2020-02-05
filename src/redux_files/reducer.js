@@ -6,6 +6,7 @@ var today = constructDate(new Date())
 
 function dateReducer(state=today, action) {
     // let editingDate = new Date(state)
+    // debugger
     switch(action.type) {
         // case "DATE_FORWARD":
         //     editingDate.setDate(state.getDate() + action.days)

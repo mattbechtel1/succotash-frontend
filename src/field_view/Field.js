@@ -8,7 +8,7 @@ import { unsetBed, setNewDate, openBedInput, updateBedName, deleteField, display
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
-import { dateUnformat } from '../helpers/dates'
+import { constructDate } from '../helpers/dates'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -28,7 +28,7 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
     const datetime = searchParams.get('date')
     
     if (datetime) {
-        const dateForDispatch = dateUnformat(datetime)
+        const dateForDispatch = constructDate(datetime)
         if (dateForDispatch.getTime() !== date.getTime()) {
             setNewDate(dateForDispatch, slug, history)
         }

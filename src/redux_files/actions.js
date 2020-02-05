@@ -1,9 +1,9 @@
-import {constructDate, dateFormatter} from '../helpers/dates'
+import {constructDate, formatUSA} from '../helpers/dates'
 
 export function setNewDate(date, urlSlug, history) {
     return (dispatch) => {
         dispatch({type: 'SET_DATE', date})
-        history.push(`/field/${urlSlug}?date=${dateFormatter(date)}`)
+        history.push(`/field/${urlSlug}?date=${formatUSA(date)}`)
     }
 }
 
