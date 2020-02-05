@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {Toolbar, Button, IconButton, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -22,15 +22,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const sections = [
-  { title: 'Profile', url: '/profile' },
-  { title: 'About', url: '#' },
-  { title: 'Log Off', url: '#' },
-];
 
-export default function Header(props) {
+const Header = ({fields: {fields}}) => {
   const classes = useStyles();
-  const { title } = props;
+  
+  const first3fields = fields.length > 0 ? fields.slice(0, Math.min(fields.length, 3)) : []
+  
+  const sections = [
+    { title: 'Home', url: '/profile' },
+    ...first3fields.map(field => {
+    return { title: field.name, url: `/field/${field.slug}`}
+  })
+    // { title: 'About', url: '#' },
+    // { title: 'Log Off', url: '#' },
+  ];
 
   return (
     <React.Fragment>
@@ -44,16 +49,16 @@ export default function Header(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          Succotash
         </Typography>
-        <IconButton>
+        {/* <IconButton>
           <SearchIcon />
         </IconButton>
         <Link to='/signup'>
           <Button variant="outlined" size="small">
             Sign up
           </Button>
-        </Link>
+        </Link> */}
       </Toolbar>
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         {sections.map(section => (
@@ -71,7 +76,6 @@ export default function Header(props) {
   );
 }
 
-Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
-};
+const mapStateToProps = ({fields}) => ({fields})
+
+export default connect(mapStateToProps)(Header)

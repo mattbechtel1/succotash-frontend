@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Card, CardActionArea, CardContent, CardMedia, Hidden } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { unformatThenFormat } from '../helpers/dates'
-import Flowers from '../assets/flowers.jpg'
+import Wheat from '../assets/wheat.jpg'
 
 
 const useStyles = makeStyles({
@@ -42,7 +42,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
               </CardContent>
             </div>
             <Hidden xsDown>
-              <CardMedia className={classes.cardMedia} image={Flowers} title='flowers'/>
+              <CardMedia className={classes.cardMedia} image={Wheat} title='wheat'/>
             </Hidden>
           </Card>
         </CardActionArea>

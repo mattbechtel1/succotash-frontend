@@ -2,11 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setNewDate, setBed } from '../redux_files/actions'
 import { DatePicker } from '@material-ui/pickers'
+import { makeStyles } from '@material-ui/styles'
 import { Container } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 
+const useStyles = makeStyles(theme => ({
+    picker: {
+        color: 'brown',
+        fontSize:'2em'
+    },
+})); 
 
 const CalendarBar = ({date, slug, bed, setBed, setNewDate}) => {
+    const classes = useStyles()
+
     const handleChange = (date) => {
         setNewDate(date, slug)
         
@@ -21,6 +30,8 @@ const CalendarBar = ({date, slug, bed, setBed, setNewDate}) => {
                 value={date}
                 minDate={'2015-01-01'}
                 onChange={d => handleChange(d)}
+                InputProps={{className: classes.picker}}
+                showTodayButton
                 animateYearScrolling /> 
         </Container>
     )

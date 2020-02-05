@@ -1,5 +1,5 @@
 import React from 'react'
-import SaveButton from './SaveButton'
+import SaveButton from '../components/SaveButton'
 import { FormControl, Select, MenuItem, FormHelperText, Input, Snackbar, Slide, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Alert } from '@material-ui/lab';
 import { DatePicker } from '@material-ui/pickers'
@@ -97,6 +97,8 @@ class SidebarForm extends React.Component {
                     <ListItemIcon><CalIcon /></ListItemIcon>
                     Stage Start Date: <DatePicker 
                         value={constructDate(start_date)}
+                        minDate={'2015-01-01'}
+                        showTodayButton
                         onChange={(date) => this.props.editStageDate('start_date', date)}
                         animateYearScrolling /> 
                 </span>
@@ -109,6 +111,8 @@ class SidebarForm extends React.Component {
                     <ListItemIcon><CalIcon /></ListItemIcon>
                     Stage End Date: <DatePicker 
                         value={constructDate(due_date)}
+                        minDate={'2015-01-01'}
+                        showTodayButton
                         onChange={this.changeDueDate}
                         animateYearScrolling /> 
                 </span>

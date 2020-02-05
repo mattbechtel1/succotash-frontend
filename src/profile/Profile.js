@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {CssBaseline, Grid, Container, CircularProgress, Backdrop} from '@material-ui/core';
-import MainFeaturedPost from './ProfileHeader';
+import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
 import Main from './Main';
 import Sidebar from './Sidebar';
@@ -29,14 +29,14 @@ const Profile = ({fields: {fields, loading}}) => {
       <CssBaseline />
       <Container maxWidth="lg">
         <main>
-          <MainFeaturedPost />
+          <ProfileHeader />
           <Grid container spacing={4}>
             {fields.map(field => (
               <FieldTile key={field.name} field={field} />
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main />
+            {/* <Main /> */}
             <Sidebar />
           </Grid>
         </main>

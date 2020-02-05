@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Field from './containers/Field'
+import Field from './field_view/Field'
 import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
@@ -34,6 +34,7 @@ class App extends React.Component {
             <Route exact path='/'>
               <Redirect to='/profile' />
             </Route>
+            <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
           </Switch>
         </div>
         <Footer />
