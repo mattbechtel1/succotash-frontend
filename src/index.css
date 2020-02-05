@@ -71,3 +71,7 @@ code {
 .extend-bottom {
   margin-bottom: 30px;
 }
+
+.brown-text {
+  color: brown
+}

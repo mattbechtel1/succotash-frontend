@@ -47,11 +47,12 @@ class NewFieldForm extends React.Component {
               },
             },
             formControl: {
-                margin: theme.spacing(1),
                 minWidth: 50,
+                marginRight: '12px',
+                marginLeft: '12px'
               },
             selectEmpty: {
-                marginTop: theme.spacing(2),
+                marginTop: '12px'
               },
           }));          
     }
@@ -74,7 +75,7 @@ class NewFieldForm extends React.Component {
                         Add a New Field to Manage on Succotash
                     </DialogContentText>
 
-                    <div>
+                    <div style={{marginBottom: '12px'}}>
                         <TextField
                             autoFocus
                             margin="dense"
@@ -87,9 +88,13 @@ class NewFieldForm extends React.Component {
                             fullWidth
                         />          
                     </div>
+
+                    <DialogContentText className={classes.selectEmpty}>
+                        Provide a Size for Your field by the number of beds. Each bed should have the ability to grow a separate crop or set of crops.
+                    </DialogContentText>
                     
                     <span className='vert-center-span'>
-                        <FormControl className={classes.formControl}>
+                        <FormControl className={classes.formControl} style={{marginRight: '12px'}} >
                             <Select
                                 name='xAxis'
                                 value={xAxis}
@@ -97,7 +102,8 @@ class NewFieldForm extends React.Component {
                             >
                                 {this.options.map(option => <MenuItem value={option.value} key={option.key}>{option.text}</MenuItem>)}
                             </Select>
-                        </FormControl> X <FormControl className={classes.formControl}><Select
+                        </FormControl> X <FormControl className={classes.formControl} style={{marginLeft: '12px'}}>
+                            <Select
                                 name='yAxis'
                                 value={yAxis}
                                 onChange={this.changeHandler}

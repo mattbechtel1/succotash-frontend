@@ -48,7 +48,7 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
         
         return <Container>
             <DateBar />
-            <h3>{fieldName}</h3>
+            <h3 className='brown-text'>{fieldName}</h3>
                 <CircularProgress color='primary' thickness={3} />
         </Container>
         
