@@ -30,10 +30,6 @@ export function openBedInput() {
     return {type: 'EDIT_BED_TITLE'}
 }
 
-export function toggleHeaderMenu() {
-    return {type: 'TOGGLE_MENU'}
-}
-
 export function updateBedName(bedId, newName, date) {
     return (dispatch) => {
         dispatch({type: 'UPDATING_BED'})
