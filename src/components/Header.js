@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Toolbar, Button, IconButton, Typography } from '@material-ui/core';
+import {Toolbar, Button, IconButton, Typography, Container } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+import FieldMenu from './FieldMenu'
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -13,69 +13,61 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     overflowX: 'auto',
   },
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0,
+    textDecoration: 'none'
   },
 }));
 
 
-const Header = ({fields: {fields}}) => {
+export default function Header() {
+  
   const classes = useStyles();
-  
-  const first3fields = fields.length > 0 ? fields.slice(0, Math.min(fields.length, 3)) : []
-  
-  const sections = [
-    { title: 'Home', url: '/profile' },
-    ...first3fields.map(field => {
-    return { title: field.name, url: `/field/${field.slug}`}
-  })
-    // { title: 'About', url: '#' },
-    // { title: 'Log Off', url: '#' },
-  ];
 
-  return (
-    <React.Fragment>
-      <Toolbar className={classes.toolbar}>
-        {/* <Button size="small">Subscribe</Button> */}
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          Succotash
-        </Typography>
-        {/* <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <Link to='/signup'>
-          <Button variant="outlined" size="small">
-            Sign up
-          </Button>
-        </Link> */}
-      </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        {sections.map(section => (
-          <Link
-            key={section.title}
-            variant="body2"
-            to={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
-          </Link>
-        ))}
-      </Toolbar>
-    </React.Fragment>
-  );
+  return <Container>
+    <Toolbar className={classes.toolbar}>
+      {/* <Button size="small">Subscribe</Button> */}
+      <Typography
+        component="h2"
+        variant="h5"
+        color="inherit"
+        align="center"
+        noWrap
+        className={classes.toolbarTitle}
+      >
+        Succotash
+      </Typography>
+      {/* <IconButton>
+        <SearchIcon />
+      </IconButton>
+      <Link to='/signup'>
+        <Button variant="outlined" size="small">
+          Sign up
+        </Button>
+      </Link> */}
+    </Toolbar>
+    <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+      <Link
+        to='/'
+        className={classes.toolbarLink}
+      >
+        <Button>
+          Home
+        </Button>
+      </Link>
+      <Link
+        to='/profile'
+        className={classes.toolbarLink}
+      >
+        <Button>
+          Profile
+        </Button>
+      </Link>
+      <FieldMenu classes={classes}/>
+    </Toolbar>
+  </Container>
 }
-
-const mapStateToProps = ({fields}) => ({fields})
-
-export default connect(mapStateToProps)(Header)

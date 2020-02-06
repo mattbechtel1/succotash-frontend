@@ -113,6 +113,7 @@ class SidebarForm extends React.Component {
                         value={constructDate(due_date)}
                         minDate={'2015-01-01'}
                         showTodayButton
+                        clearable
                         onChange={this.changeDueDate}
                         animateYearScrolling /> 
                 </span>

@@ -51,7 +51,7 @@ return <>
               Welcome to Succotash
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              Succotash allows farmers and growers to plan and track their crop growth and harvest in a user-friendly interface.
+              Succotash allows anyone with a green thumb to plan and track their crop and produce growth and harvest with a user-friendly online interface.
             </Typography>
             <Typography variant="subtitle1">
               Click here a field to your profile

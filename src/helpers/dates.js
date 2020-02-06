@@ -12,7 +12,6 @@ export function dateUnformat(dashedDate) {
     }
 
     if (dateArray.length > 3) {
-        debugger
         dateArray[2] = dateArray[2].split('T')
         dateArray = dateArray.flat().slice(0, 3)
     }

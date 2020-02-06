@@ -7,6 +7,7 @@ import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { fetchFields } from './redux_files/actions'
 import Profile from './profile/Profile'
+import TestComponent from './TestComponent'
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,26 +17,26 @@ class App extends React.Component {
   render() {
     return <div className="App">
         <Navigation />
-        {/* <div style={{ backgroundImage:`url(${scenic_field})` }}> */}
-        <div className='background-field'>
-          <Switch>
-            <Route path='/login'>
-              Login Component goes here
-            </Route>
-            <Route path='/signup'>
-              Signup Component goes here
-            </Route>
-            <Route path='/profile'>
-              <Profile />
-            </Route>
-            <Route path='/field/:slug'>
-              <Field />
-            </Route>
-            <Route exact path='/'>
-              <Redirect to='/profile' />
-            </Route>
-            <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
-          </Switch>
+          <div className='bg-img'>
+            <Switch>
+              <Route path='/test' component={TestComponent} />
+              <Route path='/login'>
+                Login Component goes here
+              </Route>
+              <Route path='/signup'>
+                Signup Component goes here
+              </Route>
+              <Route path='/profile'>
+                <Profile />
+              </Route>
+              <Route path='/field/:slug'>
+                <Field />
+              </Route>
+              <Route exact path='/'>
+                <Redirect to='/profile' />
+              </Route>
+              <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
+            </Switch>
         </div>
         <Footer />
     </div>

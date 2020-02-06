@@ -22,10 +22,35 @@ code {
   align-items: center;
 }
 
-.background-field {
-  background-image: url(./assets/grass.jpg);
-  min-height: 450px;
+.bg-img {
+  background-image: url('./assets/grass.jpg');
 }
+
+/* .background-field {
+  position: relative;
+  background: #5C97FF;
+  overflow: hidden;
+}
+
+.background-field::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.6;
+  background-image: url('http://placekitten.com/1500/1000');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+} */
 
 .container {
   text-align: center;

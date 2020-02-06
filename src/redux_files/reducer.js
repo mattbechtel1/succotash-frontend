@@ -122,13 +122,23 @@ function stageReducer(state=null, action) {
     }
 }
 
+function menuReducer(state=false, action) {
+    switch (action.type) {
+        case 'TOGGLE_MENU':
+            return !state
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     fields: fieldsReducer,
     bed: bedReducer,
     sidebar: sidebarStateReducer,
     stage: stageReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    menu: menuReducer
 })
 
 export default rootReducer
