@@ -102,6 +102,35 @@ export function saveStage(stage, date) {
     }
 }
 
+export function saveNewUser(username, password) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch('http://localhost:2020/api/v1/users', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    username,
+                    password
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            debugger
+            if (!data.error) {
+                localStorage.setItem('token', data.jwt)
+                dispatch({type: 'LOGIN', user: data.user})
+                dispatch({type: 'SEED_FIELDS', fields: data.user.fields})
+            } else {
+                alert(data.error)
+            }
+        })
+    }
+}
 
 export function saveNewField(field, history) {
     return (dispatch) => {
@@ -163,4 +192,12 @@ export function deleteField(field, history) {
             dispatch({type: 'SEED_FIELDS', fields})
         })
     }
+}
+
+export function changeTextField(fieldName, text) {
+    return ({type: 'CHANGE_TEXT_FIELD', fieldName, text})
+}
+
+export function clearForm() {
+    return ({type: 'CLEAR_FORM'})
 }

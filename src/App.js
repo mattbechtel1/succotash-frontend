@@ -5,9 +5,10 @@ import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { fetchFields } from './redux_files/actions'
+import { fetchFields, saveNewUser } from './redux_files/actions'
 import Profile from './profile/Profile'
 import TestComponent from './TestComponent'
+import Login from './components/Login'
 
 class App extends React.Component {
   componentDidMount() {
@@ -15,19 +16,21 @@ class App extends React.Component {
   }
 
   render() {
+    const {user, saveNewUser} = this.props
+    // debugger
     return <div className="App">
         <Navigation />
           <div className='bg-img'>
             <Switch>
               <Route path='/test' component={TestComponent} />
               <Route path='/login'>
-                Login Component goes here
+                { user ? 'You are already logged in' : <Login submitAction={null} displayText='Log in' />}
               </Route>
               <Route path='/signup'>
-                Signup Component goes here
+                { user ? <Redirect to='/profile' /> : <Login submitAction={saveNewUser} displayText='Sign up'/> }
               </Route>
               <Route path='/profile'>
-                <Profile />
+                { user ? <Profile /> : <Redirect to='/login' /> }
               </Route>
               <Route path='/field/:slug'>
                 <Field />
@@ -43,4 +46,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {fetchFields})(App);
+export default connect(({user}) => ({user}), {fetchFields, saveNewUser})(App);
