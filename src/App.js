@@ -5,14 +5,26 @@ import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { fetchFields, saveNewUser } from './redux_files/actions'
-import Profile from './profile/Profile'
+import { saveNewUser, setUser, loginUser } from './redux_files/actions'
+import Profile from './profile_view/Profile'
 import TestComponent from './TestComponent'
+import NewFieldForm from './components/NewFieldForm'
+import { Card } from '@material-ui/core'
 import Login from './components/Login'
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.fetchFields()
+    let token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:2020/api/v1/profile', {
+        method: 'GET',
+        headers: {'Authentication': token }
+      })
+      .then(response => response.json())
+      .then(user => {
+        this.props.setUser(user)
+      })
+    }
   }
 
   render() {
@@ -24,7 +36,7 @@ class App extends React.Component {
             <Switch>
               <Route path='/test' component={TestComponent} />
               <Route path='/login'>
-                { user ? 'You are already logged in' : <Login submitAction={null} displayText='Log in' />}
+                { user ? <Redirect to='/profile' /> : <Login submitAction={loginUser} displayText='Log in' />}
               </Route>
               <Route path='/signup'>
                 { user ? <Redirect to='/profile' /> : <Login submitAction={saveNewUser} displayText='Sign up'/> }
@@ -32,11 +44,20 @@ class App extends React.Component {
               <Route path='/profile'>
                 { user ? <Profile /> : <Redirect to='/login' /> }
               </Route>
+              <Route exact path='/field/new'>
+                { !user ? <Redirect to='/' /> :
+                  <div style={{display: 'inline-block'}}>
+                    <Card>
+                      <NewFieldForm />
+                    </Card>
+                  </div>
+                }
+              </Route>
               <Route path='/field/:slug'>
                 <Field />
               </Route>
               <Route exact path='/'>
-                <Redirect to='/profile' />
+                <Redirect to='/login' />
               </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
             </Switch>
@@ -46,4 +67,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user}) => ({user}), {fetchFields, saveNewUser})(App);
+export default connect(({user}) => ({user}), {setUser, loginUser, saveNewUser})(App);

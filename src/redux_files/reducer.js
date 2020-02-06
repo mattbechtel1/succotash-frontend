@@ -36,6 +36,8 @@ function fieldsReducer(state={
     fields: [],
     loading: false}, action) {
     switch(action.type) {
+        case 'LOGIN':
+            return {...state, fields: action.user.fields, loading: false}
         case 'SEED_FIELDS':
             return {...state, fields: action.fields, loading: false}
         case 'ADD_FIELD':

@@ -74,8 +74,9 @@ const Login = ({submitAction, displayText, login, changeTextField, clearForm}) =
             <Grid item xs={12}>
               <TextField
                 autoComplete="username"
-                name="userName"
+                name="username"
                 variant="outlined"
+                value={login.username}
                 required
                 fullWidth
                 id="userName"
@@ -101,6 +102,7 @@ const Login = ({submitAction, displayText, login, changeTextField, clearForm}) =
                 required
                 fullWidth
                 name="password"
+                value={login.password}
                 label="Password"
                 type="password"
                 id="password"

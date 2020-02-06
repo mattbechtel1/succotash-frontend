@@ -36,6 +36,13 @@ const FieldMenu = ({classes, fields: {fields}}) => {
             </MenuItem>
           </Link>
         })}
+        <Link to='/field/new'
+          className={classes.toolbarLink}
+        >
+          <MenuItem onClick={handleClose}>
+            <Button>Add New Field</Button>
+          </MenuItem>
+        </Link>
       </Menu>
     </div>
   );

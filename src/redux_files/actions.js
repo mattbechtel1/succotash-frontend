@@ -132,7 +132,37 @@ export function saveNewUser(username, password) {
     }
 }
 
-export function saveNewField(field, history) {
+export function setUser(user) {
+    return {type: 'LOGIN', user}
+}
+
+export function loginUser(username, password) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch('http://localhost:2020/api/v1/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user: {
+                    username,
+                    password
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                localStorage.setItem('token', data.jwt)
+                dispatch(setUser(data.user))
+            }
+        })
+    }
+}
+
+export function saveNewField(field, user, history) {
+    debugger
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
         fetch('http://localhost:2020/fields', {
@@ -145,13 +175,17 @@ export function saveNewField(field, history) {
                 name: field.fieldName,
                 x_axis_count: field.xAxis,
                 y_axis_count: field.yAxis,
-                user_id: null
+                user_id: user.id
             })
         })
         .then(response => response.json())
         .then(newField => {
-            dispatch({type: 'ADD_FIELD', fieldObj: newField})
-            history.push(`/field/${newField.slug}`)
+            if (newField.error) {
+                alert(newField.error)
+            } else {
+                dispatch({type: 'ADD_FIELD', fieldObj: newField})
+                history.push(`/field/${newField.slug}`)
+            }
         })
     }
 }

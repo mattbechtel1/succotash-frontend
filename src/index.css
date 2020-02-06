@@ -101,3 +101,7 @@ code {
   color: white
 }
 
+.block {
+  display: 'inline-block'
+}
+
