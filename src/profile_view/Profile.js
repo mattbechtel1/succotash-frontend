@@ -27,7 +27,7 @@ const Profile = ({fields: {fields, loading}}) => {
       </Backdrop>
       <CssBaseline />
       <Container maxWidth="lg">
-        <main>
+        <main style={{paddingTop: '10px'}}>
           <ProfileHeader />
           <Grid container spacing={4}>
             {fields.map(field => (
