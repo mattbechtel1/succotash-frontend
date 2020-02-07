@@ -35,27 +35,26 @@ function userReducer(state=null, action) {
 function fieldsReducer(state={
     fields: [],
     loading: false}, action) {
-        // debugger
         switch(action.type) {
-        case 'LOGIN':
-            return {...state, fields: action.user.fields, loading: false}
-        case 'SEED_FIELDS':
-            return {...state, fields: action.fields, loading: false}
-        case 'ADD_FIELD':
-            return {...state, fields: state.fields.concat(action.fieldObj), loading: false}
-        case 'LOADING_FIELDS':
-            return {...state, loading: true}
-        case 'REPLACE_SINGLE_BED':
-            const targetFieldIdx = state.fields.findIndex(field => field.id === action.bed.field_id)
-            const replacementBedIdx = state.fields[targetFieldIdx].beds.findIndex(bed => bed.id === action.bed.id)
-            const reconstructedFieldBedList = [...state.fields[targetFieldIdx].beds.slice(0, replacementBedIdx), action.bed, ...state.fields[targetFieldIdx].beds.slice(replacementBedIdx + 1)]
-            const reconstrutedField = {...state.fields[targetFieldIdx], beds: reconstructedFieldBedList}
-            
-            return {...state, 
-                fields: [...state.fields.slice(0, targetFieldIdx), reconstrutedField, ...state.fields.slice(targetFieldIdx + 1)]
-            }
-        default:
-            return state
+            case 'LOGIN':
+                return {...state, fields: action.user.fields, loading: false}
+            case 'SEED_FIELDS':
+                return {...state, fields: action.fields, loading: false}
+            case 'ADD_FIELD':
+                return {...state, fields: state.fields.concat(action.fieldObj), loading: false}
+            case 'LOADING_FIELDS':
+                return {...state, loading: true}
+            case 'REPLACE_SINGLE_BED':
+                const targetFieldIdx = state.fields.findIndex(field => field.id === action.bed.field_id)
+                const replacementBedIdx = state.fields[targetFieldIdx].beds.findIndex(bed => bed.id === action.bed.id)
+                const reconstructedFieldBedList = [...state.fields[targetFieldIdx].beds.slice(0, replacementBedIdx), action.bed, ...state.fields[targetFieldIdx].beds.slice(replacementBedIdx + 1)]
+                const reconstrutedField = {...state.fields[targetFieldIdx], beds: reconstructedFieldBedList}
+                
+                return {...state, 
+                    fields: [...state.fields.slice(0, targetFieldIdx), reconstrutedField, ...state.fields.slice(targetFieldIdx + 1)]
+                }
+            default:
+                return state
     }
 }
 
