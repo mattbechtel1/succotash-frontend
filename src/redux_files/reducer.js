@@ -5,15 +5,7 @@ import { convertBedToCurrentStage } from '../helpers/conversions'
 var today = constructDate(new Date())
 
 function dateReducer(state=today, action) {
-    // let editingDate = new Date(state)
-    // debugger
     switch(action.type) {
-        // case "DATE_FORWARD":
-        //     editingDate.setDate(state.getDate() + action.days)
-        //     return editingDate
-        // case "DATE_BACKWARD":
-        //     editingDate.setDate(state.getDate() - action.days)
-        //     return editingDate
         case "SET_DATE":
             return action.date
         default:
@@ -77,7 +69,6 @@ function bedReducer(state=null, action) {
 function sidebarStateReducer(state={
     titleInput: false,
     loadingTitle: true,
-    timeRangeWarning: false,
     saving: false,
     successMessage: false
 }, action) {
@@ -92,10 +83,6 @@ function sidebarStateReducer(state={
             return {...state, titleInput: false}
         case 'UPDATING_BED':
             return {...state, titleInput: false, loadingTitle: true}
-        case 'INVALID_TIME_RANGE':
-            return {...state, timeRangeWarning: true}
-        case 'TIME_RANGE_RESET':
-            return {...state, timeRangeWarning: false}
         case 'SAVE_SUCCESS':
             return {...state, successMessage: true, saving: false}
         case 'SAVE_RESET':

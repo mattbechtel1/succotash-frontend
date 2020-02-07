@@ -1,11 +1,8 @@
-import {Snackbar, makeStyles} from '@material-ui/core'
-import MuiAlert from '@material-ui/lab'
+import {Snackbar, makeStyles, Slide} from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
+import { connect } from 'react-redux'
 import React from 'react'
 import {hideToast} from '../redux_files/actions'
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,10 +16,20 @@ const useStyles = makeStyles(theme => ({
 const WarningToast = ({hideToast, text, open}) => {
     const classes = useStyles()
 
-    return <Snackbar open={open} autoHideDuration={6000} onClose={hideToast}>
-        <Alert onClose={handleClose} severity="error">
-            {text}
-        </Alert>
+    function SlideTransition(props) {
+        return <Slide {...props} directon='right' />
+    }
+
+    return <Snackbar 
+            open={open} 
+            autoHideDuration={6000} 
+            onClose={hideToast}
+            anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+            TransitionComponent={SlideTransition}        
+        >
+            <Alert onClose={hideToast} variant='filled' severity="error">
+                {text}
+            </Alert>
         </Snackbar>
 }
 

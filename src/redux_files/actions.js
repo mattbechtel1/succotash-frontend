@@ -188,14 +188,6 @@ export function saveNewField(field, user, history) {
     }
 }
 
-export function invalidTimeRange() {
-    return {type: 'INVALID_TIME_RANGE'}
-}
-
-export function removeTimeMessage() {
-    return {type: 'TIME_RANGE_RESET'}
-}
-
 export function saveReset() {
     return {type:'SAVE_RESET'}
 }
