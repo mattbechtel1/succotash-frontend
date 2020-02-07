@@ -157,7 +157,8 @@ export function loginUser(username, password) {
             })
         })
         .then(response => {
-            alert("hi", response)
+            alert("hi")
+            console.log(response)
             return response.json()})
         .then(data => {
             
