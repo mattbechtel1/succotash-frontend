@@ -2,6 +2,7 @@ import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import WarningToast from './WarningToast'
 import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
 
@@ -59,6 +60,7 @@ class NewFieldForm extends React.Component {
         e.preventDefault()
         if (this.state.fieldName) {
             this.props.saveNewField(this.state, this.props.user)
+            removeModal()
         } else {
             this.props.displayWarning("You must provide a name for your field.")
         }
@@ -71,6 +73,7 @@ class NewFieldForm extends React.Component {
 
         return  <>
             <DialogTitle id="form-dialog-title">Add New Field</DialogTitle>
+            <WarningToast />
             <form className={classes.root} onSubmit={this.submitHandler}>
                 <DialogContent>
                     <DialogContentText>
@@ -121,7 +124,7 @@ class NewFieldForm extends React.Component {
                 <Button onClick={removeModal} color="secondary">
                     Cancel
                 </Button>
-                <Button onClick={removeModal} type='submit' color="secondary">
+                <Button type='submit' color="secondary" onClick={removeModal}>
                     Let's Plant!
                 </Button>
             </DialogActions>

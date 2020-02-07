@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
 import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning } from '../redux_files/actions'
@@ -10,7 +10,6 @@ import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
-import WarningToast from '../components/WarningToast'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -30,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -59,29 +58,24 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
         }
     }
  
+    // display while loading
     if (loading) {        
         return <Container>
             <DateBar />
-            <CircularProgress color='secondary' thickness={3} />
+            <CircularProgress color='primary' thickness={3} />
         </Container>
-        
-    } else if (!field) {
-        return () => {
-            displayWarning('No such field.')
-            return <>
-                <WarningToast />
-                <div>
-                    <Link to='/field/new'>
-                        <WarningButton variant="contained">
-                            ADD A NEW FIELD
-                        </WarningButton>
-                    </Link>
-                </div>
-            </>
-        }
     
+    // display if field is not matched from URL
+    } else if (!field) {
+        return <div>
+                <Link to='/field/new' className='text-link'>
+                    <Button variant="contained" style={{margin: '10px'}}>
+                        ADD A NEW FIELD
+                    </Button>
+                </Link>
+            </div>    
+    // display if field is matched from URL
     } else {
-
         const {x_axis_count, y_axis_count, name: fieldName} = field
         let rows = []
         let rowCounter = 0
@@ -194,7 +188,7 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
     }
 }
 
-const mapStateToProps = ({fields, bed, date, sidebar, modal}, {match}) => {
+const mapStateToProps = ({fields, bed, date, sidebar, modal, toast}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
@@ -202,8 +196,9 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal}, {match}) => {
         activeBed: bed,
         date,
         sidebar,
-        modal
+        modal,
+        toast: toast.open
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, saveBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, saveBedName, deleteField})(FieldGrid))
