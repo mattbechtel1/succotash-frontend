@@ -10,7 +10,6 @@ import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
-import WarningToast from '../components/WarningToast'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -63,28 +62,18 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
     if (loading) {        
         return <Container>
             <DateBar />
-            <CircularProgress color='secondary' thickness={3} />
+            <CircularProgress color='primary' thickness={3} />
         </Container>
     
     // display if field is not matched from URL
     } else if (!field) {
-
-        if (toast) {
-            return <div>
-                <WarningToast />
-                <div>
-                    <Link to='/field/new'>
-                        <WarningButton variant="contained">
-                            ADD A NEW FIELD
-                        </WarningButton>
-                    </Link>
-                </div>
-            </div>
-        } else {
-            displayWarning()
-            return null
-        }
-    
+        return <div>
+                <Link to='/field/new' className='text-link'>
+                    <Button variant="contained" style={{margin: '10px'}}>
+                        ADD A NEW FIELD
+                    </Button>
+                </Link>
+            </div>    
     // display if field is matched from URL
     } else {
         const {x_axis_count, y_axis_count, name: fieldName} = field

@@ -60,7 +60,7 @@ export function saveStage(stage, date) {
     const start_date = constructDate(stage.start_date)
     const due_date = constructDate(stage.due_date)
     
-    if (start_date && (!due_date || start_date < due_date)) {
+    if (start_date && (!due_date || start_date <= due_date)) {
         return (dispatch) => {
             dispatch({type: 'UPDATING_BED'})
             dispatch({type: 'SAVING_STAGE'})
@@ -91,7 +91,7 @@ export function saveStage(stage, date) {
             })
         }
     } else {
-        return invalidTimeRange()
+        return (dispatch) => dispatch(displayWarning('Due date must be later than or equal to start date'))
     }
 }
 
@@ -131,6 +131,14 @@ export function setUser(user) {
 export function unsetUser() {
     localStorage.removeItem('token')
     return {type: 'LOGOUT'}
+}
+
+export function loadPage() {
+    return ({type: 'LOADING'})
+}
+
+export function pageLoaded() {
+    return ({type: 'NOT_LOADING'})
 }
 
 export function loginUser(username, password) {
@@ -188,21 +196,13 @@ export function saveNewField(field, user, history) {
     }
 }
 
-export function invalidTimeRange() {
-    return {type: 'INVALID_TIME_RANGE'}
-}
-
-export function removeTimeMessage() {
-    return {type: 'TIME_RANGE_RESET'}
-}
-
 export function saveReset() {
     return {type:'SAVE_RESET'}
 }
 
 export function deleteField(field, history) {
     return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
+        dispatch(loadPage())
         fetch(`http://localhost:2020/fields/${field.id}`, {
             method: 'DELETE',
             headers: {
@@ -214,6 +214,7 @@ export function deleteField(field, history) {
         .then(data => {
             console.log(data.message)
             dispatch({type: 'REMOVE_FIELD', id: field.id})
+            dispatch(pageLoaded())
             history.push('/profile')
         })
     }

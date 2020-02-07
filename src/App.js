@@ -5,18 +5,20 @@ import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { saveNewUser, setUser, loginUser } from './redux_files/actions'
+import { saveNewUser, setUser, loginUser, loadPage, pageLoaded } from './redux_files/actions'
 import Profile from './profile_view/Profile'
 import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
 import { Card } from '@material-ui/core'
 import Login from './components/Login'
 import Logout from './components/Logout'
+import {CircularProgress} from '@material-ui/core'
 
 class App extends React.Component {
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
+      this.props.loadPage()
       fetch('http://localhost:2020/api/v1/profile', {
         method: 'GET',
         headers: {'Authentication': token }
@@ -25,17 +27,21 @@ class App extends React.Component {
       .then(user => {
         if (!user.error) {
           this.props.setUser(user)
+          this.props.pageLoaded()
         }
       })
     }
   }
 
   render() {
-    const {user} = this.props
+    const {user, loading} = this.props
     
     return <div className="App">
         <Navigation className='top-bottom-bg' />
           <div className='bg-img'>
+            {loading ?
+                <CircularProgress color='primary' thickness={3} />
+              :
             <Switch>
               <Route path='/test' component={TestComponent} />
               <Route path='/login'>
@@ -67,10 +73,11 @@ class App extends React.Component {
               </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
             </Switch>
+            }
         </div>
         <Footer />
     </div>
   }
 }
 
-export default connect(({user}) => ({user}), {setUser})(App);
+export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, pageLoaded})(App);
