@@ -156,7 +156,9 @@ export function loginUser(username, password) {
                 password
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            alert("hi", response)
+            return response.json()})
         .then(data => {
             
             if (data.error) {
