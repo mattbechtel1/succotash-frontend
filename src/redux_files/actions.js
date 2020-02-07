@@ -98,7 +98,7 @@ export function saveStage(stage, date) {
 export function saveNewUser(username, password) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch('hhttps://succotash-app-api.herokuapp.com/api/v1/users', {
+        fetch('https://succotash-app-api.herokuapp.com/api/v1/users', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
