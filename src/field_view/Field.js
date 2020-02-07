@@ -94,7 +94,6 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
             )
             rowCounter++
         }
-
     
         return <Container>
             <DateBar />
