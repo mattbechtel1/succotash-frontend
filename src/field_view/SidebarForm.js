@@ -1,6 +1,6 @@
 import React from 'react'
 import SaveButton from '../components/SaveButton'
-import { FormControl, Select, MenuItem, FormHelperText, Input, Snackbar, Slide, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
+import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, Input, Snackbar, Slide, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Alert } from '@material-ui/lab';
 import { DatePicker } from '@material-ui/pickers'
 import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { editStageDate, editStageStatus, changeCrop, invalidTimeRange, removeTimeMessage } from '../redux_files/actions'
 import { constructDate } from '../helpers/dates'
+import { datePickerOverride } from '../helpers/themeOverrides'
 
 class SidebarForm extends React.Component {
     constructor(props) {
@@ -39,8 +40,11 @@ class SidebarForm extends React.Component {
         }
     }
 
+    datePickerOverride = datePickerOverride
+
     render() {
         const materialClasses = this.useStyles
+        const pickerOverride = this.datePickerOverride
         const {cropWriter} = this.state
         const {start_date, due_date, status, tempCrop: crop } = this.props.stage
         const { sidebar } = this.props
@@ -94,6 +98,8 @@ class SidebarForm extends React.Component {
                 </FormControl>
             </ListItem>
             <Divider />
+        
+        <ThemeProvider theme={pickerOverride}>
 
             {/* Display/Change Start Date */}
             <ListItem button>
@@ -122,6 +128,7 @@ class SidebarForm extends React.Component {
                         animateYearScrolling /> 
                 </span>
             </ListItem>
+        </ThemeProvider>
             <Divider />
 
             {/* SAVE BUTTON */}

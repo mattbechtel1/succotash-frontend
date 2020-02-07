@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
 import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal } from '../redux_files/actions'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
+import WarningButton from '../components/WarningButton'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -19,8 +20,14 @@ const useStyles = makeStyles(theme => ({
     },
     gridPad: {
         padding: theme.spacing(1),
+    },
+    drawer: {
+        background: theme.palette.primary.light,
+        color: theme.palette.primary.contrastText
     }
 }));
+
+
 
 const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
     const classes = useStyles()
@@ -44,7 +51,6 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
     }
 
     const blurBedInput = (e) => {
-        debugger
         if (e.target.value) {
             saveBedName(activeBed, e.target.value, date)
         } else {
@@ -55,7 +61,7 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
     if (loading || !field) {        
         return <Container>
             <DateBar />
-            <CircularProgress color='primary' thickness={3} />
+            <CircularProgress color='secondary' thickness={3} />
         </Container>
         
     } else {
@@ -110,22 +116,21 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
             </Grid>
 
             <div style={{padding: '10px'}}>
-                <Button
+                <WarningButton
                 variant="contained"
-                color="secondary"
                 disabled={loading}
                 onClick={handleButtonClick}
                 >
                     DELETE THIS FIELD
-                </Button>
+                </WarningButton>
             </div>
 
-            <Drawer anchor='right' open={!!activeBed} onClose={unsetBed}>
+            <Drawer anchor='right' open={!!activeBed} onClose={unsetBed} classes={{paper: classes.drawer}}>
                 <div className={classes.list} role='presentation'>
                     <List>
-                        <ListItem button onClick={openBedInput}>
+                        <ListItem button onClick={openBedInput} style={{position: 'relative'}}>
                             { sidebar.loadingTitle ? 
-                                <CircularProgress />
+                                <CircularProgress style={{marginLeft: '50%'}} color='secondary'/>
                             : 
                                 <>
                                     { sidebar.titleInput && activeBed ? 
@@ -157,16 +162,16 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
                 <DialogTitle id="alert-dialog-title"><AlertIcon />Are you sure you want to delete your field?</DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Deleting a field is an irreversible action. Please confirm that you would like to delete. 
+                    Deleting a field is an irreversible action. Please confirm that you would like to remove this field. 
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={removeModal} color="primary" startIcon={<BackIcon />}>
+                <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
                     Take me back!
                 </Button>
-                <Button onClick={confirmDelete} color="secondary" autoFocus startIcon={<DeleteIcon/>}>
+                <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
                     Confirm Deletion
-                </Button>
+                </WarningButton>
                 </DialogActions>
             </Dialog>
         </Container>

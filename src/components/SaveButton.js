@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     left: '50%',
     marginTop: -12,
     marginLeft: -12,
-  },
+  }
 }));
 
 const CircularIntegrationSave = ({sidebar, stage, date, saveStage}) => {
