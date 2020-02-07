@@ -30,10 +30,14 @@ export function openBedInput() {
     return {type: 'EDIT_BED_TITLE'}
 }
 
-export function updateBedName(bedId, newName, date) {
+export function closeBedInput() {
+    return {type: 'CLOSE_TITLE_INPUT'}
+}
+
+export function saveBedName(activeBed, newName, date) {
     return (dispatch) => {
-        dispatch({type: 'UPDATING_BED'})
-        fetch('http://localhost:2020/beds/' + bedId, {
+        dispatch({type: 'UPDATING_BED', bed: activeBed})
+        fetch('http://localhost:2020/beds/' + activeBed.id, {
             method: 'PATCH',
             headers: {
                 accept: 'application/json',
@@ -102,8 +106,72 @@ export function saveStage(stage, date) {
     }
 }
 
+export function saveNewUser(username, password) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch('http://localhost:2020/api/v1/users', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    username,
+                    password
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                localStorage.setItem('token', data.jwt)
+                dispatch({type: 'LOGIN', user: data.user})
+            } else {
+                alert(data.error)
+            }
+        })
+        .then(dispatch(clearForm()))
+    }
+}
 
-export function saveNewField(field, history) {
+export function setUser(user) {
+    return {type: 'LOGIN', user}
+}
+
+export function unsetUser() {
+    localStorage.removeItem('token')
+    return {type: 'LOGOUT'}
+}
+
+export function loginUser(username, password) {
+    
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch('http://localhost:2020/api/v1/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username,
+                password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            if (data.error) {
+                alert(data.message)
+            } else {
+                localStorage.setItem('token', data.jwt)
+                dispatch(setUser(data.user))
+            }
+        })
+        .then(dispatch(clearForm()))
+    }
+}
+
+export function saveNewField(field, user, history) {
+    
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
         fetch('http://localhost:2020/fields', {
@@ -116,13 +184,17 @@ export function saveNewField(field, history) {
                 name: field.fieldName,
                 x_axis_count: field.xAxis,
                 y_axis_count: field.yAxis,
-                user_id: null
+                user_id: user.id
             })
         })
         .then(response => response.json())
         .then(newField => {
-            dispatch({type: 'ADD_FIELD', fieldObj: newField})
-            history.push(`/field/${newField.slug}`)
+            if (newField.error) {
+                alert(newField.error)
+            } else {
+                dispatch({type: 'ADD_FIELD', fieldObj: newField})
+                history.push(`/field/${newField.slug}`)
+            }
         })
     }
 }
@@ -163,4 +235,12 @@ export function deleteField(field, history) {
             dispatch({type: 'SEED_FIELDS', fields})
         })
     }
+}
+
+export function changeTextField(fieldName, text) {
+    return ({type: 'CHANGE_TEXT_FIELD', fieldName, text})
+}
+
+export function clearForm() {
+    return ({type: 'CLEAR_FORM'})
 }

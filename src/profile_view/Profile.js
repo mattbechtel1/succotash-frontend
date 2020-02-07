@@ -43,7 +43,5 @@ const Profile = ({fields: {fields, loading}}) => {
   );
 }
 
-const mapStateToProps = ({fields}) => ({fields})
-
-export default connect(mapStateToProps)(Profile)
+export default connect(({fields}) => ({fields}))(Profile)
 

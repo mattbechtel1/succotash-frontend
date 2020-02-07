@@ -23,8 +23,12 @@ class SidebarForm extends React.Component {
         }
     }))
 
-    toggleCropWriter = () => {
-        this.setState({cropWriter: !this.state.cropWriter})
+    openCropWriter = () => {
+        this.setState({cropWriter: true})
+    }
+
+    closeCropWriter = () => {
+        this.setState({cropWriter: false})
     }
 
     changeDueDate = (date) => {
@@ -56,17 +60,17 @@ class SidebarForm extends React.Component {
             </Snackbar>
 
             {/* Display/change crop */}
-            <ListItem button>
+            <ListItem button onClick={this.openCropWriter}>
                 <span className='vert-center-span'>
                 {cropWriter ? 
                     <Input value={crop || ''} 
                     placeholder='Crop for this stage' 
                     onChange={(e) => this.props.changeCrop(e.target.value)} 
                     variant='filled' 
-                    onBlur={this.toggleCropWriter} />
+                    onBlur={this.closeCropWriter} />
                     : 
                     <>
-                        <ListItemIcon onClick={this.toggleCropWriter}><EditIcon /></ListItemIcon>
+                        <ListItemIcon><EditIcon /></ListItemIcon>
                         <ListItemText primary={crop ? 'Crop: ' + crop : 'Crop: No crop set'} />
                     </>
                 }

@@ -21,10 +21,24 @@ function dateReducer(state=today, action) {
     }
 }
 
+function userReducer(state=null, action) {
+    switch (action.type) {
+        case 'LOGIN':
+            return action.user
+        case 'LOGOUT':
+            return null
+        default:
+            return state
+    }
+}
+
 function fieldsReducer(state={
     fields: [],
     loading: false}, action) {
-    switch(action.type) {
+        // debugger
+        switch(action.type) {
+        case 'LOGIN':
+            return {...state, fields: action.user.fields, loading: false}
         case 'SEED_FIELDS':
             return {...state, fields: action.fields, loading: false}
         case 'ADD_FIELD':
@@ -63,11 +77,16 @@ function sidebarStateReducer(state={
     saving: false,
     successMessage: false
 }, action) {
+    console.log(action.type)
     switch(action.type) {
         case 'SET_BED':
             return {...state, loadingTitle: false}
         case 'EDIT_BED_TITLE':
             return {...state, titleInput: true}
+        case 'CLOSE_TITLE_INPUT':
+            return {...state, titleInput: false}
+        case 'UNSET_BED':
+            return {...state, titleInput: false}
         case 'UPDATING_BED':
             return {...state, titleInput: false, loadingTitle: true}
         case 'INVALID_TIME_RANGE':
@@ -122,13 +141,30 @@ function stageReducer(state=null, action) {
     }
 }
 
+function LoginReducer(state={
+    username: '',
+    password: ''
+}, action) {
+    switch(action.type) {
+        case 'CHANGE_TEXT_FIELD':
+            return {...state, 
+                [action.fieldName]: action.text}
+        case 'CLEAR_FORM':
+            return {username: '', password: ''}
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
+    user: userReducer,
     fields: fieldsReducer,
     bed: bedReducer,
     sidebar: sidebarStateReducer,
     stage: stageReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    login: LoginReducer
 })
 
 export default rootReducer

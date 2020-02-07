@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {Typography, Paper, Dialog, Grid} from '@material-ui/core/';
 import Vegetables from '../assets/vegetables.jpg'
 import {displayModal, removeModal} from '../redux_files/actions'
-import NewFieldForm from './NewFieldForm'
+import NewFieldForm from '../components/NewFieldForm'
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {

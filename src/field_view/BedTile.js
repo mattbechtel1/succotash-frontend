@@ -16,6 +16,4 @@ const BedTile = ({bed, date, setBed}) => {
     </div>
 }
 
-const mapStateToProps = ({date}) => ({date})
-
-export default connect(mapStateToProps, {setBed})(BedTile)
+export default connect(({date}) => ({date}), {setBed})(BedTile)

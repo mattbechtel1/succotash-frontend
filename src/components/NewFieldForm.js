@@ -59,7 +59,7 @@ class NewFieldForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        this.props.saveNewField(this.state)
+        this.props.saveNewField(this.state, this.props.user)
     }
 
     render() {
@@ -130,8 +130,8 @@ class NewFieldForm extends React.Component {
 const mapDispatchToProps = (dispatch, {history}) => {
     return {
         removeModal: () => dispatch(removeModal()),
-        saveNewField: field => dispatch(saveNewField(field, history))
+        saveNewField: (field, user) => dispatch(saveNewField(field, user, history))
     }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(NewFieldForm))
+export default withRouter(connect(({user}) => ({user}), mapDispatchToProps)(NewFieldForm))
