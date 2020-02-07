@@ -200,14 +200,6 @@ export function saveReset() {
     return {type:'SAVE_RESET'}
 }
 
-export function displayModal() {
-    return {type: 'DISPLAY_MODAL'}
-}
-
-export function removeModal() {
-    return {type: 'REMOVE_MODAL'}
-}
-
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
@@ -241,4 +233,12 @@ export function hideToast() {
 
 export function displayWarning(text) {
     return {type: 'DISPLAY_TOAST', text}
+}
+
+export function displayModal() {
+    return {type: 'DISPLAY_MODAL'}
+}
+
+export function removeModal() {
+    return {type: 'REMOVE_MODAL'}
 }
