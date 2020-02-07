@@ -4,12 +4,13 @@ import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, Li
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal } from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning } from '../redux_files/actions'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
+import WarningToast from '../components/WarningToast'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -58,12 +59,27 @@ const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, 
         }
     }
  
-    if (loading || !field) {        
+    if (loading) {        
         return <Container>
             <DateBar />
             <CircularProgress color='secondary' thickness={3} />
         </Container>
         
+    } else if (!field) {
+        return () => {
+            displayWarning('No such field.')
+            return <>
+                <WarningToast />
+                <div>
+                    <Link to='/field/new'>
+                        <WarningButton variant="contained">
+                            ADD A NEW FIELD
+                        </WarningButton>
+                    </Link>
+                </div>
+            </>
+        }
+    
     } else {
 
         const {x_axis_count, y_axis_count, name: fieldName} = field

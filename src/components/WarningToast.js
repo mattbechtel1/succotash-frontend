@@ -1,11 +1,7 @@
 import {Snackbar, makeStyles} from '@material-ui/core'
-import MuiAlert from '@material-ui/lab'
+import {Alert} from '@material-ui/lab'
 import React from 'react'
 import {hideToast} from '../redux_files/actions'
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const useStyles = makeStyles(theme => ({
     root: {

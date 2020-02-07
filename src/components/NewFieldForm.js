@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
 
-
-
 class NewFieldForm extends React.Component {
     constructor() {
         super()
