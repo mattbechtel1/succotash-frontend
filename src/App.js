@@ -20,7 +20,7 @@ class App extends React.Component {
     let token = localStorage.getItem('token')
     if (token) {
       this.props.loadPage()
-      fetch('http://localhost:2020/api/v1/profile', {
+      fetch('https://succotash-app-api.herokuapp.com', {
         method: 'GET',
         headers: {'Authentication': token }
       })

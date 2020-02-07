@@ -26,7 +26,7 @@ export function closeBedInput() {
 export function saveBedName(activeBed, newName, date) {
     return (dispatch) => {
         dispatch({type: 'UPDATING_BED', bed: activeBed})
-        fetch('http://localhost:2020/beds/' + activeBed.id, {
+        fetch('https://succotash-app-api.herokuapp.com/beds/' + activeBed.id, {
             method: 'PATCH',
             headers: {
                 accept: 'application/json',
@@ -64,7 +64,7 @@ export function saveStage(stage, date) {
         return (dispatch) => {
             dispatch({type: 'UPDATING_BED'})
             dispatch({type: 'SAVING_STAGE'})
-            fetch('http://localhost:2020/stages/', {
+            fetch('https://succotash-app-api.herokuapp.com/stages/', {
                 method: 'POST',
                 headers: {
                     accept: 'application/json',
@@ -98,7 +98,7 @@ export function saveStage(stage, date) {
 export function saveNewUser(username, password) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch('http://localhost:2020/api/v1/users', {
+        fetch('hhttps://succotash-app-api.herokuapp.com/api/v1/users', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -148,7 +148,7 @@ export function loginUser(username, password) {
     
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
-        fetch('http://localhost:2020/api/v1/login', {
+        fetch('https://succotash-app-api.herokuapp.com/api/v1/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -174,7 +174,7 @@ export function saveNewField(field, user, history) {
     
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
-        fetch('http://localhost:2020/fields', {
+        fetch('https://succotash-app-api.herokuapp.com/fields', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -206,7 +206,7 @@ export function saveReset() {
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch(`http://localhost:2020/fields/${field.id}`, {
+        fetch(`https://succotash-app-api.herokuapp.com/fields/${field.id}`, {
             method: 'DELETE',
             headers: {
                 accept: 'application/json',
