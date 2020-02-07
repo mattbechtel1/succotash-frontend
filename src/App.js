@@ -11,6 +11,7 @@ import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
 import { Card } from '@material-ui/core'
 import Login from './components/Login'
+import Logout from './components/Logout'
 
 class App extends React.Component {
   componentDidMount() {
@@ -22,14 +23,16 @@ class App extends React.Component {
       })
       .then(response => response.json())
       .then(user => {
-        this.props.setUser(user)
+        if (!user.error) {
+          this.props.setUser(user)
+        }
       })
     }
   }
 
   render() {
-    const {user, saveNewUser} = this.props
-    // debugger
+    const {user} = this.props
+    
     return <div className="App">
         <Navigation />
           <div className='bg-img'>
@@ -59,6 +62,9 @@ class App extends React.Component {
               <Route exact path='/'>
                 <Redirect to='/login' />
               </Route>
+              <Route exact path='/logout'>
+                <Logout />
+              </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
             </Switch>
         </div>
@@ -67,4 +73,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user}) => ({user}), {setUser, loginUser, saveNewUser})(App);
+export default connect(({user}) => ({user}), {setUser})(App);

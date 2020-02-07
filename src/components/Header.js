@@ -46,6 +46,18 @@ const LogoutButton = () => {
   </Link>
 }
 
+const SignUpButton = () => {
+  const classes = useStyles()
+
+  return <Link 
+    to='/signup'
+    className={classes.toolbarLink}>
+    <Button size="small">
+      Register
+    </Button>
+  </Link>
+}
+
 const Header = ({user}) => {
   const classes = useStyles();
   
@@ -62,7 +74,7 @@ const Header = ({user}) => {
       >
         Succotash
       </Typography>
-    { user ? <LogoutButton /> : <></>}
+    { user ? <LogoutButton /> : <SignUpButton />}
     </Toolbar>
     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         <Button>

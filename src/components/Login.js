@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
-import { changeTextField, clearForm } from '../redux_files/actions'
+import { changeTextField } from '../redux_files/actions'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -47,13 +47,12 @@ const ButtonLink = ({url, text}) => {
     </Button>
 }
 
-const Login = ({submitAction, displayText, login, changeTextField, clearForm}) => {
+const Login = ({submitAction, displayText, login, changeTextField}) => {
   const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault()
     submitAction(login.username, login.password)
-    clearForm()
   }
 
   const handleChange = (e) => {
@@ -140,4 +139,11 @@ const Login = ({submitAction, displayText, login, changeTextField, clearForm}) =
   );
 }
 
-export default connect(({login}) => ({login}), {changeTextField, clearForm})(Login)
+const mapDispatchToProps = (dispatch, {submitAction}) => {
+  return {
+    changeTextField: (fieldName, value) => dispatch(changeTextField(fieldName, value)),
+    submitAction: (username, password) => dispatch(submitAction(username, password))
+  }
+}
+
+export default connect(({login}) => ({login}), mapDispatchToProps)(Login)

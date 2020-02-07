@@ -30,10 +30,14 @@ export function openBedInput() {
     return {type: 'EDIT_BED_TITLE'}
 }
 
-export function updateBedName(bedId, newName, date) {
+export function closeBedInput() {
+    return {type: 'CLOSE_TITLE_INPUT'}
+}
+
+export function saveBedName(activeBed, newName, date) {
     return (dispatch) => {
-        dispatch({type: 'UPDATING_BED'})
-        fetch('http://localhost:2020/beds/' + bedId, {
+        dispatch({type: 'UPDATING_BED', bed: activeBed})
+        fetch('http://localhost:2020/beds/' + activeBed.id, {
             method: 'PATCH',
             headers: {
                 accept: 'application/json',
@@ -120,15 +124,14 @@ export function saveNewUser(username, password) {
         })
         .then(response => response.json())
         .then(data => {
-            debugger
             if (!data.error) {
                 localStorage.setItem('token', data.jwt)
                 dispatch({type: 'LOGIN', user: data.user})
-                dispatch({type: 'SEED_FIELDS', fields: data.user.fields})
             } else {
                 alert(data.error)
             }
         })
+        .then(dispatch(clearForm()))
     }
 }
 
@@ -136,33 +139,39 @@ export function setUser(user) {
     return {type: 'LOGIN', user}
 }
 
+export function unsetUser() {
+    localStorage.removeItem('token')
+    return {type: 'LOGOUT'}
+}
+
 export function loginUser(username, password) {
+    
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
         fetch('http://localhost:2020/api/v1/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                user: {
-                    username,
-                    password
-                }
+                username,
+                password
             })
         })
         .then(response => response.json())
         .then(data => {
+            
             if (data.error) {
-                alert(data.error)
+                alert(data.message)
             } else {
                 localStorage.setItem('token', data.jwt)
                 dispatch(setUser(data.user))
             }
         })
+        .then(dispatch(clearForm()))
     }
 }
 
 export function saveNewField(field, user, history) {
-    debugger
+    
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
         fetch('http://localhost:2020/fields', {

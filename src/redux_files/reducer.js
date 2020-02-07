@@ -35,7 +35,8 @@ function userReducer(state=null, action) {
 function fieldsReducer(state={
     fields: [],
     loading: false}, action) {
-    switch(action.type) {
+        // debugger
+        switch(action.type) {
         case 'LOGIN':
             return {...state, fields: action.user.fields, loading: false}
         case 'SEED_FIELDS':
@@ -76,11 +77,16 @@ function sidebarStateReducer(state={
     saving: false,
     successMessage: false
 }, action) {
+    console.log(action.type)
     switch(action.type) {
         case 'SET_BED':
             return {...state, loadingTitle: false}
         case 'EDIT_BED_TITLE':
             return {...state, titleInput: true}
+        case 'CLOSE_TITLE_INPUT':
+            return {...state, titleInput: false}
+        case 'UNSET_BED':
+            return {...state, titleInput: false}
         case 'UPDATING_BED':
             return {...state, titleInput: false, loadingTitle: true}
         case 'INVALID_TIME_RANGE':

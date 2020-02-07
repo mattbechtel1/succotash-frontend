@@ -4,7 +4,7 @@ import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, Li
 import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import BedTile from './BedTile'
-import { unsetBed, setNewDate, openBedInput, updateBedName, deleteField, displayModal, removeModal } from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal } from '../redux_files/actions'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, updateBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -43,13 +43,19 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
         deleteField(field, history)
     }
 
-    if (loading || !field) {
-        const fieldName = slug.split('-').join(' ')
-        
+    const blurBedInput = (e) => {
+        debugger
+        if (e.target.value) {
+            saveBedName(activeBed, e.target.value, date)
+        } else {
+            closeBedInput()
+        }
+    }
+ 
+    if (loading || !field) {        
         return <Container>
             <DateBar />
-            <h1 className='field-text'>{fieldName}</h1>
-                <CircularProgress color='primary' thickness={3} />
+            <CircularProgress color='primary' thickness={3} />
         </Container>
         
     } else {
@@ -118,16 +124,16 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
             <Drawer anchor='right' open={!!activeBed} onClose={unsetBed}>
                 <div className={classes.list} role='presentation'>
                     <List>
-                        <ListItem button>
+                        <ListItem button onClick={openBedInput}>
                             { sidebar.loadingTitle ? 
                                 <CircularProgress />
                             : 
                                 <>
-                                    { sidebar.titleInput ? 
-                                        <Input placeholder={activeBed.name} onBlur={(e) => updateBedName(activeBed.id, e.target.value, date)} /> 
+                                    { sidebar.titleInput && activeBed ? 
+                                        <Input placeholder={activeBed.name} onBlur={blurBedInput} /> 
                                     :
                                         <>
-                                            <ListItemIcon onClick={openBedInput}><EditIcon /></ListItemIcon>
+                                            <ListItemIcon><EditIcon /></ListItemIcon>
                                             <strong><ListItemText primary={activeBed ? activeBed.name : ''} /></strong>
                                         </>
                                     }
@@ -152,7 +158,7 @@ const FieldGrid = ({modal, history, field, loading, removeModal, beds, displayMo
                 <DialogTitle id="alert-dialog-title"><AlertIcon />Are you sure you want to delete your field?</DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Deleting a field is an irreversible action. Please confirm that you would like this 
+                    Deleting a field is an irreversible action. Please confirm that you would like to delete. 
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -180,4 +186,4 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal}, {match}) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, setNewDate, openBedInput, displayModal, removeModal, updateBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, saveBedName, deleteField})(FieldGrid))
