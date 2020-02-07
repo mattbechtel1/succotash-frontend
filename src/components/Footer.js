@@ -18,7 +18,7 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    backgroundColor: '#fff176',
+    backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(6, 0),
   },
 }));
@@ -32,9 +32,9 @@ export default function Footer() {
         <Typography variant="h6" align="center" gutterBottom>
           Succotash
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+        {/* <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           A Product of Matt Bechtel & the Flatiron School
-        </Typography>
+        </Typography> */}
         <Copyright />
       </Container>
     </footer>

@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   sidebarAboutBox: {
     padding: theme.spacing(2),
     margin: '16px',
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.primary.light,
   },
   sidebarSection: {
     marginTop: theme.spacing(3),
@@ -27,7 +27,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <Grid container spacing={10}>
+    <Grid container spacing={10} style={{marginBottom: '1px'}}>
       <Grid item xs={6}>
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <Typography variant="h6" gutterBottom >

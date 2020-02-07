@@ -50,7 +50,7 @@ class App extends React.Component {
               <Route exact path='/field/new'>
                 { !user ? <Redirect to='/' /> :
                   <div style={{display: 'inline-block'}}>
-                    <Card>
+                    <Card style={{marginTop: '10px'}}>
                       <NewFieldForm />
                     </Card>
                   </div>

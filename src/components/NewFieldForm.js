@@ -81,6 +81,7 @@ class NewFieldForm extends React.Component {
                             margin="dense"
                             name="fieldName"
                             label="Field Name"
+                            color='secondary'
                             type="text"
                             value={fieldName}
                             onChange={this.fieldNameChangeHandler}
@@ -115,10 +116,10 @@ class NewFieldForm extends React.Component {
 
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={removeModal} color="primary">
+                <Button onClick={removeModal} color="secondary">
                     Cancel
                 </Button>
-                <Button onClick={removeModal} type='submit' color="primary">
+                <Button onClick={removeModal} type='submit' color="secondary">
                     Let's Plant!
                 </Button>
             </DialogActions>

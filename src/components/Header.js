@@ -64,7 +64,7 @@ const Header = ({user}) => {
   return <div className='top-bottom-bg'>
     <Container>
       <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
+       <></>
         <Typography
           component="h2"
           variant="h5"

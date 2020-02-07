@@ -6,10 +6,10 @@ import { unformatThenFormat } from '../helpers/dates'
 import Wheat from '../assets/wheat.jpg'
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   card: {
     display: 'flex',
-    backgroundColor: '#fff176'
+    backgroundColor: theme.palette.primary.main
   },
   cardDetails: {
     flex: 1,
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   cardMedia: {
     width: 160,
   },
-});
+}))
 
 export default function FieldLink({field: {slug, updated_at, name}}) {
   const classes = useStyles();

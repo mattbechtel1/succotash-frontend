@@ -78,6 +78,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
                 value={login.username}
                 required
                 fullWidth
+                color='secondary'
                 id="userName"
                 label="Username"
                 onChange={handleChange}
@@ -102,6 +103,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
                 fullWidth
                 name="password"
                 value={login.password}
+                color='secondary'
                 label="Password"
                 type="password"
                 id="password"
