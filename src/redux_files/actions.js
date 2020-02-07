@@ -7,17 +7,6 @@ export function setNewDate(date, urlSlug, history) {
     }
 }
 
-export function fetchFields() {
-    return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
-        fetch('http://localhost:2020/fields')
-        .then(response => response.json())
-        .then(data => {
-            dispatch({type: 'SEED_FIELDS', fields: data})
-        })
-    }
-}
-
 export function setBed(bed, date) {
     return {type: 'SET_BED', bed, date}
 }
@@ -230,9 +219,10 @@ export function deleteField(field, history) {
             }
         })
         .then(response => response.json())
-        .then(fields => {
+        .then(data => {
+            console.log(data.message)
+            dispatch({type: 'REMOVE_FIELD', id: field.id})
             history.push('/profile')
-            dispatch({type: 'SEED_FIELDS', fields})
         })
     }
 }
@@ -243,4 +233,12 @@ export function changeTextField(fieldName, text) {
 
 export function clearForm() {
     return ({type: 'CLEAR_FORM'})
+}
+
+export function hideToast() {
+    return {type: 'HIDE_TOAST'}
+}
+
+export function displayWarning(text) {
+    return {type: 'DISPLAY_TOAST', text}
 }

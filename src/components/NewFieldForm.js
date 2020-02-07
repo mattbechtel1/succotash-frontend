@@ -2,7 +2,7 @@ import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { removeModal, saveNewField } from '../redux_files/actions'
+import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
 
 
@@ -59,7 +59,11 @@ class NewFieldForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        this.props.saveNewField(this.state, this.props.user)
+        if (this.state.fieldName) {
+            this.props.saveNewField(this.state, this.props.user)
+        } else {
+            this.props.displayWarning("You must provide a name for your field.")
+        }
     }
 
     render() {
@@ -131,6 +135,7 @@ class NewFieldForm extends React.Component {
 const mapDispatchToProps = (dispatch, {history}) => {
     return {
         removeModal: () => dispatch(removeModal()),
+        displayWarning: (text) => dispatch(displayWarning(text)),
         saveNewField: (field, user) => dispatch(saveNewField(field, user, history))
     }
 }

@@ -53,6 +53,11 @@ function fieldsReducer(state={
                 return {...state, 
                     fields: [...state.fields.slice(0, targetFieldIdx), reconstrutedField, ...state.fields.slice(targetFieldIdx + 1)]
                 }
+            case 'REMOVE_FIELD':
+                return {...state,
+                    loading: false,
+                    fields: state.fields.filter(field => field.id !== action.id)
+                }
             default:
                 return state
     }
@@ -76,7 +81,6 @@ function sidebarStateReducer(state={
     saving: false,
     successMessage: false
 }, action) {
-    console.log(action.type)
     switch(action.type) {
         case 'SET_BED':
             return {...state, loadingTitle: false}
@@ -140,7 +144,7 @@ function stageReducer(state=null, action) {
     }
 }
 
-function LoginReducer(state={
+function loginReducer(state={
     username: '',
     password: ''
 }, action) {
@@ -155,6 +159,20 @@ function LoginReducer(state={
     }
 }
 
+function toastReducer(state={
+    text: '',
+    open: false
+}, action) {
+    switch (action.type) {
+        case 'DISPLAY_TOAST':
+            return {open: true, text: action.text}
+        case 'HIDE_TOAST':
+            return {open: false, text: ''}
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     user: userReducer,
@@ -163,7 +181,8 @@ const rootReducer = combineReducers({
     sidebar: sidebarStateReducer,
     stage: stageReducer,
     modal: modalReducer,
-    login: LoginReducer
+    login: loginReducer,
+    toast: toastReducer
 })
 
 export default rootReducer
