@@ -9,6 +9,7 @@ import Wheat from '../assets/wheat.jpg'
 const useStyles = makeStyles({
   card: {
     display: 'flex',
+    backgroundColor: '#fff176'
   },
   cardDetails: {
     flex: 1,

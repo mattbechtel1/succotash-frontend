@@ -4,7 +4,6 @@ import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
 import { ThemeProvider } from '@material-ui/styles/';
-import green from '@material-ui/core/colors/green'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
@@ -20,7 +19,19 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 const theme = createMuiTheme({
     palette: {
-        primary: green
+        primary: {
+            light: '#ffffa8',
+            main: '#fff176',
+            dark: '#cabf45',
+            contrastText: '#000'
+
+        },
+        secondary: {
+            light: '#80e27e',
+            dark: '#087f23',
+            main: '#4caf50',
+            contrastText: '#000'
+        }
     }
 })
 

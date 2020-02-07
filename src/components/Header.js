@@ -61,48 +61,50 @@ const SignUpButton = () => {
 const Header = ({user}) => {
   const classes = useStyles();
   
-  return <Container>
-    <Toolbar className={classes.toolbar}>
-      <Button size="small">Subscribe</Button>
-      <Typography
-        component="h2"
-        variant="h5"
-        color="inherit"
-        align="center"
-        noWrap
-        className={classes.toolbarTitle}
-      >
-        Succotash
-      </Typography>
-    { user ? <LogoutButton /> : <SignUpButton />}
-    </Toolbar>
-    <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        <Button>
-          {user ? <>Welcome, {user.username}</> : <>Welcome</>}
-        </Button>
-      <Link
-        to='/'
-        className={classes.toolbarLink}
-      >
-        <Button>
-          Home
-        </Button>
-      </Link>
-      {user ?
-        <><Link
-        to='/profile'
-        className={classes.toolbarLink}
+  return <div className='top-bottom-bg'>
+    <Container>
+      <Toolbar className={classes.toolbar}>
+        <Button size="small">Subscribe</Button>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          className={classes.toolbarTitle}
+        >
+          Succotash
+        </Typography>
+      { user ? <LogoutButton /> : <SignUpButton />}
+      </Toolbar>
+      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+          <Button>
+            {user ? <>Welcome, {user.username}</> : <>Welcome</>}
+          </Button>
+        <Link
+          to='/'
+          className={classes.toolbarLink}
         >
           <Button>
-            Profile
+            Home
           </Button>
         </Link>
-        <FieldMenu classes={classes}/></>
-      : 
-        <SigninButton />
-      }
-    </Toolbar>
-  </Container>
+        {user ?
+          <><Link
+          to='/profile'
+          className={classes.toolbarLink}
+          >
+            <Button>
+              Profile
+            </Button>
+          </Link>
+          <FieldMenu classes={classes}/></>
+        : 
+          <SigninButton />
+        }
+      </Toolbar>
+    </Container>
+  </div>
 }
 
 export default connect(({user}) => ({user}))(Header)

@@ -34,7 +34,7 @@ class App extends React.Component {
     const {user} = this.props
     
     return <div className="App">
-        <Navigation />
+        <Navigation className='top-bottom-bg' />
           <div className='bg-img'>
             <Switch>
               <Route path='/test' component={TestComponent} />
