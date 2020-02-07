@@ -13,6 +13,7 @@ import { Card } from '@material-ui/core'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import {CircularProgress} from '@material-ui/core'
+import Home from './home_view/Home'
 
 class App extends React.Component {
   componentDidMount() {
@@ -65,13 +66,13 @@ class App extends React.Component {
               <Route path='/field/:slug'>
                 <Field />
               </Route>
-              <Route exact path='/'>
-                <Redirect to='/login' />
-              </Route>
               <Route exact path='/logout'>
                 <Logout />
               </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
+              <Route path='/'>
+                <Home />
+              </Route>
             </Switch>
             }
         </div>

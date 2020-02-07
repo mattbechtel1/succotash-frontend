@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {CssBaseline, Grid, Container, CircularProgress, Backdrop} from '@material-ui/core';
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
-import Sidebar from './Sidebar';
+import StandardCards from '../components/StandardCards';
 
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +35,7 @@ const Profile = ({fields: {fields, loading}}) => {
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Sidebar />
+            <StandardCards />
           </Grid>
         </main>
       </Container>

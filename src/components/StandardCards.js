@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography } from '@material-ui/core/';
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Sidebar() {
+const StandardCards = ({user}) => {
   const classes = useStyles();
 
   const social = [
@@ -27,7 +28,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <Grid container spacing={10} style={{marginBottom: '1px'}}>
+    <Grid container spacing={10} style={{marginBottom: '1px', marginTop: '1px'}}>
       <Grid item xs={6}>
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <Typography variant="h6" gutterBottom >
@@ -53,10 +54,13 @@ export default function Sidebar() {
             About
           </Typography>
           <Typography>
-            Succotash helps farmers track growth and crop cycles. Sign up today!
+            Succotash helps farmers track growth and crop cycles. 
+            {user ? null : <Link to='/signup' className='text-link'> Sign up today!</Link>}
           </Typography>
         </Paper>
       </Grid>
     </Grid>
   );
 }
+
+export default connect(({user}) => ({user}))(StandardCards)

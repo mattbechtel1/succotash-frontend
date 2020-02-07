@@ -97,7 +97,7 @@ export function saveStage(stage, date) {
 
 export function saveNewUser(username, password) {
     return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
+        dispatch(loadPage())
         fetch('http://localhost:2020/api/v1/users', {
             method: 'POST',
             headers: {
@@ -120,7 +120,10 @@ export function saveNewUser(username, password) {
                 alert(data.error)
             }
         })
-        .then(dispatch(clearForm()))
+        .then(() => {
+            dispatch(clearForm())
+            dispatch(pageLoaded())
+        })
     }
 }
 
