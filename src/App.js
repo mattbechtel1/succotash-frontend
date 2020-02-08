@@ -22,7 +22,7 @@ class App extends React.Component {
       this.props.loadPage()
       fetch('https://succotash-app-api.herokuapp.com/api/v1/profile', {
         method: 'GET',
-        headers: {'Authentication': token }
+        headers: {'Authorization': `Bearer ${token}` }
       })
       .then(response => response.json())
       .then(user => {

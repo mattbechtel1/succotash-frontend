@@ -113,6 +113,7 @@ export function saveNewUser(username, password) {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             if (!data.error) {
                 localStorage.setItem('token', data.jwt)
                 dispatch({type: 'LOGIN', user: data.user})
