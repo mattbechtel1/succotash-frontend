@@ -54,7 +54,7 @@ return <>
               Succotash allows anyone with a green thumb to plan and track their crop and produce growth and harvest with a user-friendly online interface.
             </Typography>
             <Typography variant="subtitle1">
-              Click here a field to your profile
+              Click here to add a field to your profile
             </Typography>
           </div>
         </Grid>
