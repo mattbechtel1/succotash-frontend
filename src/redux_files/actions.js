@@ -113,7 +113,6 @@ export function saveNewUser(username, password) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (!data.error) {
                 localStorage.setItem('token', data.jwt)
                 dispatch({type: 'LOGIN', user: data.user})
@@ -157,12 +156,8 @@ export function loginUser(username, password) {
                 password
             })
         })
-        .then(response => {
-            alert("hi")
-            console.log(response)
-            return response.json()})
+        .then(response => response.json())
         .then(data => {
-            
             if (data.error) {
                 alert(data.message)
             } else {
