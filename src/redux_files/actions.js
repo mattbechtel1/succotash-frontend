@@ -1,5 +1,7 @@
 import {constructDate, formatUSA} from '../helpers/dates'
 
+const URL_DOMAIN = process.env.REACT_APP_DOMAIN
+
 export function setNewDate(date, urlSlug, history) {
     return (dispatch) => {
         dispatch({type: 'SET_DATE', date})
@@ -26,7 +28,7 @@ export function closeBedInput() {
 export function saveBedName(activeBed, newName, date) {
     return (dispatch) => {
         dispatch({type: 'UPDATING_BED', bed: activeBed})
-        fetch('http://localhost:2020/beds/' + activeBed.id, {
+        fetch(URL_DOMAIN + '/beds/' + activeBed.id, {
             method: 'PATCH',
             headers: {
                 accept: 'application/json',
@@ -64,7 +66,7 @@ export function saveStage(stage, date) {
         return (dispatch) => {
             dispatch({type: 'UPDATING_BED'})
             dispatch({type: 'SAVING_STAGE'})
-            fetch('http://localhost:2020/stages/', {
+            fetch(URL_DOMAIN + '/stages/', {
                 method: 'POST',
                 headers: {
                     accept: 'application/json',
@@ -98,7 +100,7 @@ export function saveStage(stage, date) {
 export function saveNewUser(username, password) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch('http://localhost:2020/api/v1/users', {
+        fetch(URL_DOMAIN + '/api/v1/users', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -148,7 +150,7 @@ export function loginUser(username, password) {
     
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
-        fetch('http://localhost:2020/api/v1/login', {
+        fetch(URL_DOMAIN + '/api/v1/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -174,7 +176,7 @@ export function saveNewField(field, user, history) {
     
     return (dispatch) => {
         dispatch({type: 'LOADING_FIELDS'})
-        fetch('http://localhost:2020/fields', {
+        fetch(URL_DOMAIN + '/fields', {
             method: 'POST',
             headers: {
                 accept: 'application/json',

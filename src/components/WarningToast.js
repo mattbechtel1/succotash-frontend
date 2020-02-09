@@ -1,4 +1,4 @@
-import {Snackbar, makeStyles, Slide} from '@material-ui/core'
+import {Snackbar, Slide} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import { connect } from 'react-redux'
 import React from 'react'

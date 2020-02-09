@@ -111,7 +111,7 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
             rowCounter++
         }
     
-        return <Container>
+        return <Container style={{paddingTop: '10px'}}>
             <DateBar />
             <h1 className='brown-text'>{fieldName}</h1>
 

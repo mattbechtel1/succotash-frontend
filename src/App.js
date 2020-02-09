@@ -17,12 +17,12 @@ import Home from './home_view/Home'
 
 class App extends React.Component {
   componentDidMount() {
-    let token = localStorage.getItem('token')
+   let token = localStorage.getItem('token')
     if (token) {
       this.props.loadPage()
-      fetch('http://localhost:2020/api/v1/profile', {
+      fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
         method: 'GET',
-        headers: {'Authentication': token }
+        headers: {'Authorization': `Bearer ${token}` }
       })
       .then(response => response.json())
       .then(user => {
