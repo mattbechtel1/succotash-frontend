@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Card, Typography, CardContent, CardActionArea} from '@material-ui/core'
 import { connect } from 'react-redux'
 import { setBed } from '../redux_files/actions'
-import { convertBedToCurrentStage } from '../helpers/conversions'
+import { convertBedToCurrentStage, capitalize } from '../helpers/conversions'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,7 +41,7 @@ const BedTile = ({bed, date, setBed}) => {
                         {stage.tempCrop ? stage.tempCrop : 'No Crop Set'}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="h3">
-                        Stage: {stage.status}
+                        Stage: {capitalize(stage.status)}
                     </Typography>
                 </CardContent>
             </CardActionArea>

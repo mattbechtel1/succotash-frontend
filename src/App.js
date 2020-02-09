@@ -17,10 +17,10 @@ import Home from './home_view/Home'
 
 class App extends React.Component {
   componentDidMount() {
-    let token = localStorage.getItem('token')
+   let token = localStorage.getItem('token')
     if (token) {
       this.props.loadPage()
-      fetch('https://succotash-app-api.herokuapp.com/api/v1/profile', {
+      fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
         method: 'GET',
         headers: {'Authorization': `Bearer ${token}` }
       })
