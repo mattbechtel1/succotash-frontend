@@ -5,6 +5,7 @@ import {CssBaseline, Grid, Container, CircularProgress, Backdrop} from '@materia
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
 import StandardCards from '../components/StandardCards';
+import TodoContainer from './TodoContainer'
 
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = ({fields: {fields, loading}}) => {
+const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
   const classes = useStyles();
 
   return (
@@ -34,6 +35,12 @@ const Profile = ({fields: {fields, loading}}) => {
               <FieldTile key={field.name} field={field} />
             ))}
           </Grid>
+          {todos.length > 0 ? <Grid container spacing={3} className={classes.mainGrid}>
+              <TodoContainer />
+          </Grid>
+          :
+          null
+          }
           <Grid container spacing={5} className={classes.mainGrid}>
             <StandardCards />
           </Grid>
@@ -43,5 +50,5 @@ const Profile = ({fields: {fields, loading}}) => {
   );
 }
 
-export default connect(({fields}) => ({fields}))(Profile)
+export default connect(({fields, todos}) => ({fields, todos}))(Profile)
 

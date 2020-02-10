@@ -207,7 +207,7 @@ export function saveReset() {
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch(`https://succotash-app-api.herokuapp.com/fields/${field.id}`, {
+        fetch(`${URL_DOMAIN}/fields/${field.id}`, {
             method: 'DELETE',
             headers: {
                 accept: 'application/json',
@@ -246,4 +246,53 @@ export function displayModal() {
 
 export function removeModal() {
     return {type: 'REMOVE_MODAL'}
+}
+
+export function editingTodos() {
+    return {type: 'EDITING_TODOS'}
+}
+
+
+export function toggleTodo(todo) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos/${todo.id}`, {
+            method: 'PATCH',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({complete: !todo.complete})
+        })
+        .then(response => response.json())
+        .then(patchedTodo => {
+            if (patchedTodo.error) {
+                alert(patchedTodo.error)
+            } else {
+                dispatch({type: 'PATCH_TODO', todo: patchedTodo})
+            }
+        })
+    }
+}
+
+export function removeTodo(todo) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos/${todo.id}`, {
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message)
+            dispatch(displayWarning('Todo action has been removed.'))
+            dispatch({type: 'REMOVE_TODO', todo})
+            setTimeout(() => {
+                dispatch(hideToast())
+            }, 3000)
+        })
+    }
 }

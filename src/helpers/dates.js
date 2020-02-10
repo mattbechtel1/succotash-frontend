@@ -43,7 +43,6 @@ export function unformatThenFormat(date) {
 }
 
 export function constructDate(date) {
-    // debugger
     switch(typeof date) {
         case 'string':
             return dateUnformat(date)
@@ -57,5 +56,9 @@ export function constructDate(date) {
         default:
             return null
     }
+}
+
+export function sortDueDates(array) {
+    return array.sort((a, b) => b.due_date - a.due_date)
 }
             

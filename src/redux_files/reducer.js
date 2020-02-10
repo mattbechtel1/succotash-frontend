@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { constructDate } from '../helpers/dates'
+import { constructDate, sortDueDates } from '../helpers/dates'
 import { convertBedToCurrentStage } from '../helpers/conversions'
 
 var today = constructDate(new Date())
@@ -171,6 +171,36 @@ function toastReducer(state={
     }
 }
 
+function todoReducer(state={
+    todos: [],
+    loading: false
+}, action) {
+    switch (action.type) {
+        case 'LOGIN':
+            return {loading: false, todos: action.user.todos}
+        case 'ADD_TODO':
+            return {loading: false, todos: sortDueDates(state.push(action.todo))}
+        case 'PATCH_TODO':
+            const editedTodoIndex = state.todos.findIndex(todo => todo.id === action.todo.id)
+        
+            return {
+                loading: false,
+                todos: [...state.todos.slice(0, editedTodoIndex), action.todo, ...state.todos.slice(editedTodoIndex + 1)]
+            }
+        case 'REMOVE_TODO':
+            const deletedTodoIndex = state.todos.findIndex(todo => todo.id === action.todo.id)
+
+            return {
+                loading: false,
+                todos: [...state.todos.slice(0, deletedTodoIndex), ...state.todos.slice(deletedTodoIndex + 1)]
+            }
+        case 'EDITING_TODOS':
+            return {...state, loading: true}
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     user: userReducer,
@@ -181,7 +211,8 @@ const rootReducer = combineReducers({
     modal: modalReducer,
     login: loginReducer,
     toast: toastReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    todos: todoReducer
 })
 
 export default rootReducer
