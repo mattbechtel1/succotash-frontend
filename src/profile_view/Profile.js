@@ -45,7 +45,7 @@ const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}})
             <Container>
               <Card className={classes.card}>
                 <CardContent>  
-                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={todos} /> }
+                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={todos} defaultField={null} /> }
                 </CardContent>
               </Card>
             </Container>

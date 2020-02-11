@@ -15,8 +15,8 @@ class NewDeadlineForm extends React.Component {
         this.state = {
             note: "",
             due_date: new Date(),
-            field: null,
-            field_id: '',
+            field: props.defaultField,
+            field_id: props.defaultField ? props.defaultField.id : '',
             bed_id: ''
         }
     }
@@ -32,6 +32,9 @@ class NewDeadlineForm extends React.Component {
             field_id: e.target.value,
             field: this.props.user.fields.find(field => field.id === e.target.value)
         })
+        if (!e.target.value) {
+            this.setState({bed_id: ''})
+        }
     }
 
     changeDueDate = (date) => {
@@ -66,11 +69,11 @@ class NewDeadlineForm extends React.Component {
 
     render() {        
         const {note, due_date, field, field_id, bed_id} = this.state
+        const {fields: {fields}} = this.props
         const classes = this.useStyles()
 
-        const fieldOptions = this.props.user ? this.props.user.fields.map(field => (
+        const fieldOptions = fields.map(field => (
             { key: field.name, value: field.id, text: field.name }))
-            : []
         
         const bedOptions = field ? field.beds.map(bed => (
             { key: bed.name, value: bed.id, text: bed.name }
@@ -165,4 +168,4 @@ class NewDeadlineForm extends React.Component {
     }
 }
 
-export default connect(({user}) => ({user}), {removeSecondModal, addTodo})(NewDeadlineForm)
+export default connect(({user, fields}) => ({user, fields}), {removeSecondModal, addTodo})(NewDeadlineForm)

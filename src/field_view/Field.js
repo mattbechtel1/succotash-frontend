@@ -29,6 +29,10 @@ const useStyles = makeStyles(theme => ({
     mainGrid: {
         marginTop: theme.spacing(3),
       },
+    card: {
+        display: 'inline-block',
+        backgroundColor: theme.palette.primary.main
+    },
 }));
 
 
@@ -133,7 +137,7 @@ const FieldGrid = ({modal, history, field, toast, todos: {loading: tLoading}, lo
                 <Container>
                     <Card className={classes.card}>
                         <CardContent>
-                            {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={field.todos} />}
+                            {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={field.todos} defaultField={field} />}
                         </CardContent>
                     </Card>
                 </Container>

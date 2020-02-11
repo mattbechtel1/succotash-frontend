@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const TodoContainer = ({todos, modal2, removeSecondModal, displaySecondModal}) => {
+const TodoContainer = ({todos=[], modal2, removeSecondModal, displaySecondModal, defaultField}) => {
   const classes = useStyles()
   
   return <>
@@ -31,7 +31,7 @@ const TodoContainer = ({todos, modal2, removeSecondModal, displaySecondModal}) =
     <Button onClick={displaySecondModal}>Add a New Deadline</Button>
 
     <Dialog open={modal2} onClose={removeSecondModal} aria-labelledby="form-dialog-title">
-       <NewDeadlineForm />
+       <NewDeadlineForm defaultField={defaultField} />
     </Dialog>
   </>
 }
