@@ -55,7 +55,7 @@ export function editStageStatus(status) {
 }
 
 export function changeCrop(crop) {
-    return {type: 'EDIT_TEMP_CROP', crop}
+    return {type: 'EDIT_CROP', crop}
 }
 
 export function saveStage(stage, date) {
@@ -77,7 +77,7 @@ export function saveStage(stage, date) {
                     bed_id: stage.bed_id,
                     start_date: stage.start_date,
                     due_date: stage.due_date,
-                    tempCrop: stage.tempCrop
+                    crop_id: stage.crop ? stage.crop.id : null
                 })
             })
             .then(response => response.json())
@@ -331,4 +331,8 @@ export function displaySecondModal() {
 
 export function removeSecondModal() {
     return {type: 'REMOVE_SECONDARY_MODAL'}
+}
+
+export function seedCrops(crops) {
+    return {type: 'SEED_CROPS', crops}
 }

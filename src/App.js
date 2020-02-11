@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { saveNewUser, setUser, loginUser, loadPage, pageLoaded } from './redux_files/actions'
+import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from './redux_files/actions'
 import Profile from './profile_view/Profile'
 import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
@@ -17,21 +17,40 @@ import Home from './home_view/Home'
 
 class App extends React.Component {
   componentDidMount() {
-   let token = localStorage.getItem('token')
+    this.props.loadPage()
+    let token = localStorage.getItem('token')
+    
     if (token) {
-      this.props.loadPage()
-      fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
-        method: 'GET',
-        headers: {'Authorization': `Bearer ${token}` }
+      Promise.all([
+        fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${token}` }
+        }),
+        fetch(process.env.REACT_APP_DOMAIN + '/crops')
+      ])
+      .then(responses => {
+        responses[0].json()
+        .then(userData => this.props.setUser(userData))
+
+        responses[1].json()
+        .then(cropData => this.props.seedCrops(cropData))
       })
+      .then(() => this.props.pageLoaded())
+
+    } else {
+      fetch(process.env.REACT_APP_DOMAIN + '/crops')
       .then(response => response.json())
-      .then(user => {
-        if (!user.error) {
-          this.props.setUser(user)
-          this.props.pageLoaded()
-        }
+      .then(crops => {
+        this.props.seedCrops(crops)
+        this.props.pageLoaded()
       })
     }
+        // .then(response => response.json())
+        // .then(user => {
+        //   if (!user.error) {
+        //     this.props.setUser(user)
+        //     this.props.pageLoaded()
+        //   }
   }
 
   render() {
@@ -81,4 +100,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, pageLoaded})(App);
+export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, seedCrops, pageLoaded})(App);

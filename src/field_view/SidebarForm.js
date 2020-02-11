@@ -1,7 +1,7 @@
 import React from 'react'
 import SaveButton from '../components/SaveButton'
 import WarningToast from '../components/WarningToast'
-import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, Input, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
+import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, InputLabel, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
 import { DatePicker } from '@material-ui/pickers'
 import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { editStageDate, editStageStatus, changeCrop, displayWarning } from '../redux_files/actions'
 import { constructDate } from '../helpers/dates'
 import { datePickerOverride } from '../helpers/themeOverrides'
+import { menuItemsByOptions } from '../helpers/conversions'
 
 class SidebarForm extends React.Component {
     constructor(props) {
@@ -32,6 +33,10 @@ class SidebarForm extends React.Component {
         this.setState({cropWriter: false})
     }
 
+    cropById = (id) => {
+        return this.props.crops.find(crop => crop.id === id)
+    }
+
     changeDueDate = (date) => {
         if (!date || date.getTime() >= new Date(this.props.stage.start_date).getTime()) {
             this.props.editStageDate('due_date', date)
@@ -46,7 +51,10 @@ class SidebarForm extends React.Component {
         const materialClasses = this.useStyles
         const pickerOverride = this.datePickerOverride
         const {cropWriter} = this.state
-        const {start_date, due_date, status, tempCrop: crop } = this.props.stage
+        const {start_date, due_date, status, crop } = this.props.stage
+        const cropOptions = this.props.crops.map(crop => (
+            { key: crop.id, value: crop.id, text: crop.name}
+        ))
 
         return <>
             <WarningToast />
@@ -54,17 +62,24 @@ class SidebarForm extends React.Component {
             {/* Display/change crop */}
             <ListItem button onClick={this.openCropWriter}>
                 <span className='vert-center-span'>
-                {cropWriter ? 
-                    <Input value={crop || ''} 
-                    placeholder='Crop for this stage' 
-                    onChange={(e) => this.props.changeCrop(e.target.value)} 
-                    variant='filled' 
-                    onBlur={this.closeCropWriter} />
-                    : 
-                    <>
-                        <ListItemIcon><EditIcon /></ListItemIcon>
-                        <ListItemText primary={crop ? 'Crop: ' + crop : 'Crop: No crop set'} />
-                    </>
+                <ListItemIcon><EditIcon /></ListItemIcon>
+                {cropWriter ?
+                    <FormControl> 
+                        <InputLabel id="crop-select-label">Crop</InputLabel>
+                        <Select
+                            labelId='crop-select-label'
+                            name='crop'
+                            value={crop ? crop.id : ''}
+                            onChange={(e) => this.props.changeCrop(this.cropById(e.target.value))}
+                            onBlur={this.closeCropWriter}
+                        >
+                            {menuItemsByOptions(cropOptions)}
+                            <MenuItem onClick={() => console.log('you want to build a new crop')}>Add an Option</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                : 
+                    <ListItemText primary={crop ? 'Crop: ' + crop.name : 'Crop: No crop set'} />
                 }
                 </span>
             </ListItem>
@@ -127,6 +142,6 @@ class SidebarForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({stage, sidebar}) => ({stage, sidebar})
+const mapStateToProps = ({stage, sidebar, crops}) => ({stage, sidebar, crops})
 
 export default connect(mapStateToProps, { editStageDate, displayWarning, editStageStatus, changeCrop})(SidebarForm)

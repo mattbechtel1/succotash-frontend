@@ -35,8 +35,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-
 const FieldGrid = ({modal, history, field, toast, todos: {loading: tLoading}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)

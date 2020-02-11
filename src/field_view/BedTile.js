@@ -38,7 +38,7 @@ const BedTile = ({bed, date, setBed}) => {
                         {bed.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="h3">
-                        {stage.tempCrop ? stage.tempCrop : 'No Crop Set'}
+                        {stage.crop ? stage.crop.name : 'No Crop Set'}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="h3">
                         Stage: {capitalize(stage.status)}

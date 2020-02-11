@@ -6,6 +6,7 @@ import {datePickerOverride} from '../helpers/themeOverrides'
 import { Event as CalIcon} from '@material-ui/icons'
 import { removeSecondModal, addTodo } from '../redux_files/actions'
 import { connect } from 'react-redux'
+import { menuItemsByOptions } from '../helpers/conversions'
 
 
 class NewDeadlineForm extends React.Component {
@@ -134,7 +135,7 @@ class NewDeadlineForm extends React.Component {
                             onChange={this.changeField}
                         >
                             <MenuItem value={''} key='default'>None</MenuItem>
-                            {fieldOptions.map(option => <MenuItem value={option.value} key={option.key}>{option.text}</MenuItem>)}
+                            {menuItemsByOptions(fieldOptions)}
                         </Select>
                     </FormControl>
 

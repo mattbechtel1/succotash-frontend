@@ -14,6 +14,7 @@ function dateReducer(state=today, action) {
 }
 
 function userReducer(state=null, action) {
+    // debugger
     switch (action.type) {
         case 'LOGIN':
             return action.user
@@ -143,10 +144,10 @@ function stageReducer(state=null, action) {
                 ...state,
                 status: action.status
             }
-        case 'EDIT_TEMP_CROP': 
+        case 'EDIT_CROP': 
             return {
                 ...state,
-                tempCrop: action.crop
+                crop: action.crop
             }
         default: 
             return state
@@ -212,6 +213,15 @@ function todoReducer(state={
     }
 }
 
+function cropReducer(state=[], action) {
+    switch(action.type) {
+        case 'SEED_CROPS':
+            return action.crops
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     user: userReducer,
@@ -224,7 +234,8 @@ const rootReducer = combineReducers({
     login: loginReducer,
     toast: toastReducer,
     loading: loadingReducer,
-    todos: todoReducer
+    todos: todoReducer,
+    crops: cropReducer
 })
 
 export default rootReducer
