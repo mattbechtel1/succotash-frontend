@@ -5,7 +5,7 @@ import {CssBaseline, Grid, Container, CircularProgress, Backdrop, Card, CardCont
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
 import StandardCards from '../components/StandardCards';
-import TodoContainer from './TodoContainer'
+import TodoContainer from '../components/TodoContainer'
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = ({fields: {fields, loading}, todos: {loading: tLoading}}) => {
+const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}}) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +45,7 @@ const Profile = ({fields: {fields, loading}, todos: {loading: tLoading}}) => {
             <Container>
               <Card className={classes.card}>
                 <CardContent>  
-                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer /> }
+                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={todos} /> }
                 </CardContent>
               </Card>
             </Container>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
@@ -10,6 +10,7 @@ import SidebarForm from './SidebarForm'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
+import TodoContainer from '../components/TodoContainer'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -24,12 +25,15 @@ const useStyles = makeStyles(theme => ({
     drawer: {
         background: theme.palette.primary.light,
         color: theme.palette.primary.contrastText
-    }
+    },
+    mainGrid: {
+        marginTop: theme.spacing(3),
+      },
 }));
 
 
 
-const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, toast, todos: {loading: tLoading}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -125,6 +129,17 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
                 {rows}
             </Grid>
 
+            <Grid container spacing={3} className={classes.mainGrid}>
+                <Container>
+                    <Card className={classes.card}>
+                        <CardContent>
+                            {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={field.todos} />}
+                        </CardContent>
+                    </Card>
+                </Container>
+            </Grid>
+
+
             <div style={{padding: '10px'}}>
                 <WarningButton
                 variant="contained"
@@ -184,11 +199,12 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
                 </WarningButton>
                 </DialogActions>
             </Dialog>
+
         </Container>
     }
 }
 
-const mapStateToProps = ({fields, bed, date, sidebar, modal, toast}, {match}) => {
+const mapStateToProps = ({fields, bed, date, sidebar, modal, toast, todos}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
@@ -197,6 +213,7 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, toast}, {match}) =>
         date,
         sidebar,
         modal,
+        todos,
         toast: toast.open
     }
 }

@@ -71,7 +71,7 @@ class App extends React.Component {
               </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
               <Route path='/'>
-                <Home />
+                { user ? <Redirect to='/profile' /> : <Home /> }
               </Route>
             </Switch>
             }

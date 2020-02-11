@@ -262,8 +262,8 @@ export function addTodo(todo, user) {
                 note: todo.note,
                 due_date: todo.due_date,
                 complete: false,
-                field_id: (todo.field_id ? todo.field_did : null),
-                bed_id: (todo.bed_id ? todo.bed_id : null)
+                field_id: todo.field_id,
+                bed_id: todo.bed_id
             })
         })
         .then(response => response.json())

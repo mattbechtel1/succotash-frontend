@@ -59,6 +59,6 @@ export function constructDate(date) {
 }
 
 export function sortDueDates(array) {
-    return array.sort((a, b) => b.due_date - a.due_date)
+    return array.sort((a, b) => constructDate(a.due_date) - constructDate(b.due_date))
 }
             
