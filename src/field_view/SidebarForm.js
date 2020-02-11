@@ -100,7 +100,7 @@ class SidebarForm extends React.Component {
                         <MenuItem value='unused'><em>Unused</em></MenuItem>
                         <MenuItem value='tilled'>Tilled</MenuItem>
                         <MenuItem value='planted'>Planted</MenuItem>
-                        <MenuItem value='growth'>Growth</MenuItem>
+                        <MenuItem value='growing'>Growing</MenuItem>
                         <MenuItem value='harvest'>Harvest</MenuItem>
                         <MenuItem value='barren'>Barren</MenuItem>
                     </Select>

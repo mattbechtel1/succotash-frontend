@@ -81,9 +81,15 @@ const Header = ({user}) => {
       { user ? <LogoutButton /> : <SignUpButton />}
       </Toolbar>
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-          <Button>
-            {user ? <>Welcome, {user.username}</> : <>Welcome</>}
-          </Button>
+          <Link
+            to='/'
+            className={classes.toolbarLink}
+          >
+            <Button>
+              {user ? <>Welcome, {user.username}</> : <>Welcome</>}
+            </Button>
+          </Link>
+
         <Link
           to='/'
           className={classes.toolbarLink}
@@ -92,6 +98,7 @@ const Header = ({user}) => {
             Home
           </Button>
         </Link>
+        
         {user ?
           <><Link
           to='/profile'

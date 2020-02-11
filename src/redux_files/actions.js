@@ -371,6 +371,7 @@ export function addCrop(crop) {
                 }, 3000)
             } else {
                 dispatch({type: 'ADD_CROP', crop: data})
+                dispatch(changeCrop(data))
                 dispatch(pageLoaded())
             }
         })

@@ -30,12 +30,12 @@ class App extends React.Component {
       ])
       .then(responses => {
         responses[0].json()
-        .then(userData => this.props.setUser(userData))
+        .then(this.props.setUser)
 
         responses[1].json()
-        .then(cropData => this.props.seedCrops(cropData))
+        .then(this.props.seedCrops)
       })
-      .then(() => this.props.pageLoaded())
+      .then(this.props.pageLoaded)
 
     } else {
       fetch(process.env.REACT_APP_DOMAIN + '/crops')
@@ -65,7 +65,7 @@ class App extends React.Component {
                 { user ? <Redirect to='/profile' /> : <Login submitAction={saveNewUser} displayText='Sign up'/> }
               </Route>
               <Route path='/profile'>
-                { user ? <Profile /> : <Redirect to='/login' /> }
+                { user ? <Profile /> : <Redirect to='/' /> }
               </Route>
               <Route exact path='/field/new'>
                 { !user ? <Redirect to='/' /> :
@@ -77,7 +77,7 @@ class App extends React.Component {
                 }
               </Route>
               <Route path='/field/:slug'>
-                <Field />
+                { user ? <Field /> : <Redirect to='/' /> }
               </Route>
               <Route exact path='/logout'>
                 <Logout />
