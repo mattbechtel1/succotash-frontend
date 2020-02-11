@@ -248,10 +248,38 @@ export function removeModal() {
     return {type: 'REMOVE_MODAL'}
 }
 
+export function addTodo(todo, user) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user.id,
+                note: todo.note,
+                due_date: todo.due_date,
+                complete: false,
+                field_id: (todo.field_id ? todo.field_did : null),
+                bed_id: (todo.bed_id ? todo.bed_id : null)
+            })
+        })
+        .then(response => response.json())
+        .then(newTodo => {
+            if (newTodo.error) {
+                alert(newTodo.error)
+            } else {
+                dispatch({type: 'ADD_TODO', todo: newTodo})
+            }
+        })
+    }
+}
+
 export function editingTodos() {
     return {type: 'EDITING_TODOS'}
 }
-
 
 export function toggleTodo(todo) {
     return (dispatch) => {
@@ -295,4 +323,12 @@ export function removeTodo(todo) {
             }, 3000)
         })
     }
+}
+
+export function displaySecondModal() {
+    return {type: 'DISPLAY_SECONDARY_MODAL'}
+}
+
+export function removeSecondModal() {
+    return {type: 'REMOVE_SECONDARY_MODAL'}
 }

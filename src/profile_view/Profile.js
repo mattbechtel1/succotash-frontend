@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {CssBaseline, Grid, Container, CircularProgress, Backdrop} from '@material-ui/core';
+import {CssBaseline, Grid, Container, CircularProgress, Backdrop, Card, CardContent} from '@material-ui/core';
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
 import StandardCards from '../components/StandardCards';
@@ -16,9 +16,13 @@ const useStyles = makeStyles(theme => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
+  card: {
+    display: 'inline-block',
+    backgroundColor: theme.palette.primary.main
+  },
 }));
 
-const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
+const Profile = ({fields: {fields, loading}, todos: {loading: tLoading}}) => {
   const classes = useStyles();
 
   return (
@@ -30,17 +34,23 @@ const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
       <Container maxWidth="lg">
         <main style={{paddingTop: '10px'}}>
           <ProfileHeader />
+          
           <Grid container spacing={4}>
             {fields.map(field => (
               <FieldTile key={field.name} field={field} />
             ))}
           </Grid>
-          {todos.length > 0 ? <Grid container spacing={3} className={classes.mainGrid}>
-              <TodoContainer />
+
+          <Grid container spacing={3} className={classes.mainGrid}>
+            <Container>
+              <Card className={classes.card}>
+                <CardContent>  
+                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer /> }
+                </CardContent>
+              </Card>
+            </Container>
           </Grid>
-          :
-          null
-          }
+
           <Grid container spacing={5} className={classes.mainGrid}>
             <StandardCards />
           </Grid>

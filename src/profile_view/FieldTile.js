@@ -31,12 +31,11 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
                 <Typography component="h2" variant="h5">
                   {name}
                 </Typography>
+                
                 <Typography variant="subtitle1" color="textSecondary">
                   Last updated: {unformatThenFormat(updated_at)}
                 </Typography>
-                {/* <Typography variant="subtitle1" paragraph>
-                  {field.description}
-                </Typography> */}
+
                 <Typography variant="subtitle1" color="primary">
                   View & Edit Field
                 </Typography>

@@ -116,6 +116,17 @@ function modalReducer(state=false, action) {
     }
 }
 
+function modal2Reducer(state=false, action) {
+    switch(action.type) {
+        case 'DISPLAY_SECONDARY_MODAL':
+            return true
+        case 'REMOVE_SECONDARY_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
@@ -209,6 +220,7 @@ const rootReducer = combineReducers({
     sidebar: sidebarStateReducer,
     stage: stageReducer,
     modal: modalReducer,
+    modal2: modal2Reducer,
     login: loginReducer,
     toast: toastReducer,
     loading: loadingReducer,
