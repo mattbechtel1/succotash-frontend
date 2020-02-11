@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { constructDate, sortDueDates } from '../helpers/dates'
-import { convertBedToCurrentStage } from '../helpers/conversions'
+import { convertBedToCurrentStage, sortAlphabetically } from '../helpers/conversions'
 
 var today = constructDate(new Date())
 
@@ -128,6 +128,17 @@ function modal2Reducer(state=false, action) {
     }
 }
 
+function modal3Reducer(state=false, action) {
+    switch(action.type) {
+        case 'DISPLAY_TERTIARY_MODAL':
+            return true
+        case 'REMOVE_TERTIARY_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
 function stageReducer(state=null, action) {
     switch(action.type) {
         case 'SET_BED':
@@ -217,6 +228,8 @@ function cropReducer(state=[], action) {
     switch(action.type) {
         case 'SEED_CROPS':
             return action.crops
+        case 'ADD_CROP':
+            return sortAlphabetically([...state, action.crop])
         default:
             return state
     }
@@ -231,6 +244,7 @@ const rootReducer = combineReducers({
     stage: stageReducer,
     modal: modalReducer,
     modal2: modal2Reducer,
+    modal3: modal3Reducer,
     login: loginReducer,
     toast: toastReducer,
     loading: loadingReducer,

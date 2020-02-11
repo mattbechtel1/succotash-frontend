@@ -45,12 +45,6 @@ class App extends React.Component {
         this.props.pageLoaded()
       })
     }
-        // .then(response => response.json())
-        // .then(user => {
-        //   if (!user.error) {
-        //     this.props.setUser(user)
-        //     this.props.pageLoaded()
-        //   }
   }
 
   render() {

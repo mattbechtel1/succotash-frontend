@@ -1,8 +1,8 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import WarningToast from './WarningToast'
+import { formStyles } from '../helpers/themeOverrides'
 import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
 
@@ -37,25 +37,6 @@ class NewFieldForm extends React.Component {
         })
     }
 
-    useStyles = () => {
-        return makeStyles(theme => ({
-            root: {
-              '& > *': {
-                margin: theme.spacing(1),
-                width: 400,
-              },
-            },
-            formControl: {
-                minWidth: 50,
-                marginRight: '12px',
-                marginLeft: '12px'
-              },
-            selectEmpty: {
-                marginTop: '12px'
-              },
-          }));          
-    }
-
     submitHandler = (e) => {
         e.preventDefault()
         if (this.state.fieldName) {
@@ -67,7 +48,7 @@ class NewFieldForm extends React.Component {
     }
 
     render() {
-        const classes = this.useStyles()
+        const classes = formStyles()
         const {removeModal} = this.props
         const {fieldName, xAxis, yAxis } = this.state
 

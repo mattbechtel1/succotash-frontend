@@ -1,4 +1,5 @@
 import {constructDate, formatUSA} from '../helpers/dates'
+import {capitalize} from '../helpers/conversions'
 
 const URL_DOMAIN = process.env.REACT_APP_DOMAIN
 
@@ -333,6 +334,45 @@ export function removeSecondModal() {
     return {type: 'REMOVE_SECONDARY_MODAL'}
 }
 
+export function displayThirdModal() {
+    return {type: 'DISPLAY_TERTIARY_MODAL'}
+}
+
+export function removeThirdModal() {
+    return {type: 'REMOVE_TERTIARY_MODAL'}
+}
+
 export function seedCrops(crops) {
     return {type: 'SEED_CROPS', crops}
+}
+
+export function addCrop(crop) {
+    return (dispatch) => {
+        dispatch(loadPage())
+        fetch(URL_DOMAIN + '/crops', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: capitalize(crop.name),
+                default_measure: crop.default_measure.toLowerCase(),
+                category: crop.category.toLowerCase()
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(pageLoaded())
+                dispatch(displayWarning(data.error))
+                setTimeout(() => {
+                    dispatch(hideToast())
+                }, 3000)
+            } else {
+                dispatch({type: 'ADD_CROP', crop: data})
+                dispatch(pageLoaded())
+            }
+        })
+    }
 }

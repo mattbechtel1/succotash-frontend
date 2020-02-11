@@ -4,9 +4,10 @@ import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, Li
 import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning } from '../redux_files/actions'
+import NewCropForm from './NewCropForm'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning, removeThirdModal } from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const FieldGrid = ({modal, history, field, toast, todos: {loading: tLoading}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, modal3, todos: {loading: tLoading}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -202,11 +203,15 @@ const FieldGrid = ({modal, history, field, toast, todos: {loading: tLoading}, lo
                 </DialogActions>
             </Dialog>
 
+            <Dialog open={modal3} onClose={removeThirdModal} aria-labelledby='form-dialog-title'>
+                <NewCropForm />
+            </Dialog>
+
         </Container>
     }
 }
 
-const mapStateToProps = ({fields, bed, date, sidebar, modal, toast, todos}, {match}) => {
+const mapStateToProps = ({fields, bed, date, sidebar, modal, modal3, todos}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
@@ -215,9 +220,9 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, toast, todos}, {mat
         date,
         sidebar,
         modal,
-        todos,
-        toast: toast.open
+        modal3,
+        todos
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, saveBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, removeThirdModal, saveBedName, deleteField})(FieldGrid))

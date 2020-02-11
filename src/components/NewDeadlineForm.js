@@ -81,7 +81,7 @@ class NewDeadlineForm extends React.Component {
         )) : []
 
         return  <>
-            <DialogTitle id="form-dialog-title">Add a New Item to Your Task List</DialogTitle>
+            <DialogTitle>Add a New Item to Your Task List</DialogTitle>
             <form className={classes.root} onSubmit={this.submitHandler}>
                 <DialogContent>
                     <DialogContentText>
