@@ -3,7 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Card, CardActionArea, CardContent, CardMedia, Hidden } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { unformatThenFormat } from '../helpers/dates'
-import Wheat from '../assets/wheat.jpg'
+import wheat from '../assets/wheat.jpg'
+import basil from '../assets/basil.jpg'
+import chickpeas from '../assets/chickpeas.jpg'
+import grass from '../assets/grass.jpg'
+import dirt from '../assets/dirt.jpg'
+import flowers from '../assets/flowers.jpg'
 
 
 const useStyles = makeStyles( theme => ({
@@ -19,8 +24,12 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
+const imageDictionary = [wheat, basil, chickpeas, grass, dirt, flowers]
+
 export default function FieldLink({field: {slug, updated_at, name}}) {
   const classes = useStyles();
+  const randImg = imageDictionary[Math.floor(Math.random() * 6)]
+
   return (
     <Grid item xs={12} md={6}>
       <Link to={`/field/${slug}`} className='text-link'>
@@ -42,7 +51,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
               </CardContent>
             </div>
             <Hidden xsDown>
-              <CardMedia className={classes.cardMedia} image={Wheat} title='wheat'/>
+              <CardMedia className={classes.cardMedia} image={randImg} title='image'/>
             </Hidden>
           </Card>
         </CardActionArea>
