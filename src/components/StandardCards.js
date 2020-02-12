@@ -22,9 +22,9 @@ const StandardCards = ({user}) => {
   const classes = useStyles();
 
   const social = [
-    { name: 'GitHub', icon: GitHubIcon, link: '/github' },
-    // { name: 'Twitter', icon: TwitterIcon, link: '#' },
-    // { name: 'Facebook', icon: FacebookIcon, link: '#' },
+    { name: 'GitHub', icon: GitHubIcon, link: 'https://github.com/mattbechtel1/succotash-frontend' },
+    { name: 'Twitter', icon: TwitterIcon, link: '#' },
+    { name: 'Facebook', icon: FacebookIcon, link: '#' },
   ]
 
   return (
@@ -36,14 +36,14 @@ const StandardCards = ({user}) => {
           </Typography>
           
           {social.map(network => (
-            <Link display="block" to={network.link} key={network.name} className='text-link'>
+            <a display='block' href={network.link} key={network.name} className='text-link'>
               <Grid container direction="row" spacing={1} alignItems="center">
                 <Grid item>
                   <network.icon />
                 </Grid>
                 <Grid item>{network.name}</Grid>
               </Grid>
-            </Link>
+            </a>
         ))}
         </Paper>
       </Grid>
@@ -54,7 +54,7 @@ const StandardCards = ({user}) => {
             About
           </Typography>
           <Typography>
-            Succotash helps farmers track growth and crop cycles. 
+            Succotash helps farmers and gardeners track and plan crop cycles. 
             {user ? null : <Link to='/signup' className='text-link'> Sign up today!</Link>}
           </Typography>
         </Paper>

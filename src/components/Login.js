@@ -60,14 +60,17 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{paddingTop: '1px'}}>
       <div className={classes.paper}>
+        
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+
         <Typography component="h1" variant="h5">
           {displayText}
         </Typography>
+        
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -85,17 +88,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
                 autoFocus
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid> */}
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"

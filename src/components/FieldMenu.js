@@ -13,7 +13,7 @@ const FieldMenu = ({classes, fields: {fields}}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  
   return (
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>

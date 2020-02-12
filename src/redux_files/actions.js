@@ -1,4 +1,5 @@
 import {constructDate, formatUSA} from '../helpers/dates'
+import {capitalize} from '../helpers/conversions'
 
 const URL_DOMAIN = process.env.REACT_APP_DOMAIN
 
@@ -55,7 +56,7 @@ export function editStageStatus(status) {
 }
 
 export function changeCrop(crop) {
-    return {type: 'EDIT_TEMP_CROP', crop}
+    return {type: 'EDIT_CROP', crop}
 }
 
 export function saveStage(stage, date) {
@@ -77,7 +78,7 @@ export function saveStage(stage, date) {
                     bed_id: stage.bed_id,
                     start_date: stage.start_date,
                     due_date: stage.due_date,
-                    tempCrop: stage.tempCrop
+                    crop_id: stage.crop ? stage.crop.id : null
                 })
             })
             .then(response => response.json())
@@ -160,7 +161,6 @@ export function loginUser(username, password) {
         })
         .then(response => response.json())
         .then(data => {
-            
             if (data.error) {
                 alert(data.message)
             } else {
@@ -205,10 +205,51 @@ export function saveReset() {
     return {type:'SAVE_RESET'}
 }
 
+export function editFieldName(name) {
+    return {type: 'EDIT_FIELD_NAME', name}
+}
+
+export function editFieldPic(pic) {
+    return {type: 'EDIT_FIELD_PIC', pic}
+}
+
+export function resetForm() {
+    return {type: 'RESET_FORM'}
+}
+
+export function saveFieldUpdate(fieldId, name, pic, history) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch(`${URL_DOMAIN}/fields/${fieldId}`, {
+            method: 'PATCH',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                pic: pic 
+            })
+        })
+        .then(response => response.json())
+        .then(field => {
+            if (field.error) {
+                alert(field.error)
+                dispatch({type: 'STOP_LOAD'})
+                dispatch(resetForm())
+            } else {
+                dispatch({type: 'REPLACE_SINGLE_FIELD', field})
+                dispatch(resetForm())
+                history.push(`/field/${field.slug}`)
+            }
+        })
+    }
+}
+
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch(loadPage())
-        fetch(`http://localhost:2020/fields/${field.id}`, {
+        fetch(`${URL_DOMAIN}/fields/${field.id}`, {
             method: 'DELETE',
             headers: {
                 accept: 'application/json',
@@ -247,4 +288,183 @@ export function displayModal() {
 
 export function removeModal() {
     return {type: 'REMOVE_MODAL'}
+}
+
+export function addTodo(todo, user) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user.id,
+                note: todo.note,
+                due_date: todo.due_date,
+                complete: false,
+                field_id: todo.field_id,
+                bed_id: todo.bed_id
+            })
+        })
+        .then(response => response.json())
+        .then(newTodo => {
+            if (newTodo.error) {
+                alert(newTodo.error)
+            } else {
+                dispatch({type: 'ADD_TODO', todo: newTodo})
+            }
+        })
+    }
+}
+
+export function editingTodos() {
+    return {type: 'EDITING_TODOS'}
+}
+
+export function toggleTodo(todo) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos/${todo.id}`, {
+            method: 'PATCH',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({complete: !todo.complete})
+        })
+        .then(response => response.json())
+        .then(patchedTodo => {
+            if (patchedTodo.error) {
+                alert(patchedTodo.error)
+            } else {
+                dispatch({type: 'PATCH_TODO', todo: patchedTodo})
+            }
+        })
+    }
+}
+
+export function removeTodo(todo) {
+    return (dispatch) => {
+        dispatch(editingTodos())
+        fetch(`${URL_DOMAIN}/todos/${todo.id}`, {
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message)
+            dispatch(displayWarning('Todo action has been removed.'))
+            dispatch({type: 'REMOVE_TODO', todo})
+            setTimeout(() => {
+                dispatch(hideToast())
+            }, 3000)
+        })
+    }
+}
+
+export function displaySecondModal() {
+    return {type: 'DISPLAY_SECONDARY_MODAL'}
+}
+
+export function removeSecondModal() {
+    return {type: 'REMOVE_SECONDARY_MODAL'}
+}
+
+export function displayThirdModal() {
+    return {type: 'DISPLAY_TERTIARY_MODAL'}
+}
+
+export function removeThirdModal() {
+    return {type: 'REMOVE_TERTIARY_MODAL'}
+}
+
+export function displayFourthModal() {
+    return {type: 'DISPLAY_QUARTERNARY_MODAL'}
+}
+
+export function removeFourthModal() {
+    return {type: 'REMOVE_QUARTERNARY_MODAL'}
+}
+
+export function seedCrops(crops) {
+    return {type: 'SEED_CROPS', crops}
+}
+
+export function addCrop(crop) {
+    return (dispatch) => {
+        dispatch(loadPage())
+        fetch(URL_DOMAIN + '/crops', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: capitalize(crop.name),
+                default_measure: crop.default_measure.toLowerCase(),
+                category: crop.category.toLowerCase()
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(pageLoaded())
+                dispatch(displayWarning(data.error))
+                setTimeout(() => {
+                    dispatch(hideToast())
+                }, 3000)
+            } else {
+                dispatch({type: 'ADD_CROP', crop: data})
+                dispatch(changeCrop(data))
+                dispatch(pageLoaded())
+            }
+        })
+    }
+}
+
+export function addFavorite(crop_id, user_id) {
+    return (dispatch) => {
+        dispatch({type: 'UPDATING_FAVORITES'})
+        fetch(`${URL_DOMAIN}/favorites`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                crop_id,
+                user_id
+            })
+        })
+        .then(response => response.json())
+        .then(favorite => {
+            dispatch({type: 'ADD_FAVORITE', favorite})
+        })
+    }
+}
+
+export function removeFavorite(favorite_id) {
+    return (dispatch) => {
+        dispatch({type: 'UPDATING_FAVORITES'})
+        fetch(`${URL_DOMAIN}/favorites/${favorite_id}`, {
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                dispatch({type: 'REMOVE_FAVORITE', favorite_id})
+            }
+        })
+    }
 }

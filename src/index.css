@@ -85,14 +85,6 @@ code {
   background-image: 'url(./assets/dirt.jpg)';
 }
 
-.inner-square {
-  background: #efffef;
-  position: absolute; 
-  height: 10px;
-  right: 0px;
-  left: 0px;
-}
-
 .extend-bottom {
   margin-bottom: 30px;
 }
@@ -112,3 +104,20 @@ code {
 .margin {
   margin-top: '1px'
 }
+
+.image-box {
+  background-color: #fff176;
+  padding-top: calc(100%);
+  position: relative;
+  border-radius: 25px;
+}
+
+.inner-square {
+  background: #efffef;
+  position: absolute; 
+  height: 10px;
+  right: 0px;
+  left: 0px;
+  border: 2px solid black;
+}
+

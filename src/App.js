@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import { connect } from 'react-redux'
 import Navigation from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { saveNewUser, setUser, loginUser, loadPage, pageLoaded } from './redux_files/actions'
+import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from './redux_files/actions'
 import Profile from './profile_view/Profile'
 import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
@@ -17,19 +17,32 @@ import Home from './home_view/Home'
 
 class App extends React.Component {
   componentDidMount() {
-   let token = localStorage.getItem('token')
+    this.props.loadPage()
+    let token = localStorage.getItem('token')
+    
     if (token) {
-      this.props.loadPage()
-      fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
-        method: 'GET',
-        headers: {'Authorization': `Bearer ${token}` }
+      Promise.all([
+        fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${token}` }
+        }),
+        fetch(process.env.REACT_APP_DOMAIN + '/crops')
+      ])
+      .then(responses => {
+        responses[0].json()
+        .then(this.props.setUser)
+
+        responses[1].json()
+        .then(this.props.seedCrops)
       })
+      .then(this.props.pageLoaded)
+
+    } else {
+      fetch(process.env.REACT_APP_DOMAIN + '/crops')
       .then(response => response.json())
-      .then(user => {
-        if (!user.error) {
-          this.props.setUser(user)
-          this.props.pageLoaded()
-        }
+      .then(crops => {
+        this.props.seedCrops(crops)
+        this.props.pageLoaded()
       })
     }
   }
@@ -52,7 +65,7 @@ class App extends React.Component {
                 { user ? <Redirect to='/profile' /> : <Login submitAction={saveNewUser} displayText='Sign up'/> }
               </Route>
               <Route path='/profile'>
-                { user ? <Profile /> : <Redirect to='/login' /> }
+                { user ? <Profile /> : <Redirect to='/' /> }
               </Route>
               <Route exact path='/field/new'>
                 { !user ? <Redirect to='/' /> :
@@ -71,7 +84,7 @@ class App extends React.Component {
               </Route>
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
               <Route path='/'>
-                <Home />
+                { user ? <Redirect to='/profile' /> : <Home /> }
               </Route>
             </Switch>
             }
@@ -81,4 +94,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, pageLoaded})(App);
+export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, seedCrops, pageLoaded})(App);

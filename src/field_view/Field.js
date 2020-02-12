@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.primary.main
     },
     button: {
-        padding: theme.spacing(1),
+        margin: theme.spacing(1),
         flexShrink: 0,    
     }
 }));
