@@ -377,3 +377,45 @@ export function addCrop(crop) {
         })
     }
 }
+
+export function addFavorite(crop_id, user_id) {
+    return (dispatch) => {
+        dispatch({type: 'UPDATING_FAVORITES'})
+        fetch(`${URL_DOMAIN}/favorites`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                crop_id,
+                user_id
+            })
+        })
+        .then(response => response.json())
+        .then(favorite => {
+            dispatch({type: 'ADD_FAVORITE', favorite})
+        })
+    }
+}
+
+export function removeFavorite(favorite_id) {
+    return (dispatch) => {
+        dispatch({type: 'UPDATING_FAVORITES'})
+        fetch(`${URL_DOMAIN}/favorites/${favorite_id}`, {
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                dispatch({type: 'REMOVE_FAVORITE', favorite_id})
+            }
+        })
+    }
+}

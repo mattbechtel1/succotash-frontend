@@ -235,6 +235,36 @@ function cropReducer(state=[], action) {
     }
 }
 
+function favoritesReducer(state={
+    favorites: [],
+    loading: false
+}, action) {
+    switch(action.type) {
+        case 'LOGIN':
+            return {
+                loading: false,
+                favorites: action.user.favorites
+            }
+        case 'ADD_FAVORITE':
+            return {
+                loading: false,
+                favorites: [...state.favorites, action.favorite]
+            }
+        case 'REMOVE_FAVORITE':
+            return {
+                loading: false,
+                favorites: state.favorites.filter(favorite => favorite.id !== action.favorite_id)
+            }
+        case 'UPDATING_FAVORITES':
+            return {
+                ...state,
+                loading: true
+            }     
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     date: dateReducer,
     user: userReducer,
@@ -249,7 +279,8 @@ const rootReducer = combineReducers({
     toast: toastReducer,
     loading: loadingReducer,
     todos: todoReducer,
-    crops: cropReducer
+    crops: cropReducer,
+    favorites: favoritesReducer
 })
 
 export default rootReducer

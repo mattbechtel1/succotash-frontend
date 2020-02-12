@@ -28,3 +28,14 @@ export const formStyles = () => {
           }
       }));          
 }
+
+export const cardStyles = () => {
+  return makeStyles(theme => ({
+    title: { 
+      fontSize: 14,
+    },
+    cardDetails: {
+      flex: 1,
+    },
+  }))
+}

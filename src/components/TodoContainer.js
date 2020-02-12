@@ -1,23 +1,14 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
 import {List, Typography, Button, Dialog} from '@material-ui/core'
 import {connect} from 'react-redux'
 import TodoBullet from './TodoBullet'
 import NewDeadlineForm from './NewDeadlineForm'
+import {cardStyles} from '../helpers/themeOverrides'
 import {removeSecondModal, displaySecondModal} from '../redux_files/actions'
 
 
-const useStyles = makeStyles(theme => ({
-  title: { 
-    fontSize: 14,
-  },
-  cardDetails: {
-    flex: 1,
-  },
-}))
-
 const TodoContainer = ({todos=[], modal2, removeSecondModal, displaySecondModal, defaultField}) => {
-  const classes = useStyles()
+  const classes = cardStyles()
   
   return <>
     <Typography className={classes.title} color="textSecondary" gutterBottom>

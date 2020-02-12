@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {CssBaseline, Grid, Container, CircularProgress, Backdrop, Card, CardContent} from '@material-ui/core';
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
+import FavoritesBar from './FavoritesBar'
 import StandardCards from '../components/StandardCards';
 import TodoContainer from '../components/TodoContainer'
 
@@ -51,9 +52,20 @@ const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}})
             </Container>
           </Grid>
 
+          <Grid container spacing={3} className={classes.mainGrid}>
+            <Container>
+              <Card className={classes.card}>
+                <CardContent>  
+                  {tLoading ? <CircularProgress color='secondary' /> : <FavoritesBar /> }
+                </CardContent>
+              </Card>
+            </Container>
+          </Grid>
+
           <Grid container spacing={5} className={classes.mainGrid}>
             <StandardCards />
           </Grid>
+
         </main>
       </Container>
     </React.Fragment>
