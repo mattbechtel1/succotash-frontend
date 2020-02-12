@@ -38,7 +38,8 @@ function loadingReducer(state=false, action) {
 
 function fieldsReducer(state={
     fields: [],
-    loading: false}, action) {
+    loading: false 
+}, action) {
         switch(action.type) {
             case 'LOGIN':
                 return {...state, fields: action.user.fields, loading: false}
@@ -62,8 +63,45 @@ function fieldsReducer(state={
                     loading: false,
                     fields: state.fields.filter(field => field.id !== action.id)
                 }
+            case 'REPLACE_SINGLE_FIELD':
+                const fieldIdx = state.fields.findIndex(field => field.id === action.field.id)
+                return {
+                    ...state,
+                    loading: false,
+                    fields: [...state.fields.slice(0, fieldIdx), action.field, ...state.fields.slice(fieldIdx + 1)]
+                 }
+            case 'STOP_LOAD':
+                return {
+                    ...state,
+                    loading: false
+                }
             default:
                 return state
+    }
+}
+
+function fieldFormReducer(state={
+    name: 'YOUR FIELD NAME HERE',
+    pic: 'YOUR PIC URL HERE'
+}, action) {
+    switch(action.type) {
+        case 'EDIT_FIELD_NAME':
+           return {
+               ...state,
+               name: action.name
+           }
+        case 'EDIT_FIELD_PIC':
+            return {
+                ...state,
+                pic: action.pic
+            }
+        case 'RESET_FORM':
+            return {
+                name: 'YOUR FIELD NAME HERE',
+                pic: 'YOUR PIC URL HERE'
+            }
+        default:
+            return state
     }
 }
 
@@ -133,6 +171,17 @@ function modal3Reducer(state=false, action) {
         case 'DISPLAY_TERTIARY_MODAL':
             return true
         case 'REMOVE_TERTIARY_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
+function modal4Reducer(state=false, action) {
+    switch(action.type) {
+        case 'DISPLAY_QUARTERNARY_MODAL':
+            return true
+        case 'REMOVE_QUARTERNARY_MODAL':
             return false
         default:
             return state
@@ -269,12 +318,14 @@ const rootReducer = combineReducers({
     date: dateReducer,
     user: userReducer,
     fields: fieldsReducer,
+    fieldForm: fieldFormReducer,
     bed: bedReducer,
     sidebar: sidebarStateReducer,
     stage: stageReducer,
     modal: modalReducer,
     modal2: modal2Reducer,
     modal3: modal3Reducer,
+    modal4: modal4Reducer,
     login: loginReducer,
     toast: toastReducer,
     loading: loadingReducer,

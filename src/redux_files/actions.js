@@ -205,6 +205,47 @@ export function saveReset() {
     return {type:'SAVE_RESET'}
 }
 
+export function editFieldName(name) {
+    return {type: 'EDIT_FIELD_NAME', name}
+}
+
+export function editFieldPic(pic) {
+    return {type: 'EDIT_FIELD_PIC', pic}
+}
+
+export function resetForm() {
+    return {type: 'RESET_FORM'}
+}
+
+export function saveFieldUpdate(fieldId, name, pic, history) {
+    return (dispatch) => {
+        dispatch({type: 'LOADING_FIELDS'})
+        fetch(`${URL_DOMAIN}/fields/${fieldId}`, {
+            method: 'PATCH',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                pic: pic 
+            })
+        })
+        .then(response => response.json())
+        .then(field => {
+            if (field.error) {
+                alert(field.error)
+                dispatch({type: 'STOP_LOAD'})
+                dispatch(resetForm())
+            } else {
+                dispatch({type: 'REPLACE_SINGLE_FIELD', field})
+                dispatch(resetForm())
+                history.push(`/field/${field.slug}`)
+            }
+        })
+    }
+}
+
 export function deleteField(field, history) {
     return (dispatch) => {
         dispatch(loadPage())
@@ -340,6 +381,14 @@ export function displayThirdModal() {
 
 export function removeThirdModal() {
     return {type: 'REMOVE_TERTIARY_MODAL'}
+}
+
+export function displayFourthModal() {
+    return {type: 'DISPLAY_QUARTERNARY_MODAL'}
+}
+
+export function removeFourthModal() {
+    return {type: 'REMOVE_QUARTERNARY_MODAL'}
 }
 
 export function seedCrops(crops) {

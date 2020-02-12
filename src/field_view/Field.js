@@ -7,11 +7,12 @@ import BedTile from './BedTile'
 import NewCropForm from './NewCropForm'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning, removeThirdModal } from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal } from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
 import TodoContainer from '../components/TodoContainer'
+import EditFieldForm from './EditFieldForm'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -48,8 +49,8 @@ const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, clos
         }
     }
 
-    const handleButtonClick = () => {
-        if (!loading) {displayModal()}
+    const handleButtonClick = (modalCallback) => {
+        if (!loading) {modalCallback()}
     }
 
     const confirmDelete = () => {
@@ -144,10 +145,19 @@ const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, clos
 
 
             <div style={{padding: '10px'}}>
+                <Button
+                    variant='contained'
+                    disabled={loading}  
+                    color='secondary'
+                    onClick={() => handleButtonClick(displayFourthModal)}  
+                >   
+                    EDIT THIS FIELD
+                </Button>
+
                 <WarningButton
                 variant="contained"
                 disabled={loading}
-                onClick={handleButtonClick}
+                onClick={() => handleButtonClick(displayModal)}
                 >
                     DELETE THIS FIELD
                 </WarningButton>
@@ -206,6 +216,10 @@ const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, clos
                 </DialogActions>
             </Dialog>
 
+            <Dialog open={modal4} onClose={removeFourthModal} aria-labelledby='form-dialog-title'>
+                <EditFieldForm field={field}/>
+            </Dialog>
+
             <Dialog open={modal3} onClose={removeThirdModal} aria-labelledby='form-dialog-title'>
                 <NewCropForm />
             </Dialog>
@@ -214,7 +228,7 @@ const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, clos
     }
 }
 
-const mapStateToProps = ({fields, bed, date, sidebar, modal, modal3, todos}, {match}) => {
+const mapStateToProps = ({fields, bed, date, sidebar, modal, modal4, modal3, todos}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
@@ -224,8 +238,9 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, modal3, todos}, {ma
         sidebar,
         modal,
         modal3,
+        modal4,
         todos
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, removeThirdModal, saveBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField})(FieldGrid))

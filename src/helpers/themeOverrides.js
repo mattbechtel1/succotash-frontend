@@ -25,7 +25,11 @@ export const formStyles = () => {
           },
         selectEmpty: {
             marginTop: '12px'
-          }
+          },
+        large: {
+          width: theme.spacing(7),
+          height: theme.spacing(7),
+        },
       }));          
 }
 

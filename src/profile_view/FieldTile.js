@@ -24,11 +24,18 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
-const imageDictionary = [wheat, basil, chickpeas, grass, dirt, flowers]
-
-export default function FieldLink({field: {slug, updated_at, name}}) {
+const imageDictionary = {
+  'wheat': wheat,
+  'soil': dirt,
+  'legumes': chickpeas,
+  'herb': basil,
+  'flowers': flowers,
+  'grass': grass
+}
+  
+  
+export default function FieldLink({field: {slug, updated_at, name, pic}}) {
   const classes = useStyles();
-  const randImg = imageDictionary[Math.floor(Math.random() * 6)]
 
   return (
     <Grid item xs={12} md={6}>
@@ -51,7 +58,7 @@ export default function FieldLink({field: {slug, updated_at, name}}) {
               </CardContent>
             </div>
             <Hidden xsDown>
-              <CardMedia className={classes.cardMedia} image={randImg} title='image'/>
+              <CardMedia className={classes.cardMedia} image={imageDictionary[pic]} title='image'/>
             </Hidden>
           </Card>
         </CardActionArea>
