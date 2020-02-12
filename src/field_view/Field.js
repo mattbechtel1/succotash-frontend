@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, CircularProgress, Input, Drawer, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, removeModal, displayWarning } from '../redux_files/actions'
+import NewCropForm from './NewCropForm'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal } from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
+import TodoContainer from '../components/TodoContainer'
+import EditFieldForm from './EditFieldForm'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -24,12 +27,21 @@ const useStyles = makeStyles(theme => ({
     drawer: {
         background: theme.palette.primary.light,
         color: theme.palette.primary.contrastText
+    },
+    mainGrid: {
+        marginTop: theme.spacing(3),
+      },
+    card: {
+        display: 'inline-block',
+        backgroundColor: theme.palette.primary.main
+    },
+    button: {
+        padding: theme.spacing(1),
+        flexShrink: 0,    
     }
 }));
 
-
-
-const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, displayWarning, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -41,8 +53,8 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
         }
     }
 
-    const handleButtonClick = () => {
-        if (!loading) {displayModal()}
+    const handleButtonClick = (modalCallback) => {
+        if (!loading) {modalCallback()}
     }
 
     const confirmDelete = () => {
@@ -125,11 +137,33 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
                 {rows}
             </Grid>
 
+            <Grid container spacing={3} className={classes.mainGrid}>
+                <Container>
+                    <Card className={classes.card}>
+                        <CardContent>
+                            <TodoContainer todos={todos.filter(todo => todo.field_id === field.id)} defaultField={field} />
+                        </CardContent>
+                    </Card>
+                </Container>
+            </Grid>
+
+
             <div style={{padding: '10px'}}>
+                <Button
+                    className={classes.button}
+                    variant='contained'
+                    disabled={loading}  
+                    color='secondary'
+                    onClick={() => handleButtonClick(displayFourthModal)}  
+                >   
+                    EDIT THIS FIELD
+                </Button>
+
                 <WarningButton
-                variant="contained"
-                disabled={loading}
-                onClick={handleButtonClick}
+                    className={classes.button}
+                    variant="contained"
+                    disabled={loading}
+                    onClick={() => handleButtonClick(displayModal)}
                 >
                     DELETE THIS FIELD
                 </WarningButton>
@@ -170,25 +204,37 @@ const FieldGrid = ({modal, history, field, toast, loading, closeBedInput, remove
             {/* Confirmation for Delete Button Modal */}
             <Dialog open={modal} onClose={removeModal} aria-labelledby="form-dialog-title">
                 <DialogTitle id="alert-dialog-title"><AlertIcon />Are you sure you want to delete your field?</DialogTitle>
+                
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Deleting a field is an irreversible action. Please confirm that you would like to remove this field. 
-                </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">
+                        Deleting a field is an irreversible action. Please confirm that you would like to remove this field. 
+                    </DialogContentText>
                 </DialogContent>
+
                 <DialogActions>
-                <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
-                    Take me back!
-                </Button>
-                <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
-                    Confirm Deletion
-                </WarningButton>
+                    <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
+                        Take me back!
+                    </Button>
+
+                    <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
+                        Confirm Deletion
+                    </WarningButton>
                 </DialogActions>
             </Dialog>
+
+            <Dialog open={modal4} onClose={removeFourthModal} aria-labelledby='form-dialog-title'>
+                <EditFieldForm field={field}/>
+            </Dialog>
+
+            <Dialog open={modal3} onClose={removeThirdModal} aria-labelledby='form-dialog-title'>
+                <NewCropForm />
+            </Dialog>
+
         </Container>
     }
 }
 
-const mapStateToProps = ({fields, bed, date, sidebar, modal, toast}, {match}) => {
+const mapStateToProps = ({fields, bed, date, sidebar, modal, modal4, modal3, todos}, {match}) => {
     return {
         field: fields.fields.find(field => field.slug === match.params.slug),
         loading: fields.loading,
@@ -197,8 +243,10 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, toast}, {match}) =>
         date,
         sidebar,
         modal,
-        toast: toast.open
+        modal3,
+        modal4,
+        todos
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, closeBedInput, removeModal, saveBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField})(FieldGrid))
