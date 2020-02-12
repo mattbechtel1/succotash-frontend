@@ -41,7 +41,6 @@ class App extends React.Component {
       fetch(process.env.REACT_APP_DOMAIN + '/crops')
       .then(response => response.json())
       .then(crops => {
-
         this.props.seedCrops(crops)
         this.props.pageLoaded()
       })

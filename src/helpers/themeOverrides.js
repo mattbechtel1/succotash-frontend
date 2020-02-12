@@ -9,8 +9,7 @@ export const datePickerOverride = createMuiTheme(({
     }
 })); 
 
-export const formStyles = () => {
-    return makeStyles(theme => ({
+export const formStyles = makeStyles(theme => ({
         root: {
           '& > *': {
             margin: theme.spacing(1),
@@ -30,16 +29,17 @@ export const formStyles = () => {
           width: theme.spacing(7),
           height: theme.spacing(7),
         },
-      }));          
-}
+  }));          
 
-export const cardStyles = () => {
-  return makeStyles(theme => ({
+export const cardStyles = makeStyles(theme => ({
     title: { 
       fontSize: 14,
     },
     cardDetails: {
       flex: 1,
     },
-  }))
-}
+    green: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.secondary.light
+    }
+}))
