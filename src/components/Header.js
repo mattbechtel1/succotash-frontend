@@ -23,25 +23,28 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     textDecoration: 'none'
   },
+  topToolbarLink: {
+    position: 'absolute',
+    right: 0,
+    flexShrink: 0,
+    textDecoration: 'none'    
+  }
 }));
 
-const SigninButton = () => {
-  return <Link 
-    to='/login'>
-      <Button 
-        variant="outlined" 
-        size="small">
-          Sign in
-      </Button>
-    </Link>
-}
+const SigninButton = () => <Link to='/login'>
+    <Button 
+      variant="outlined" 
+      size="small">
+        Sign in
+    </Button>
+  </Link>
 
 const LogoutButton = () => {
   const classes = useStyles()
 
   return <Link 
     to='/logout'
-    className={classes.toolbarLink}>
+    className={classes.topToolbarLink}>
     <Button size="small">
       Log out
     </Button>
@@ -53,7 +56,7 @@ const SignUpButton = () => {
 
   return <Link 
     to='/signup'
-    className={classes.toolbarLink}>
+    className={classes.topToolbarLink}>
     <Button size="small">
       Register
     </Button>
@@ -66,7 +69,7 @@ const Header = ({user}) => {
   return <div className='top-bottom-bg'>
     <Container>
       <Toolbar className={classes.toolbar}>
-       <></>
+
         <Typography
           component="h2"
           variant="h5"

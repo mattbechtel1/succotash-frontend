@@ -4,6 +4,7 @@ import { formStyles } from '../helpers/themeOverrides'
 import { removeThirdModal, addCrop, displayWarning, hideToast } from '../redux_files/actions'
 import { connect } from 'react-redux'
 import { menuItemsByOptions } from '../helpers/conversions'
+import GreenButton from '../components/GreenButton'
 
 class NewCropForm extends React.Component {
     constructor() {
@@ -129,9 +130,7 @@ class NewCropForm extends React.Component {
                     <Button onClick={removeThirdModal} color='secondary'>
                         Cancel
                     </Button>
-                    <Button type='submit' color='secondary'>
-                        Add Crop
-                    </Button>
+                    <GreenButton type='submit' color='secondary' text={'Add Crop'} />
                 </DialogActions>
             </form>
         </>

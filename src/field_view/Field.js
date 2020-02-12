@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core'
 import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
@@ -11,6 +11,7 @@ import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteF
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
+import GreenButton from '../components/GreenButton'
 import TodoContainer from '../components/TodoContainer'
 import EditFieldForm from './EditFieldForm'
 
@@ -33,7 +34,14 @@ const useStyles = makeStyles(theme => ({
       },
     card: {
         display: 'inline-block',
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.primary.main,
+        margin: theme.spacing(1),
+    },
+    titleCard: {
+        display: 'inline-block',
+        backgroundColor: theme.palette.primary.dark,
+        margin: theme.spacing(1),
+        paddingBottom: theme.spacing(0)
     },
     button: {
         margin: theme.spacing(1),
@@ -77,7 +85,7 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
             <CircularProgress color='primary' thickness={3} />
         </Container>
     
-    // display if field is not matched from URL
+    // display if no field is matched from URL
     } else if (!field) {
         return <div>
                 <Link to='/field/new' className='text-link'>
@@ -125,7 +133,14 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
     
         return <Container style={{paddingTop: '10px'}}>
             <DateBar />
-            <h1 className='brown-text'>{fieldName}</h1>
+           
+            <div>
+            <Card className={classes.titleCard}>
+                <CardContent>
+                    <Typography variant='h4'>{fieldName}</Typography>
+                </CardContent>
+            </Card>
+            </div>
 
             <Grid
                 container
@@ -212,10 +227,7 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
-                        Take me back!
-                    </Button>
-
+                    <GreenButton callback={removeModal} text={<><BackIcon />Take me back!</>} />
                     <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
                         Confirm Deletion
                     </WarningButton>

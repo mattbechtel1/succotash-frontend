@@ -121,3 +121,7 @@ code {
   border: 2px solid black;
 }
 
+.dimmer {
+    z-index: 1;
+    color: '#fff';
+  }

@@ -9,13 +9,13 @@ import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from
 import Profile from './profile_view/Profile'
 import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
-import { Card } from '@material-ui/core'
+import { Card, CircularProgress, Backdrop } from '@material-ui/core'
 import Login from './components/Login'
 import Logout from './components/Logout'
-import {CircularProgress} from '@material-ui/core'
 import Home from './home_view/Home'
 
 class App extends React.Component {
+
   componentDidMount() {
     this.props.loadPage()
     let token = localStorage.getItem('token')
@@ -41,6 +41,7 @@ class App extends React.Component {
       fetch(process.env.REACT_APP_DOMAIN + '/crops')
       .then(response => response.json())
       .then(crops => {
+
         this.props.seedCrops(crops)
         this.props.pageLoaded()
       })
@@ -48,14 +49,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {user, loading} = this.props
+    const {user, loading, fields} = this.props
     
     return <div className="App">
         <Navigation className='top-bottom-bg' />
           <div className='bg-img'>
-            {loading ?
-                <CircularProgress color='primary' thickness={3} />
-              :
             <Switch>
               <Route path='/test' component={TestComponent} />
               <Route path='/login'>
@@ -87,11 +85,13 @@ class App extends React.Component {
                 { user ? <Redirect to='/profile' /> : <Home /> }
               </Route>
             </Switch>
-            }
-        </div>
+          </div>
         <Footer />
+        <Backdrop style={{zIndex: 1}} open={loading || fields.loading}>
+          <CircularProgress color="primary" />
+        </Backdrop>
     </div>
   }
 }
 
-export default connect(({user, loading}) => ({user, loading}), {setUser, loadPage, seedCrops, pageLoaded})(App);
+export default connect(({user, loading, fields}) => ({user, loading, fields}), {setUser, loadPage, seedCrops, pageLoaded})(App);
