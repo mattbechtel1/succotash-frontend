@@ -5,7 +5,7 @@ import { Avatar, Typography, Container, CircularProgress, Dialog, Button, Toolti
 import FavoritesSelector from './FavoritesSelector'
 import { displayThirdModal, removeThirdModal } from '../redux_files/actions'
 
-const FavoritesBar = ({favorites: {favorites, loading}, modal3, displayThirdModal, removeThirdModal}) => {
+const FavoritesBar = ({favorites: {favorites}, modal3, displayThirdModal, removeThirdModal}) => {
     const classes = cardStyles()
 
     return <>
@@ -14,17 +14,11 @@ const FavoritesBar = ({favorites: {favorites, loading}, modal3, displayThirdModa
         </Typography>
 
         <Container style={{display: 'table'}}>
-            {loading ? 
-                <CircularProgress color='secondary' thickness={3} />
-            
-            :
-                <span>
-                    {favorites.map(favorite => <Tooltip title={favorite.crop.name} key={favorite.id}>
-                        <Avatar src={favorite.crop.pic_url} alt={favorite.crop.name} style={{marginRight: '5px', display: 'inline-table'}} />
-                    </Tooltip>)}
-                </span>    
-            }    
-        
+            <span>
+                {favorites.map(favorite => <Tooltip title={favorite.crop.name} key={favorite.id}>
+                    <Avatar src={favorite.crop.pic_url} alt={favorite.crop.name} style={{marginRight: '5px', display: 'inline-table'}} />
+                </Tooltip>)}
+            </span>    
         </Container>
 
         <Button onClick={displayThirdModal}>Adjust Your Favorites</Button>

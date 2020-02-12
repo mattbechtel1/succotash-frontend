@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { makeStyles, FormControlLabel, Checkbox, CircularProgress, DialogTitle, FormControl, FormGroup, DialogActions, Button } from '@material-ui/core'
+import GreenButton from '../components/GreenButton'
+import { makeStyles, FormControlLabel, Checkbox, DialogTitle, FormControl, FormGroup, DialogActions, Button } from '@material-ui/core'
 import { removeThirdModal, addFavorite, removeFavorite } from '../redux_files/actions'
 
 const useStyles = makeStyles(theme => ({
@@ -27,32 +28,25 @@ const FavoritesSelectorForm = ({crops, favorites: {favorites, loading}, user, ad
     return <>
         <DialogTitle>Adjust Your Favorite Products</DialogTitle>
         <FormControl component='fieldset' className={classes.formControl}>
-            { loading ? 
-                <CircularProgress color='secondary' thickness={3} />
-        
-            :
-                <FormGroup row>
-                    {crops.map(crop => {
-                        return <FormControlLabel 
-                            control={
-                                <Checkbox
-                                    checked={!!favorites.find(favorite => favorite.crop_id === crop.id)}
-                                    onChange={toggleFavorite}
-                                    value={crop.id}
-                                    color="secondary"
-                                />}
-                            label={crop.name}
-                            key={crop.id}
-                        />
-                    })}
-                </FormGroup>
-            }
+            <FormGroup row>
+                {crops.map(crop => {
+                    return <FormControlLabel 
+                        control={
+                            <Checkbox
+                                checked={!!favorites.find(favorite => favorite.crop_id === crop.id)}
+                                onChange={toggleFavorite}
+                                value={crop.id}
+                                color="secondary"
+                            />}
+                        label={crop.name}
+                        key={crop.id}
+                    />
+                })}
+            </FormGroup>
         </FormControl>
 
         <DialogActions>
-            <Button onClick={removeThirdModal} color="secondary">
-                Cancel
-            </Button>
+            <GreenButton callback={removeThirdModal} text={<>Close</>} />
         </DialogActions>
     </>
 }

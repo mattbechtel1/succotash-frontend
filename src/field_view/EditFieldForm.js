@@ -1,4 +1,5 @@
 import React from 'react'
+import GreenButton from '../components/GreenButton'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Button, DialogTitle, DialogContent, FormControlLabel, DialogContentText, Tooltip, DialogActions, TextField, Grid, FormControl, RadioGroup, Container, Radio, Avatar } from '@material-ui/core'
@@ -89,9 +90,7 @@ const EditFieldForm = ({field, history, editFieldName, editFieldPic, saveFieldUp
                 <Button onClick={removeFourthModal} color='secondary'>
                     Cancel
                 </Button>
-                <Button type='submit' color='secondary'>
-                    Save Changes
-                </Button>
+                <GreenButton type='submit' text={'Save Changes'} />
             </DialogActions>
         </form>
     </>

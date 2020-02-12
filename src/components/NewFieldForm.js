@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import WarningToast from './WarningToast'
+import GreenButton from './GreenButton'
 import { formStyles } from '../helpers/themeOverrides'
 import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
 import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
@@ -105,9 +106,7 @@ class NewFieldForm extends React.Component {
                 <Button onClick={removeModal} color="secondary">
                     Cancel
                 </Button>
-                <Button type='submit' color="secondary" onClick={removeModal}>
-                    Let's Plant!
-                </Button>
+                <GreenButton type='submit' color="secondary" callback={removeModal} text={"Let's Plant"} />
             </DialogActions>
             </form>
         </>

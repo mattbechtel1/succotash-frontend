@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}}) => {
+const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
   const classes = useStyles();
 
   return (
@@ -46,7 +46,7 @@ const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}})
             <Container>
               <Card className={classes.card}>
                 <CardContent>  
-                  {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={todos} defaultField={null} /> }
+                  <TodoContainer todos={todos} defaultField={null} />
                 </CardContent>
               </Card>
             </Container>
@@ -56,7 +56,7 @@ const Profile = ({fields: {fields, loading}, todos: {loading: tLoading, todos}})
             <Container>
               <Card className={classes.card}>
                 <CardContent>  
-                  {tLoading ? <CircularProgress color='secondary' /> : <FavoritesBar /> }
+                  <FavoritesBar />
                 </CardContent>
               </Card>
             </Container>

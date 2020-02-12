@@ -1,5 +1,6 @@
 import React from 'react';
-import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core/';
+import GreenButton from './GreenButton'
+import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core/'
 import {Link} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,15 +37,7 @@ const useStyles = makeStyles(theme => ({
 const ButtonLink = ({url, text}) => {
   const classes = useStyles()
 
-  return <Button
-      variant='contained'
-      color='secondary'
-      className={classes.submit}
-    >
-      <Link to={url} className={classes.link}>
-        {text}
-      </Link>
-    </Button>
+  return <GreenButton text={<Link to={url} className={classes.link}>{text}</Link>} />
 }
 
 const Login = ({submitAction, displayText, login, changeTextField}) => {
@@ -60,7 +53,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs" style={{paddingTop: '1px'}}>
+    <Container component="main" maxWidth="xs" style={{paddingTop: '1px', paddingBottom: '10px'}}>
       <div className={classes.paper}>
         
         <Avatar className={classes.avatar}>
@@ -114,7 +107,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
           >
             {displayText}
           </Button>
-          <Grid container justify='center'>
+          <Grid container justify='center' style={{padding: '10px'}}>
             <Grid item>
               { displayText === 'Log in' ? 
                   <ButtonLink 

@@ -7,6 +7,7 @@ import { Event as CalIcon} from '@material-ui/icons'
 import { removeSecondModal, addTodo } from '../redux_files/actions'
 import { connect } from 'react-redux'
 import { menuItemsByOptions } from '../helpers/conversions'
+import GreenButton from './GreenButton'
 
 
 class NewDeadlineForm extends React.Component {
@@ -160,9 +161,7 @@ class NewDeadlineForm extends React.Component {
                 <Button onClick={this.props.removeSecondModal} color="secondary">
                     Cancel
                 </Button>
-                <Button type='submit' color="secondary">
-                    Add Task
-                </Button>
+                <GreenButton type='submit' text={<>Add Task</>} />
             </DialogActions>
             </form>
         </>
