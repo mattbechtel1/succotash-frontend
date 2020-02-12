@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const FieldGrid = ({modal, history, field, modal3, todos: {loading: tLoading}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, history, field, modal3, todos: {todos}, loading, closeBedInput, removeModal, beds, displayModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -136,7 +136,7 @@ const FieldGrid = ({modal, history, field, modal3, todos: {loading: tLoading}, l
                 <Container>
                     <Card className={classes.card}>
                         <CardContent>
-                            {tLoading ? <CircularProgress color='secondary' /> : <TodoContainer todos={field.todos} defaultField={field} />}
+                            <TodoContainer todos={todos.filter(todo => todo.field_id === field.id)} defaultField={field} />
                         </CardContent>
                     </Card>
                 </Container>
@@ -188,18 +188,21 @@ const FieldGrid = ({modal, history, field, modal3, todos: {loading: tLoading}, l
             {/* Confirmation for Delete Button Modal */}
             <Dialog open={modal} onClose={removeModal} aria-labelledby="form-dialog-title">
                 <DialogTitle id="alert-dialog-title"><AlertIcon />Are you sure you want to delete your field?</DialogTitle>
+                
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Deleting a field is an irreversible action. Please confirm that you would like to remove this field. 
-                </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">
+                        Deleting a field is an irreversible action. Please confirm that you would like to remove this field. 
+                    </DialogContentText>
                 </DialogContent>
+
                 <DialogActions>
-                <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
-                    Take me back!
-                </Button>
-                <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
-                    Confirm Deletion
-                </WarningButton>
+                    <Button onClick={removeModal} color="secondary" startIcon={<BackIcon />}>
+                        Take me back!
+                    </Button>
+
+                    <WarningButton onClick={confirmDelete} autoFocus startIcon={<DeleteIcon/>}>
+                        Confirm Deletion
+                    </WarningButton>
                 </DialogActions>
             </Dialog>
 

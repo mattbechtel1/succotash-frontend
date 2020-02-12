@@ -77,7 +77,7 @@ class App extends React.Component {
                 }
               </Route>
               <Route path='/field/:slug'>
-                { user ? <Field /> : <Redirect to='/' /> }
+                <Field />
               </Route>
               <Route exact path='/logout'>
                 <Logout />
