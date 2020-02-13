@@ -48,6 +48,11 @@ class NewFieldForm extends React.Component {
         }
     }
 
+    handleCancel = () => {
+        this.props.removeModal()
+        this.props.history.push('/profile')
+    }
+
     render() {
         const classes = formStyles
         const {removeModal} = this.props
@@ -103,7 +108,7 @@ class NewFieldForm extends React.Component {
 
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={removeModal} color="secondary">
+                <Button onClick={this.handleCancel} color="secondary">
                     Cancel
                 </Button>
                 <GreenButton type='submit' color="secondary" callback={removeModal} text={"Let's Plant"} />
@@ -121,4 +126,4 @@ const mapDispatchToProps = (dispatch, {history}) => {
     }
 }
 
-export default withRouter(connect(({user}) => ({user}), mapDispatchToProps)(NewFieldForm))
+export default withRouter(connect(({user}, {history}) => ({user, history}), mapDispatchToProps)(NewFieldForm))
