@@ -33,6 +33,7 @@ const picDictionary = {
 
 const BedTile = ({bed, date, setBed}) => {
     const classes = useStyles()
+    
     const stage = convertBedToCurrentStage(bed, date)
     const cropCat = stage.crop ? stage.crop.category : 'other'
     const cropImg = stage.crop ? stage.crop.pic_url : null

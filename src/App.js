@@ -54,7 +54,7 @@ class App extends React.Component {
         <Navigation className='top-bottom-bg' />
           <div className='bg-img'>
             <Switch>
-              <Route path='/test' component={TestComponent} />
+              {/* <Route path='/test' component={TestComponent} /> */}
               <Route path='/login'>
                 { user ? <Redirect to='/profile' /> : <Login submitAction={loginUser} displayText='Log in' />}
               </Route>

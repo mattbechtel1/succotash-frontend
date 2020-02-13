@@ -14,6 +14,7 @@ import WarningButton from '../components/WarningButton'
 import GreenButton from '../components/GreenButton'
 import TodoContainer from '../components/TodoContainer'
 import EditFieldForm from './EditFieldForm'
+import WarningToast from '../components/WarningToast'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -132,6 +133,7 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
         }
     
         return <Container style={{paddingTop: '10px'}}>
+            <WarningToast />
             <DateBar />
            
             <div>

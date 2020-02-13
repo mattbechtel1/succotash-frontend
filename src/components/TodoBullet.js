@@ -6,11 +6,11 @@ import {ListItem, Checkbox, ListItemText, ListItemSecondaryAction, IconButton} f
 import {Delete as DeleteIcon} from '@material-ui/icons'
 
 const TodoBullet = ({todo, index, toggleTodo, removeTodo}) => {
-    
     const checkClickHandler = () => toggleTodo(todo)
     const deleteClickHandler = () => removeTodo(todo)
     let text = `${unformatThenFormat(todo.due_date)} - ${todo.note}`
-
+    
+    console.log(todo)
     if (todo.field) {
         text = `${text}: ${todo.field.name}`
     }
@@ -18,7 +18,7 @@ const TodoBullet = ({todo, index, toggleTodo, removeTodo}) => {
     if (todo.bed) {
         text = `${text} - ${todo.bed.name}`
     }
-
+    console.log(text)
     return <>
         <ListItem key={todo.id} role={undefined} dense button onClick={checkClickHandler}>
             <Checkbox

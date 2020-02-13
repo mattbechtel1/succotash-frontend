@@ -4,19 +4,21 @@ import {connect} from 'react-redux'
 import TodoBullet from './TodoBullet'
 import NewDeadlineForm from './NewDeadlineForm'
 import {cardStyles} from '../helpers/themeOverrides'
+import {getTime} from 'date-fns'
 import {removeSecondModal, displaySecondModal} from '../redux_files/actions'
 
 
 const TodoContainer = ({todos=[], modal2, removeSecondModal, displaySecondModal, defaultField}) => {
   const classes = cardStyles()
-  
+  const dateString = getTime(new Date())
+
   return <>
       <Typography className={classes.title} color="textSecondary" gutterBottom>
         Upcoming Deadlines
       </Typography>
       
       <List>
-        {todos.map((todo, index) => <TodoBullet todo={todo} index={index} key={`todo-${index}`} />)}
+        {todos.map((todo, index) => <TodoBullet todo={todo} index={index} key={`todo-${index}-${dateString}`} />)}
       </List>
 
       <Button onClick={displaySecondModal}>Add a New Deadline</Button>
@@ -27,8 +29,6 @@ const TodoContainer = ({todos=[], modal2, removeSecondModal, displaySecondModal,
   </>
 }
 
-const mapStateToProps = ({modal2, todos}) => ({
-  modal2,
-})
+const mapStateToProps = ({modal2}) => ({modal2})
 
 export default connect(mapStateToProps, {removeSecondModal, displaySecondModal})(TodoContainer)

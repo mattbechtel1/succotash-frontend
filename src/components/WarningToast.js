@@ -5,7 +5,6 @@ import React from 'react'
 import {hideToast} from '../redux_files/actions'
 
 const WarningToast = ({hideToast, text, open}) => {
-
     function SlideTransition(props) {
         return <Slide {...props} directon='right' />
     }

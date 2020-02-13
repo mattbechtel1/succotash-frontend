@@ -120,7 +120,7 @@ export function saveNewUser(username, password) {
                 localStorage.setItem('token', data.jwt)
                 dispatch({type: 'LOGIN', user: data.user})
             } else {
-                alert(data.error)
+                dispatch(displayWarning(data.error))
             }
         })
         .then(() => {
@@ -178,7 +178,7 @@ export function loginUser(username, password) {
 export function saveNewField(field, user, history) {
     
     return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
+        dispatch(loadPage())
         fetch(URL_DOMAIN + '/fields', {
             method: 'POST',
             headers: {
@@ -195,10 +195,12 @@ export function saveNewField(field, user, history) {
         .then(response => response.json())
         .then(newField => {
             if (newField.error) {
-                alert(newField.error)
+                dispatch(pageLoaded())
+                dispatch(displayWarning(newField.error))
             } else {
                 dispatch({type: 'ADD_FIELD', fieldObj: newField})
                 history.push(`/field/${newField.slug}`)
+                dispatch(pageLoaded())
             }
         })
     }
@@ -222,7 +224,7 @@ export function resetForm() {
 
 export function saveFieldUpdate(fieldId, name, pic, history) {
     return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
+        dispatch(loadPage())
         fetch(`${URL_DOMAIN}/fields/${fieldId}`, {
             method: 'PATCH',
             headers: {
@@ -237,11 +239,12 @@ export function saveFieldUpdate(fieldId, name, pic, history) {
         .then(response => response.json())
         .then(field => {
             if (field.error) {
-                alert(field.error)
-                dispatch({type: 'STOP_LOAD'})
+                dispatch(displayWarning(field.error))
+                dispatch(pageLoaded())
                 dispatch(resetForm())
             } else {
                 dispatch({type: 'REPLACE_SINGLE_FIELD', field})
+                dispatch(pageLoaded())
                 dispatch(resetForm())
                 history.push(`/field/${field.slug}`)
             }
@@ -314,7 +317,8 @@ export function addTodo(todo, user) {
         .then(response => response.json())
         .then(newTodo => {
             if (newTodo.error) {
-                alert(newTodo.error)
+                dispatch(displayWarning(newTodo.error))
+                dispatch(pageLoaded())
             } else {
                 dispatch({type: 'ADD_TODO', todo: newTodo})
             }
@@ -340,7 +344,8 @@ export function toggleTodo(todo) {
         .then(response => response.json())
         .then(patchedTodo => {
             if (patchedTodo.error) {
-                alert(patchedTodo.error)
+                dispatch(displayWarning(patchedTodo.error))
+                dispatch({type: 'NOT_LOADING'})
             } else {
                 dispatch({type: 'PATCH_TODO', todo: patchedTodo})
             }
@@ -361,11 +366,7 @@ export function removeTodo(todo) {
         .then(response => response.json())
         .then(data => {
             console.log(data.message)
-            dispatch(displayWarning('Todo action has been removed.'))
             dispatch({type: 'REMOVE_TODO', todo})
-            setTimeout(() => {
-                dispatch(hideToast())
-            }, 3000)
         })
     }
 }
@@ -464,7 +465,7 @@ export function removeFavorite(favorite_id) {
         .then(response => response.json())
         .then(data => {
             if (data.error) {
-                alert(data.error)
+                dispatch(displayWarning(data.error))
             } else {
                 dispatch({type: 'REMOVE_FAVORITE', favorite_id})
             }

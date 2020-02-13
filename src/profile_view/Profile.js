@@ -5,6 +5,7 @@ import {CssBaseline, Grid, Container, CircularProgress, Backdrop, Card, CardCont
 import ProfileHeader from './ProfileHeader';
 import FieldTile from './FieldTile';
 import FavoritesBar from './FavoritesBar'
+import WarningToast from '../components/WarningToast'
 import StandardCards from '../components/StandardCards';
 import TodoContainer from '../components/TodoContainer'
 
@@ -33,6 +34,7 @@ const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
       </Backdrop>
       <CssBaseline />
       <Container maxWidth="lg">
+        <WarningToast />
         <main style={{paddingTop: '10px'}}>
           <ProfileHeader />
           

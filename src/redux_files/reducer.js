@@ -14,7 +14,6 @@ function dateReducer(state=today, action) {
 }
 
 function userReducer(state=null, action) {
-    // debugger
     switch (action.type) {
         case 'LOGIN':
             return action.user
@@ -268,6 +267,32 @@ function todoReducer(state={
             }
         case 'EDITING_TODOS':
             return {...state, loading: true}
+        case 'NOT_LOADING':
+            return {...state, loading: false}
+        case 'REPLACE_SINGLE_BED':
+            let updatedWithBedName = state.todos.map(todo => {
+                if (todo.bed_id === action.bed.id) {
+                    todo.bed.name = action.bed.name
+                } 
+                return todo
+            })
+
+            return {...state,
+                todos: updatedWithBedName 
+            }
+
+        case 'REPLACE_SINGLE_FIELD':
+            let updatedWithFieldName = state.todos.map(todo => {
+                if (todo.field_id === action.field.id) {
+                     todo.field.name = action.field.name
+                }
+                return todo
+            })
+            
+            return {...state,
+                    todos: updatedWithFieldName 
+            }
+
         default:
             return state
     }
