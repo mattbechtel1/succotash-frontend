@@ -248,7 +248,7 @@ function todoReducer(state={
 }, action) {
     switch (action.type) {
         case 'LOGIN':
-            return {loading: false, todos: action.user.todos}
+            return {loading: false, todos: sortDueDates(action.user.todos)}
         case 'ADD_TODO':
             return {loading: false, todos: sortDueDates(state.todos.concat([action.todo]))}
         case 'PATCH_TODO':
