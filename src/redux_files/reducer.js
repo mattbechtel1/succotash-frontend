@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { constructDate, sortDueDates } from '../helpers/dates'
-import { convertBedToCurrentStage, sortAlphabetically } from '../helpers/conversions'
+import { convertBedToCurrentStage, sortAlphabetically, sortCropNameAlphabetically } from '../helpers/conversions'
 
 var today = constructDate(new Date())
 
@@ -317,12 +317,12 @@ function favoritesReducer(state={
         case 'LOGIN':
             return {
                 loading: false,
-                favorites: action.user.favorites
+                favorites: sortCropNameAlphabetically(action.user.favorites)
             }
         case 'ADD_FAVORITE':
             return {
                 loading: false,
-                favorites: [...state.favorites, action.favorite]
+                favorites: sortCropNameAlphabetically([...state.favorites, action.favorite])
             }
         case 'REMOVE_FAVORITE':
             return {

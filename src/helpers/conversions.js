@@ -21,3 +21,7 @@ export function menuItemsByOptions(options) {
 export function sortAlphabetically(list) {
     return list.sort((a,b) => a > b ? -1 : 1)
 }
+
+export function sortCropNameAlphabetically(favList) {
+    return favList.sort((a,b) => a.crop.name > b.crop.name ? 1 : -1)
+}
