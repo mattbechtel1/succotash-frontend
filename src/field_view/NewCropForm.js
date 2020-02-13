@@ -34,7 +34,7 @@ class NewCropForm extends React.Component {
     }
 
     render() {
-        const classes = formStyles()
+        const classes = formStyles
         const {name, default_measure, category} = this.state
         const {removeThirdModal} = this.props
 
