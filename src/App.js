@@ -51,7 +51,7 @@ class App extends React.Component {
     const {user, loading, fields} = this.props
     
     return <div className="App">
-        <Navigation className='top-bottom-bg' />
+          <Navigation />
           <div className='bg-img'>
             <Switch>
               {/* <Route path='/test' component={TestComponent} /> */}
@@ -85,10 +85,10 @@ class App extends React.Component {
               </Route>
             </Switch>
           </div>
-        <Footer />
-        <Backdrop style={{zIndex: 1}} open={loading || fields.loading}>
-          <CircularProgress color="primary" />
-        </Backdrop>
+      <Footer />
+      <Backdrop style={{zIndex: 1}} open={loading || fields.loading}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </div>
   }
 }

@@ -98,8 +98,11 @@ code {
   display: 'inline-block'
 }
 
-.top-bottom-bg {
+.header-bg {
   background-color: #fff176;
+  position: sticky;
+  top: 0;
+  z-index: 1
 }
 
 .margin {

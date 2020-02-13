@@ -64,7 +64,7 @@ const SignUpButton = () => {
 const Header = ({user}) => {
   const classes = useStyles();
   
-  return <div className='top-bottom-bg'>
+  return <div className='header-bg'>
     <Container>
       <Toolbar className={classes.toolbar}>
 
