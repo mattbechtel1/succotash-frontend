@@ -44,24 +44,22 @@ const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
             ))}
           </Grid>
 
-          <Grid container spacing={3} className={classes.mainGrid}>
-            <Container>
-              <Card className={classes.card}>
-                <CardContent>  
-                  <TodoContainer todos={todos} defaultField={null} />
-                </CardContent>
-              </Card>
-            </Container>
-          </Grid>
+          <Grid container spacing={5}>
+            <Grid item xs={12} md={6}>
+                <Card className={classes.card}>
+                  <CardContent>  
+                    <TodoContainer todos={todos} defaultField={null} />
+                  </CardContent>
+                </Card>
+            </Grid>
 
-          <Grid container spacing={3} className={classes.mainGrid}>
-            <Container>
-              <Card className={classes.card}>
-                <CardContent>  
-                  <FavoritesBar />
-                </CardContent>
-              </Card>
-            </Container>
+            <Grid item xs={12} md={6}>
+                <Card className={classes.card}>
+                  <CardContent>  
+                    <FavoritesBar />
+                  </CardContent>
+                </Card>
+            </Grid>
           </Grid>
 
           <Grid container spacing={5} className={classes.mainGrid}>
