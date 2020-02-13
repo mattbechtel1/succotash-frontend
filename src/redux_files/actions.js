@@ -233,7 +233,7 @@ export function saveFieldUpdate(fieldId, name, pic, history) {
             },
             body: JSON.stringify({
                 name: name,
-                pic: pic 
+                pic_opt: pic 
             })
         })
         .then(response => response.json())
