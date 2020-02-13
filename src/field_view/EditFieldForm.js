@@ -17,7 +17,7 @@ import flowers from '../assets/flowers.jpg'
 const EditFieldForm = ({field, history, editFieldName, editFieldPic, saveFieldUpdate, removeFourthModal, fieldForm: {name, pic}}) => {
     const classes = formStyles
     
-    const {name: defaultName, pic: defaultPic, id} = field
+    const {name: defaultName, pic_opt: defaultPic, id} = field
 
     if (name === 'YOUR FIELD NAME HERE') {
         editFieldName(defaultName)

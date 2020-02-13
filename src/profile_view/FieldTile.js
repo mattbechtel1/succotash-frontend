@@ -34,7 +34,7 @@ const imageDictionary = {
 }
   
   
-export default function FieldLink({field: {slug, updated_at, name, pic}}) {
+export default function FieldLink({field: {slug, updated_at, name, pic_opt}}) {
   const classes = useStyles();
 
   return (
@@ -52,13 +52,13 @@ export default function FieldLink({field: {slug, updated_at, name, pic}}) {
                   Last updated: {unformatThenFormat(updated_at)}
                 </Typography>
 
-                <Typography variant="subtitle1" color="primary">
+                <Typography variant="subtitle1">
                   View & Edit Field
                 </Typography>
               </CardContent>
             </div>
             <Hidden xsDown>
-              <CardMedia className={classes.cardMedia} image={imageDictionary[pic]} title='image'/>
+              <CardMedia className={classes.cardMedia} image={imageDictionary[pic_opt]} title='image'/>
             </Hidden>
           </Card>
         </CardActionArea>
