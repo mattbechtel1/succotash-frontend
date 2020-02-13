@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Toolbar, Button, Typography, Container } from '@material-ui/core';
-import Image from 'material-ui-image'
-import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom';
 import FieldMenu from './FieldMenu'
 import { connect } from 'react-redux'

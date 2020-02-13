@@ -17,7 +17,6 @@ class NewDeadlineForm extends React.Component {
         this.state = {
             note: "",
             due_date: new Date(),
-            field: props.defaultField,
             field_id: props.defaultField ? props.defaultField.id : '',
             bed_id: ''
         }
@@ -49,38 +48,38 @@ class NewDeadlineForm extends React.Component {
         this.props.removeSecondModal()
     }
 
-    useStyles = () => {
-        return makeStyles(theme => ({
-            root: {
-              '& > *': {
-                margin: theme.spacing(1),
-                width: 400,
-              },
-            },  
-            formControl: {
-                minWidth: 50,
-                marginRight: '12px',
-                marginLeft: '12px',
-                marginBottom: '12px'
-              },
-            selectEmpty: {
-                marginTop: '12px'
-              },
-          }));          
-    }
+    useStyles = makeStyles(theme => ({
+        root: {
+            '& > *': {
+            margin: theme.spacing(1),
+            width: 400,
+            },
+        },  
+        formControl: {
+            minWidth: 50,
+            marginRight: '12px',
+            marginLeft: '12px',
+            marginBottom: '12px'
+            },
+        selectEmpty: {
+            marginTop: '12px'
+            },
+    }));          
 
     render() {        
-        const {note, due_date, field, field_id, bed_id} = this.state
+        const {note, due_date, field_id, bed_id} = this.state
         const {fields: {fields}} = this.props
-        const classes = this.useStyles()
-
+        const classes = this.useStyles
+    
         const fieldOptions = fields.map(field => (
             { key: field.name, value: field.id, text: field.name }))
         
-        const bedOptions = field ? field.beds.map(bed => (
+        const activeField = field_id ? fields.find(field => field.id === field_id) : null
+
+        const bedOptions = activeField ? activeField.beds.map(bed => (
             { key: bed.name, value: bed.id, text: bed.name }
         )) : []
-
+        
         return  <>
             <DialogTitle>Add a New Item to Your Task List</DialogTitle>
             <form className={classes.root} onSubmit={this.submitHandler}>
@@ -149,7 +148,7 @@ class NewDeadlineForm extends React.Component {
                             name='bed_id'
                             value={bed_id}
                             onChange={this.changeHandler}
-                            disabled={!field}
+                            disabled={!activeField}
                         >
                             <MenuItem value={''} key='default'>None</MenuItem>
                             {bedOptions.map(option => <MenuItem value={option.value} key={option.key}>{option.text}</MenuItem>)}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, Typography, Button, Dialog, CircularProgress} from '@material-ui/core'
+import {List, Typography, Button, Dialog} from '@material-ui/core'
 import {connect} from 'react-redux'
 import TodoBullet from './TodoBullet'
 import NewDeadlineForm from './NewDeadlineForm'

@@ -22,9 +22,9 @@ const StandardCards = ({user}) => {
   const classes = useStyles();
 
   const social = [
-    { name: 'GitHub', icon: GitHubIcon, link: 'https://github.com/mattbechtel1/succotash-frontend' },
-    { name: 'Twitter', icon: TwitterIcon, link: '#' },
-    { name: 'Facebook', icon: FacebookIcon, link: '#' },
+    { name: 'Twitter', icon: TwitterIcon, link: 'https://twitter.com/AppSuccotash' },
+    { name: 'Facebook', icon: FacebookIcon, link: 'https://www.facebook.com/SuccotashApp/' },
+    { name: 'GitHub', icon: GitHubIcon, link: 'https://github.com/mattbechtel1/succotash-frontend' }
   ]
 
   return (
@@ -36,7 +36,7 @@ const StandardCards = ({user}) => {
           </Typography>
           
           {social.map(network => (
-            <a display='block' href={network.link} key={network.name} className='text-link'>
+            <a display='block' href={network.link} key={network.name} target='_blank' className='text-link' rel="noopener noreferrer">
               <Grid container direction="row" spacing={1} alignItems="center">
                 <Grid item>
                   <network.icon />

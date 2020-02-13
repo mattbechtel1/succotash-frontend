@@ -2,7 +2,7 @@ import React from 'react'
 import GreenButton from '../components/GreenButton'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {Button, DialogTitle, DialogContent, FormControlLabel, DialogContentText, Tooltip, DialogActions, TextField, Grid, FormControl, RadioGroup, Container, Radio, Avatar } from '@material-ui/core'
+import {Button, DialogTitle, DialogContent, FormControlLabel, DialogContentText, Tooltip, DialogActions, TextField, FormControl, RadioGroup, Radio, Avatar } from '@material-ui/core'
 import {formStyles} from '../helpers/themeOverrides'
 import {editFieldName, removeFourthModal, editFieldPic, saveFieldUpdate} from '../redux_files/actions'
 import wheat from '../assets/wheat.jpg'
@@ -15,7 +15,7 @@ import flowers from '../assets/flowers.jpg'
 
 
 const EditFieldForm = ({field, history, editFieldName, editFieldPic, saveFieldUpdate, removeFourthModal, fieldForm: {name, pic}}) => {
-    const classes = formStyles()
+    const classes = formStyles
     
     const {name: defaultName, pic: defaultPic, id} = field
 
@@ -46,8 +46,8 @@ const EditFieldForm = ({field, history, editFieldName, editFieldPic, saveFieldUp
 
     return <>
         <DialogTitle>Edit Field</DialogTitle>
-        <form className={classes.root} onSubmit={submitHandler}>
-            <DialogContent>
+        <form onSubmit={submitHandler}>
+            <DialogContent className={classes.root}>
 
                 <div style={{marginBottom: '12px'}}>
                     <TextField
@@ -65,7 +65,7 @@ const EditFieldForm = ({field, history, editFieldName, editFieldPic, saveFieldUp
                 </div>
 
                 <DialogContentText>
-                    Select a default picture for this field to display on your profile page.
+                    Select a default picture for this field to display alongside the field on your profile page.
                 </DialogContentText>
 
                 <FormControl style={{display: 'flex', marginBottom: '12px'}}>

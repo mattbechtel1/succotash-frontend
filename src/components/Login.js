@@ -3,6 +3,7 @@ import GreenButton from './GreenButton'
 import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core/'
 import {Link} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import WarningToast from './WarningToast'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { changeTextField } from '../redux_files/actions'
@@ -54,6 +55,7 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
 
   return (
     <Container component="main" maxWidth="xs" style={{paddingTop: '1px', paddingBottom: '10px'}}>
+      <WarningToast />
       <div className={classes.paper}>
         
         <Avatar className={classes.avatar}>

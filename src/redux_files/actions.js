@@ -150,7 +150,7 @@ export function pageLoaded() {
 export function loginUser(username, password) {
     
     return (dispatch) => {
-        dispatch({type: 'LOADING_FIELDS'})
+        dispatch(loadPage())
         fetch(URL_DOMAIN + '/api/v1/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -162,9 +162,12 @@ export function loginUser(username, password) {
         .then(response => response.json())
         .then(data => {
             if (data.error) {
-                alert(data.message)
+                dispatch(displayWarning(data.message))
+                setTimeout(() => dispatch(hideToast), 3000)
+                dispatch(pageLoaded())
             } else {
                 localStorage.setItem('token', data.jwt)
+                dispatch(pageLoaded())
                 dispatch(setUser(data.user))
             }
         })

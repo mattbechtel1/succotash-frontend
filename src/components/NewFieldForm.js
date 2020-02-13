@@ -49,7 +49,7 @@ class NewFieldForm extends React.Component {
     }
 
     render() {
-        const classes = formStyles()
+        const classes = formStyles
         const {removeModal} = this.props
         const {fieldName, xAxis, yAxis } = this.state
 
