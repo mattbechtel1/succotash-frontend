@@ -24,6 +24,7 @@ code {
 
 .bg-img {
   background-image: url('./assets/grass.jpg');
+  min-height: 500px
 }
 
 /* .background-field {

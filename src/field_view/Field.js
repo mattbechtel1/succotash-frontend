@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, CircularProgress, Input, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core'
-import { withRouter, Link } from 'react-router-dom'
+import { Container, CircularProgress, Input, Backdrop, Drawer, Card, CardContent, List, ListItem, Divider, ListItemIcon, ListItemText, Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core'
+import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import BedTile from './BedTile'
 import NewCropForm from './NewCropForm'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal } from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal , hideToast} from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import WarningButton from '../components/WarningButton'
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, displayWarning, hideToast, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -81,20 +81,17 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
  
     // display while loading
     if (loading) {        
-        return <Container>
-            <DateBar />
-            <CircularProgress color='primary' thickness={3} />
-        </Container>
+        return <Container><DateBar /></Container>
     
     // display if no field is matched from URL
     } else if (!field) {
-        return <div>
-                <Link to='/field/new' className='text-link'>
-                    <Button variant="contained" style={{margin: '10px'}}>
-                        ADD A NEW FIELD
-                    </Button>
-                </Link>
-            </div>    
+        return <>
+            <Container><DateBar /></Container>
+            <Backdrop style={{zIndex: 1}} open={loading || !field}>
+                <CircularProgress color="primary" />
+            </Backdrop>
+        </>
+
     // display if field is matched from URL
     } else {
         const {x_axis_count, y_axis_count, name: fieldName} = field
@@ -263,4 +260,4 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, modal4, modal3, tod
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField, hideToast})(FieldGrid))
