@@ -41,5 +41,10 @@ export const cardStyles = makeStyles(theme => ({
     green: {
       color: theme.palette.secondary.dark,
       backgroundColor: theme.palette.secondary.light
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+      position: 'absolute'
     }
 }))
