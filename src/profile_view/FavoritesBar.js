@@ -1,16 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {cardStyles} from '../helpers/themeOverrides'
-import { Avatar, Typography, Container, Dialog, Button, Tooltip } from '@material-ui/core'
+import { Avatar, Typography, Container, Dialog, Button, Tooltip, Backdrop, CircularProgress } from '@material-ui/core'
 import FavoritesSelector from './FavoritesSelector'
 
 import { displayThirdModal, removeThirdModal } from '../redux_files/actions'
 
 
-const FavoritesBar = ({favorites: {favorites}, modal3, displayThirdModal, removeThirdModal}) => {
+const FavoritesBar = ({favorites: {favorites, loading}, modal3, displayThirdModal, removeThirdModal}) => {
     const classes = cardStyles()
 
-    return <>
+    return <div className='wrapper'>
+        <Backdrop open={loading} className={classes.backdrop}>
+            <CircularProgress color='secondary' />
+        </Backdrop>
+
         <Typography className={classes.title} color='textSecondary' gutterBottom>
             Favorite Products
         </Typography>
@@ -28,7 +32,7 @@ const FavoritesBar = ({favorites: {favorites}, modal3, displayThirdModal, remove
         <Dialog open={modal3} onClose={removeThirdModal} aria-labelledby='form-dialog-title'>
             <FavoritesSelector />
         </Dialog>
-    </>
+    </div>
 }
 
 export default connect(({favorites, modal3}) => ({favorites, modal3}), {displayThirdModal, removeThirdModal})(FavoritesBar)
