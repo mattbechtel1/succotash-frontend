@@ -4,7 +4,7 @@ import { formStyles } from '../helpers/themeOverrides'
 import { removeThirdModal, addCrop, displayWarning, hideToast } from '../redux_files/actions'
 import { connect } from 'react-redux'
 import { menuItemsByOptions } from '../helpers/conversions'
-import GreenButton from '../components/GreenButton'
+import {GreenButton} from '../components/Buttons'
 
 class NewCropForm extends React.Component {
     constructor() {

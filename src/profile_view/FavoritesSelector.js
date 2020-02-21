@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import GreenButton from '../components/GreenButton'
+import {GreenButton} from '../components/Buttons'
 import { makeStyles, FormControlLabel, Checkbox, DialogTitle, FormControl, FormGroup, DialogActions } from '@material-ui/core'
 import { removeThirdModal, addFavorite, removeFavorite } from '../redux_files/actions'
 
@@ -46,7 +46,7 @@ const FavoritesSelectorForm = ({crops, favorites: {favorites, loading}, user, ad
         </FormControl>
 
         <DialogActions>
-            <GreenButton callback={removeThirdModal} text={<>Close</>} />
+            <GreenButton callback={removeThirdModal} text='Close' />
         </DialogActions>
     </>
 }

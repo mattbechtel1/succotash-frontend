@@ -1,5 +1,5 @@
 import React from 'react'
-import GreenButton from '../components/GreenButton'
+import {GreenButton} from '../components/Buttons'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Button, DialogTitle, DialogContent, FormControlLabel, DialogContentText, Tooltip, DialogActions, TextField, FormControl, RadioGroup, Radio, Avatar } from '@material-ui/core'

@@ -2,10 +2,10 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import WarningToast from './WarningToast'
-import GreenButton from './GreenButton'
 import { formStyles } from '../helpers/themeOverrides'
 import { removeModal, saveNewField, displayWarning } from '../redux_files/actions'
-import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, Button, FormControl, MenuItem } from '@material-ui/core'
+import {DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, FormControl, MenuItem } from '@material-ui/core'
+import { CancelButton, GreenButton } from './Buttons'
 
 class NewFieldForm extends React.Component {
     constructor() {
@@ -33,9 +33,7 @@ class NewFieldForm extends React.Component {
     }
 
     fieldNameChangeHandler = (e) => {
-        this.setState({
-            fieldName: e.target.value
-        })
+        this.setState({ fieldName: e.target.value })
     }
 
     submitHandler = (e) => {
@@ -49,7 +47,10 @@ class NewFieldForm extends React.Component {
     }
 
     handleCancel = () => {
+        // removes modal if on profile page
         this.props.removeModal()
+        
+        // redirects to profile page if on add-new page
         this.props.history.push('/profile')
     }
 
@@ -83,7 +84,7 @@ class NewFieldForm extends React.Component {
                     </div>
 
                     <DialogContentText className={classes.selectEmpty}>
-                        Provide a Size for Your field by the number of beds. Each bed should have the ability to grow a separate crop or set of crops.
+                        Provide a Size for Your field by the number of sub-division. Each sub-division should have the ability to grow a separate crop or set of crops.
                     </DialogContentText>
                     
                     <span className='vert-center-span'>
@@ -107,12 +108,11 @@ class NewFieldForm extends React.Component {
                     </span>
 
                 </DialogContent>
+
                 <DialogActions>
-                <Button onClick={this.handleCancel} color="secondary">
-                    Cancel
-                </Button>
-                <GreenButton type='submit' color="secondary" callback={removeModal} text={"Let's Plant"} />
-            </DialogActions>
+                    <CancelButton onClick={this.handleCancel} />
+                    <GreenButton type='submit' color="secondary" callback={removeModal} text={"Let's Plant"} />
+                </DialogActions>
             </form>
         </>
     }

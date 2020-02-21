@@ -2,10 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom' 
 import { setNewDate, setBed } from '../redux_files/actions'
-import { DatePicker } from '@material-ui/pickers'
-import { Paper, ThemeProvider, makeStyles } from '@material-ui/core'
-import { datePickerOverride } from '../helpers/themeOverrides'
-import { Today as CalendarIcon } from '@material-ui/icons'
+import SuccotashDatePicker from '../components/SuccotashDatePicker'
+import { Paper, makeStyles } from '@material-ui/core'
 
 
 const useStyles = makeStyles(theme => ({
@@ -25,9 +23,15 @@ const CalendarBar = ({date, slug, bed, setBed, setNewDate}) => {
             setBed(bed, date)
         }
     } 
-
+    
     return <Paper elevation={3} className={classes.paper}>
-        <CalendarIcon />
+        <SuccotashDatePicker 
+            value={date}
+            name='field_date'
+            dateChangeAction={handleChange}
+            showToday
+        />
+        {/* <CalendarIcon />
         <ThemeProvider theme={datePickerOverride}>
             <DatePicker 
                 value={date}
@@ -35,7 +39,7 @@ const CalendarBar = ({date, slug, bed, setBed, setNewDate}) => {
                 onChange={d => handleChange(d)}
                 showTodayButton
                 animateYearScrolling /> 
-        </ThemeProvider>
+        </ThemeProvider> */}
     </Paper>
 }
 const mapStateToProps = ({date, bed}, {match}) => ({date, bed, slug: match.params.slug})

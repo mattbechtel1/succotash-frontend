@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 
-function Copyright() {
+const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -32,9 +32,6 @@ export default function Footer() {
         <Typography variant="h6" align="center" gutterBottom>
           Succotash
         </Typography>
-        {/* <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          A Product of Matt Bechtel & the Flatiron School
-        </Typography> */}
         <Copyright />
       </Container>
     </footer>

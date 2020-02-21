@@ -1,5 +1,5 @@
 import React from 'react'
-import {unsetUser} from '../redux_files/actions'
+import { unsetUser } from '../redux_files/actions'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 

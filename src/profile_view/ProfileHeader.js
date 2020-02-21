@@ -67,6 +67,4 @@ return <>
   </>
 }
 
-const mapStateToProps = ({modal}) => ({modal})
-
-export default connect(mapStateToProps, {displayModal, removeModal})(AddFieldLink)
+export default connect(({modal}) => ({modal}), {displayModal, removeModal})(AddFieldLink)

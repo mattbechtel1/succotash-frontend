@@ -1,5 +1,5 @@
 import React from 'react';
-import GreenButton from './GreenButton'
+import {GreenButton} from './Buttons'
 import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core/'
 import {Link} from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const ButtonLink = ({url, text}) => {
   const classes = useStyles()
 
-  return <GreenButton text={<Link to={url} className={classes.link}>{text}</Link>} />
+  return <Link to={url} className={classes.link}><GreenButton text={text} /></Link>
 }
 
 const Login = ({submitAction, displayText, login, changeTextField}) => {

@@ -36,6 +36,8 @@ const FieldMenu = ({classes, fields: {fields}}) => {
             </MenuItem>
           </Link>
         })}
+          
+        {/* New field option always to appear at bottom */}
         <Link to='/field/new'
           className={classes.toolbarLink}
         >
@@ -47,7 +49,4 @@ const FieldMenu = ({classes, fields: {fields}}) => {
     </div>
   );
 }
-
-const mapStateToProps = ({fields}) => ({fields})
-
-export default connect(mapStateToProps)(FieldMenu)
+export default connect(({fields}) => ({fields}))(FieldMenu)

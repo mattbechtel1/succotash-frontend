@@ -10,8 +10,7 @@ import SidebarForm from './SidebarForm'
 import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal , hideToast} from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
-import WarningButton from '../components/WarningButton'
-import GreenButton from '../components/GreenButton'
+import {WarningButton, GreenButton} from '../components/Buttons'
 import TodoContainer from '../components/TodoContainer'
 import EditFieldForm from './EditFieldForm'
 import WarningToast from '../components/WarningToast'
@@ -50,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, displayWarning, hideToast, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')

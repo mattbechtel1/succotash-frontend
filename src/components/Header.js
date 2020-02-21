@@ -29,37 +29,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SigninButton = () => <Link to='/login'>
-    <Button 
-      variant="outlined" 
-      size="small">
-        Sign in
-    </Button>
-  </Link>
-
-const LogoutButton = () => {
+const LogButton = ({text, url, className}) => {
   const classes = useStyles()
 
   return <Link 
-    to='/logout'
-    className={classes.topToolbarLink}>
-    <Button size="small">
-      Log out
-    </Button>
+    to={url}
+    className={className || classes.topToolbarLink}>
+      <Button size="small">{text}</Button>
   </Link>
 }
 
-const SignUpButton = () => {
-  const classes = useStyles()
+const SignUpButton = ({className}) => <LogButton text='Register' url='/signup' className={className} />
 
-  return <Link 
-    to='/signup'
-    className={classes.topToolbarLink}>
-    <Button size="small">
-      Register
-    </Button>
-  </Link>
-}
+const LogoutButton = ({className}) => <LogButton text='Log out' url='/logout' className={className} />
 
 const Header = ({user}) => {
   const classes = useStyles();
@@ -77,19 +59,14 @@ const Header = ({user}) => {
           className={classes.toolbarTitle}
         >
           Succotash
-          {/* <Image src={logo} /> */}
         </Typography>
       { user ? <LogoutButton /> : <SignUpButton />}
       </Toolbar>
+
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-          <Link
-            to='/'
-            className={classes.toolbarLink}
-          >
-            <Button>
-              {user ? <>Welcome, {user.username}</> : <>Welcome</>}
-            </Button>
-          </Link>
+        <Button>
+          {user ? <>Welcome, {user.username}</> : <>Welcome</>}
+        </Button>
 
         <Link
           to='/'
@@ -102,8 +79,8 @@ const Header = ({user}) => {
         
         {user ?
           <><Link
-          to='/profile'
-          className={classes.toolbarLink}
+            to='/profile'
+            className={classes.toolbarLink}
           >
             <Button>
               Profile
@@ -111,7 +88,7 @@ const Header = ({user}) => {
           </Link>
           <FieldMenu classes={classes}/></>
         : 
-          <SigninButton />
+          <SignUpButton className={classes.toolbarLink} />
         }
       </Toolbar>
     </Container>

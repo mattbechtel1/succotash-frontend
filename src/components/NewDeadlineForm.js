@@ -1,14 +1,11 @@
 import React from 'react'
-import {DatePicker} from '@material-ui/pickers'
 import {makeStyles} from '@material-ui/core/styles'
-import {DialogTitle, DialogContent, DialogContentText, TextField, Button, DialogActions, FormControl, ThemeProvider, Select, MenuItem} from '@material-ui/core/'
-import {datePickerOverride} from '../helpers/themeOverrides'
-import { Event as CalIcon} from '@material-ui/icons'
+import {DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormControl,Select, MenuItem} from '@material-ui/core/'
 import { removeSecondModal, addTodo } from '../redux_files/actions'
 import { connect } from 'react-redux'
 import { menuItemsByOptions } from '../helpers/conversions'
-import GreenButton from './GreenButton'
-
+import {GreenButton, CancelButton} from './Buttons'
+import SuccotashDatePicker from './SuccotashDatePicker'
 
 class NewDeadlineForm extends React.Component {
     constructor(props) {
@@ -23,9 +20,7 @@ class NewDeadlineForm extends React.Component {
     }
 
     changeHandler = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        this.setState({[e.target.name]: e.target.value})
     }
 
     changeField = (e) => {
@@ -34,6 +29,7 @@ class NewDeadlineForm extends React.Component {
             field: this.props.user.fields.find(field => field.id === e.target.value)
         })
         if (!e.target.value) {
+            // automatically sets bed to none if there is no field association
             this.setState({bed_id: ''})
         }
     }
@@ -104,29 +100,23 @@ class NewDeadlineForm extends React.Component {
                         />          
                     </div>
 
-                <ThemeProvider theme={datePickerOverride}>
 
                     <DialogContentText className={classes.selectEmpty}>
                         Set an end date for this task:
-                    </DialogContentText>    
+                    </DialogContentText>
            
                     <FormControl className={classes.formControl} style={{marginRight: '12px', marginBottom: '12px'}} >
-                        <span>
-                            <CalIcon />
-                            <DatePicker 
-                                value={due_date}
-                                minDate={'2015-01-01'}
-                                onChange={(d) => this.changeDueDate(d)}
-                                name="due_date"
-                                showTodayButton
-                                animateYearScrolling /> 
-                        </span>
+                        <SuccotashDatePicker 
+                            value={due_date} 
+                            name='due_date'
+                            showToday={true} 
+                            dateChangeAction={this.changeDueDate}
+                        />
                     </FormControl>
-                </ThemeProvider>
 
                     <DialogContentText className={classes.selectEmpty}>
                         Assign this task to a field (optional):
-                    </DialogContentText>  
+                    </DialogContentText>
                     
                     <FormControl className={classes.formControl} style={{marginRight: '12px', marginBottom: '12px'}} >
                         <Select
@@ -140,7 +130,7 @@ class NewDeadlineForm extends React.Component {
                     </FormControl>
 
                     <DialogContentText className={classes.selectEmpty}>
-                        Assign this task to a bed (optional):
+                        Assign this task to a sub-division (optional):
                     </DialogContentText>  
                     
                     <FormControl className={classes.formControl} style={{marginRight: '12px', marginBottom: '12px'}} >
@@ -157,10 +147,8 @@ class NewDeadlineForm extends React.Component {
                 </DialogContent>
                     
             <DialogActions>
-                <Button onClick={this.props.removeSecondModal} color="secondary">
-                    Cancel
-                </Button>
-                <GreenButton type='submit' text={<>Add Task</>} />
+                <CancelButton onClick={this.props.removeSecondModal} />
+                <GreenButton type='submit' text='Add Task' />
             </DialogActions>
             </form>
         </>
