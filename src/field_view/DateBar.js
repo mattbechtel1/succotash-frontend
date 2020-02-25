@@ -31,18 +31,8 @@ const CalendarBar = ({date, slug, bed, setBed, setNewDate}) => {
             dateChangeAction={handleChange}
             showToday
         />
-        {/* <CalendarIcon />
-        <ThemeProvider theme={datePickerOverride}>
-            <DatePicker 
-                value={date}
-                minDate={'2015-01-01'}
-                onChange={d => handleChange(d)}
-                showTodayButton
-                animateYearScrolling /> 
-        </ThemeProvider> */}
     </Paper>
 }
-const mapStateToProps = ({date, bed}, {match}) => ({date, bed, slug: match.params.slug})
 
 const mapDispatchToProps = (dispatch, {history}) => {
     return { 
@@ -51,4 +41,4 @@ const mapDispatchToProps = (dispatch, {history}) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CalendarBar))
+export default withRouter(connect(({date, bed}, {match}) => ({date, bed, slug: match.params.slug}), mapDispatchToProps)(CalendarBar))

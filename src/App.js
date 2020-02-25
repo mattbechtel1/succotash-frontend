@@ -21,6 +21,7 @@ class App extends React.Component {
     let token = localStorage.getItem('token')
     
     if (token) {
+      // if token found, get both user and crop list
       Promise.all([
         fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
           method: 'GET',
@@ -38,6 +39,7 @@ class App extends React.Component {
       .then(this.props.pageLoaded)
 
     } else {
+      // if no token, load only crop list
       fetch(process.env.REACT_APP_DOMAIN + '/crops')
       .then(response => response.json())
       .then(crops => {
@@ -52,37 +54,50 @@ class App extends React.Component {
     
     return <div className="App">
           <Navigation />
+          
           <div className='bg-img'>
             <Switch>
               {/* <Route path='/test' component={TestComponent} /> */}
+              
               <Route path='/login'>
                 { user ? <Redirect to='/profile' /> : <Login submitAction={loginUser} displayText='Log in' />}
               </Route>
+              
               <Route path='/signup'>
                 { user ? <Redirect to='/profile' /> : <Login submitAction={saveNewUser} displayText='Sign up'/> }
               </Route>
+              
               <Route path='/profile'>
                 { user ? <Profile /> : <Redirect to='/' /> }
               </Route>
+              
               <Route exact path='/field/new'>
-                { !user ? <Redirect to='/' /> :
+                { user ?
                   <div style={{display: 'inline-block'}}>
                     <Card style={{marginTop: '10px'}}>
                       <NewFieldForm />
                     </Card>
                   </div>
+
+                :
+                  <Redirect to='/' /> 
                 }
               </Route>
+              
               <Route path='/field/:slug'>
                 <Field />
               </Route>
+              
               <Route exact path='/logout'>
                 <Logout />
               </Route>
+              
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
+              
               <Route path='/'>
                 { user ? <Redirect to='/profile' /> : <Home /> }
               </Route>
+
             </Switch>
           </div>
       <Footer />

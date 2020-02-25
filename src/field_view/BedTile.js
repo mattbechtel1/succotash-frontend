@@ -44,15 +44,22 @@ const BedTile = ({bed, date, setBed}) => {
             <CardActionArea>
                 <Image src={picDictionary[cropCat]} className='rounded-corner' />
                 <CardContent>
+                    
                     <Typography gutterBottom variant="h5" component="h2">
                         {bed.name}
                     </Typography>
+                    
                     <Typography variant="body2" color="textSecondary" component="h3">
-                        <span className='vert-center-span'>{cropImg ? <Avatar src={cropImg} alt={stage.crop.name} style={{marginRight: '5px'}}/> : null} {stage.crop ? stage.crop.name : 'No Crop Set'}</span>
+                        <span className='vert-center-span'>
+                            {cropImg ? <Avatar src={cropImg} alt={stage.crop.name} style={{marginRight: '5px'}}/> : null} 
+                            {stage.crop ? stage.crop.name : 'No Crop Set'}
+                        </span>
                     </Typography>
+                    
                     <Typography variant="body2" color="textSecondary" component="h3">
                         Stage: {capitalize(stage.status)}
                     </Typography>
+                    
                 </CardContent>
             </CardActionArea>
         </Card>

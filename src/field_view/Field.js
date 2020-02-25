@@ -7,7 +7,7 @@ import BedTile from './BedTile'
 import NewCropForm from './NewCropForm'
 import DateBar from './DateBar'
 import SidebarForm from './SidebarForm'
-import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal , hideToast} from '../redux_files/actions'
+import { unsetBed, setNewDate, openBedInput, saveBedName, closeBedInput, deleteField, displayModal, displayFourthModal, removeModal, removeFourthModal, displayWarning, removeThirdModal , hideToast, editFieldName, editFieldPic} from '../redux_files/actions'
 import { Edit as EditIcon, Cancel as CancelIcon, ErrorOutline as AlertIcon, ArrowBack as BackIcon, DeleteForever as DeleteIcon } from '@material-ui/icons'
 import { constructDate } from '../helpers/dates'
 import {WarningButton, GreenButton} from '../components/Buttons'
@@ -18,9 +18,6 @@ import WarningToast from '../components/WarningToast'
 const useStyles = makeStyles(theme => ({
     list: {
       width: 275,
-    },
-    fullList: {
-      width: 'auto',
     },
     gridPad: {
         padding: theme.spacing(1),
@@ -49,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, match: {params: {slug}}}) => {
+const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loading, closeBedInput, removeModal, removeFourthModal, beds, displayModal, displayFourthModal, activeBed, unsetBed, setNewDate, deleteField, saveBedName, openBedInput, date, location, sidebar, removeThirdModal, editFieldName, editFieldPic, match: {params: {slug}}}) => {
     const classes = useStyles()
     const searchParams = new URLSearchParams(location.search)
     const datetime = searchParams.get('date')
@@ -106,7 +103,7 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
                     <Grid 
                         item
                         xs={Math.min(Math.floor(12/x_axis_count), 4)}
-                        key={`${rowCounter}-${colCounter}`}
+                        key={`bed-${bedCounter}`}
                     >
                         <BedTile className={classes.gridPad} bed={beds[bedCounter]} />
                     </Grid>
@@ -167,7 +164,13 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
                     variant='contained'
                     disabled={loading}  
                     color='secondary'
-                    onClick={() => handleButtonClick(displayFourthModal)}  
+                    onClick={() => handleButtonClick(
+                        () => {
+                            editFieldName(fieldName)
+                            editFieldPic(field.pic_opt)
+                            displayFourthModal()
+                        }
+                    )}  
                 >   
                     EDIT THIS FIELD
                 </Button>
@@ -259,4 +262,4 @@ const mapStateToProps = ({fields, bed, date, sidebar, modal, modal4, modal3, tod
     }
 }
 
-export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField, hideToast})(FieldGrid))
+export default withRouter(connect(mapStateToProps, {unsetBed, displayWarning, setNewDate, openBedInput, displayModal, displayFourthModal, closeBedInput, removeModal, removeThirdModal, removeFourthModal, saveBedName, deleteField, hideToast, editFieldName, editFieldPic})(FieldGrid))
