@@ -76,6 +76,15 @@ const Header = ({user}) => {
             Home
           </Button>
         </Link>
+
+        <Link
+          to='/about'
+          className={classes.toolbarLink}
+        >
+          <Button>
+            About
+          </Button>
+        </Link>
         
         {user ?
           <><Link
