@@ -13,6 +13,7 @@ import { Card, CircularProgress, Backdrop } from '@material-ui/core'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Home from './home_view/Home'
+import HowToPage from './about_view/HowTo'
 
 class App extends React.Component {
 
@@ -58,6 +59,10 @@ class App extends React.Component {
           <div className='bg-img'>
             <Switch>
               {/* <Route path='/test' component={TestComponent} /> */}
+
+              <Route path='/about'>
+                <HowToPage />
+              </Route>
               
               <Route path='/login'>
                 { user ? <Redirect to='/profile' /> : <Login submitAction={loginUser} displayText='Log in' />}
