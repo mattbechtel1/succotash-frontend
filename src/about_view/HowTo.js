@@ -1,5 +1,5 @@
 import React from 'react'
-import AboutHeader from '../about_view/AboutHeader'
+import HowToHeader from './HowToHeader'
 import {Container, Grid} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Step from './Step'
@@ -46,7 +46,7 @@ const HowToPage = () => {
 
     return <Container maxWidth='lg'>
         <main style={{paddingTop: '10px'}}>
-            <AboutHeader />
+            <HowToHeader />
             <Grid container spacing={5} className={classes.mainGrid}>
                 {steps.map((step, index) => <Step 
                     imagePosition={alternator[index%2]} 

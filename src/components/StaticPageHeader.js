@@ -32,7 +32,7 @@ const staticHeaderStyles = makeStyles(theme => ({
     },
   }));
 
-export default function PageHeader({onClick, text, image, footer}) {
+const PageHeader = ({onClick, text, image, Tag}) => {
     const classes = staticHeaderStyles()
     
     return <>
@@ -58,10 +58,12 @@ export default function PageHeader({onClick, text, image, footer}) {
                             paragraph>
                                 {text}
                         </Typography>
-                        {footer}
+                        { Tag ? <Tag /> : null }
                     </div>
                 </Grid>
             </Grid>
         </Paper>
     </>
 }
+
+export default PageHeader

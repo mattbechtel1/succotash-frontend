@@ -78,11 +78,11 @@ const Header = ({user}) => {
         </Link>
 
         <Link
-          to='/about'
+          to='/guide'
           className={classes.toolbarLink}
         >
           <Button>
-            About
+            Guide
           </Button>
         </Link>
         

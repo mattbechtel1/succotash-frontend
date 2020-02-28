@@ -36,6 +36,7 @@ const Step = ({imagePosition, title, text, image, modal, displayModal, removeMod
                 disableSpinner
                 aspectRatio={(16/9)}
                 onClick={displayModal}
+                style={{cursor: 'zoom-in'}}
             />
         </Paper>
     </Grid>

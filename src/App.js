@@ -60,7 +60,7 @@ class App extends React.Component {
             <Switch>
               {/* <Route path='/test' component={TestComponent} /> */}
 
-              <Route path='/about'>
+              <Route path='/guide'>
                 <HowToPage />
               </Route>
               

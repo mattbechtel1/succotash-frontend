@@ -9,8 +9,8 @@ import PageHeader from '../components/StaticPageHeader'
 
 const AddFieldLinkHeader = ({displayModal, removeModal, modal}) => {
   
-  const Footer = () => <Typography variant="subtitle1">
-    Click here to add a field to your profile
+  const HeaderTag = () => <Typography variant="subtitle1">
+    Click here to add a farm to your profile
   </Typography>
   
   return <>
@@ -18,7 +18,7 @@ const AddFieldLinkHeader = ({displayModal, removeModal, modal}) => {
       text='Succotash allows anyone with a green thumb to plan and track their crop and produce growth and harvest with a user-friendly online interface.' 
       image={Vegetables}
       onClick={displayModal}
-      footer={Footer}
+      Tag={HeaderTag}
     />
 
     <Dialog 
