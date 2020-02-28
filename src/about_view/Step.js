@@ -1,7 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Grid, Paper } from '@material-ui/core'
+import { Typography, Grid, Paper, Dialog, DialogActions } from '@material-ui/core'
+import { GreenButton } from '../components/Buttons'
 import Image from 'material-ui-image'
+import {displayModal, removeModal} from '../redux_files/actions'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
     sidebarAboutBox: {
@@ -16,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Step = ({imagePosition, title, text, image}) => {
+const Step = ({imagePosition, title, text, image, modal, displayModal, removeModal}) => {
     const classes = useStyles()
 
     const Info = () => <Grid item xs={7}>
@@ -32,22 +35,38 @@ const Step = ({imagePosition, title, text, image}) => {
                 src={image}
                 disableSpinner
                 aspectRatio={(16/9)}
+                onClick={displayModal}
             />
         </Paper>
     </Grid>
+
+    const ImageModal = () => <Dialog open={modal} onClose={removeModal} fullWidth>        
+
+            <Image
+                src={image}
+                disableSpinner
+                aspectRatio={(16/9)}
+            />
+
+        <DialogActions>
+            <GreenButton callback={removeModal} text='Close' />
+        </DialogActions>
+    </Dialog>
 
 
     if (imagePosition === 'right') {
         return <>
             <Info />
             <Animation />
+            <ImageModal />
         </>
     } else {
         return <>
             <Animation />
             <Info />
+            <ImageModal />
         </>
     }
 }
 
-export default Step
+export default connect(({modal}) => ({modal}), {displayModal, removeModal})(Step)
