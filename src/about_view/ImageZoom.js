@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { connect } from 'react-redux'
+import { removeModal } from '../redux_files/actions'
+
 import { Dialog, DialogActions } from '@material-ui/core'
 import { GreenButton } from '../components/Buttons'
-import { removeModal } from '../redux_files/actions'
 import Image from 'material-ui-image'
 
 

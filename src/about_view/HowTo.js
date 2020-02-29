@@ -1,8 +1,10 @@
 import React from 'react'
+
 import HowToHeader from './HowToHeader'
 import {Container, Grid} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Step from './Step'
+
 import step1 from '../assets/how-to-animations/step1animation.gif'
 import step2 from '../assets/how-to-animations/step2animation.gif'
 import step3 from '../assets/how-to-animations/step3animation.gif'

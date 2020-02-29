@@ -1,10 +1,12 @@
 import React from 'react'
+
+import { connect } from 'react-redux'
+import {displayModal} from '../redux_files/actions'
+
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Grid, Paper } from '@material-ui/core'
-import ImageZoom from './ImageZoom'
 import Image from 'material-ui-image'
-import {displayModal} from '../redux_files/actions'
-import { connect } from 'react-redux'
+import ImageZoom from './ImageZoom'
 
 const useStyles = makeStyles(theme => ({
     sidebarAboutBox: {
