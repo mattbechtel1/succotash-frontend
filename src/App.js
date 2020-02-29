@@ -1,11 +1,15 @@
 import React from 'react';
+
 import './App.css';
+
+import { Route, Switch, Redirect } from 'react-router-dom'
+
+import { connect } from 'react-redux'
+import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from './redux_files/actions'
+
 import Field from './field_view/Field'
 import Footer from './components/Footer'
-import { connect } from 'react-redux'
 import Navigation from './components/Header'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from './redux_files/actions'
 import Profile from './profile_view/Profile'
 // import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
