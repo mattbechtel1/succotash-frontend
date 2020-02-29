@@ -4,9 +4,9 @@ import { ThemeProvider } from '@material-ui/core'
 import {DatePicker} from '@material-ui/pickers'
 import {datePickerOverride} from '../helpers/themeOverrides'
 
-const SuccotashDatePicker = ({value, name, showToday, dateChangeAction, className, clearable}) => <ThemeProvider theme={datePickerOverride}>
-    <span className={className}>
-        <CalIcon />
+const SuccotashDatePicker = ({value, name, showToday, excludeIcon, dateChangeAction, clearable}) => <ThemeProvider theme={datePickerOverride}>
+    <span>
+        { excludeIcon ? null : <CalIcon /> }
         <DatePicker 
             value={value}
             minDate={'2015-01-01'}

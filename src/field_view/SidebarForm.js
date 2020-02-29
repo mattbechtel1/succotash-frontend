@@ -2,14 +2,13 @@ import React from 'react'
 import SaveButton from '../components/SaveButton'
 import WarningToast from '../components/WarningToast'
 import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, InputLabel, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
-import { DatePicker } from '@material-ui/pickers'
 import SuccotashDatePicker from '../components/SuccotashDatePicker'
 import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import { editStageDate, editStageStatus, changeCrop, displayWarning, displayThirdModal } from '../redux_files/actions'
 import { constructDate } from '../helpers/dates'
 import { datePickerOverride } from '../helpers/themeOverrides'
-import { menuItemsByOptions } from '../helpers/conversions'
+import { menuItemsByOptions, capitalize } from '../helpers/conversions'
 
 class SidebarForm extends React.Component {
     constructor(props) {
@@ -56,6 +55,9 @@ class SidebarForm extends React.Component {
             { key: crop.id, value: crop.id, text: crop.name}
         ))
 
+        const stageOptions = ['unused', 'tilled', 'planted', 'growing', 'harvest', 'barren']
+        const stageOptionsObjs = stageOptions.map(opt => ({value: opt, key: opt, text: capitalize(opt)}))
+
         return <>
             <WarningToast />
 
@@ -90,12 +92,7 @@ class SidebarForm extends React.Component {
                 <ListItemIcon><EcoIcon /></ListItemIcon>
                 <FormControl style={{display: 'flex'}}>
                     <Select value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty>
-                        <MenuItem value='unused'><em>Unused</em></MenuItem>
-                        <MenuItem value='tilled'>Tilled</MenuItem>
-                        <MenuItem value='planted'>Planted</MenuItem>
-                        <MenuItem value='growing'>Growing</MenuItem>
-                        <MenuItem value='harvest'>Harvest</MenuItem>
-                        <MenuItem value='barren'>Barren</MenuItem>
+                        {menuItemsByOptions(stageOptionsObjs)}
                     </Select>
                     <FormHelperText>Present Stage</FormHelperText>
                 </FormControl>
@@ -105,25 +102,33 @@ class SidebarForm extends React.Component {
         <ThemeProvider theme={datePickerOverride}>
 
             {/* Display/Change Start Date */}
-            <ListItem button>
-                Stage Start Date: <SuccotashDatePicker className='vert-center-span'
-                    value={constructDate(start_date)}
-                    name='stage-start-date'
-                    dateChangeAction={(date) => this.props.editStageDate('start_date', date)}
-                    showToday
-                />
-            </ListItem>
+                <ListItem button>
+                    <span className='vert-center-span'>
+                        <ListItemIcon><CalIcon /></ListItemIcon>
+                        Stage Start Date: <SuccotashDatePicker 
+                            value={constructDate(start_date)}
+                            name='stage-start-date'
+                            dateChangeAction={(date) => this.props.editStageDate('start_date', date)}
+                            excludeIcon
+                            showToday
+                        />
+                    </span>
+                </ListItem>
             <Divider />
 
             {/* Display/Change End Date */}
             <ListItem button>
-                Stage End Date: <SuccotashDatePicker className='vert-center-span'
-                    value={constructDate(due_date)}
-                    name='stage-end-date'
-                    showToday
-                    clearable
-                    dateChangeAction={this.changeDueDate}
-                    animateYearScrolling /> 
+                <span className='vert-center-span'>
+                    <ListItemIcon><CalIcon /></ListItemIcon>
+                    Stage End Date: <SuccotashDatePicker
+                        value={constructDate(due_date)}
+                        name='stage-end-date'
+                        showToday
+                        clearable
+                        excludeIcon
+                        dateChangeAction={this.changeDueDate}
+                        animateYearScrolling /> 
+                </span>
             </ListItem>
         </ThemeProvider>
             <Divider />
