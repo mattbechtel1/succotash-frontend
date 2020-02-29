@@ -3,8 +3,8 @@ import SaveButton from '../components/SaveButton'
 import WarningToast from '../components/WarningToast'
 import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, InputLabel, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
 import { DatePicker } from '@material-ui/pickers'
+import SuccotashDatePicker from '../components/SuccotashDatePicker'
 import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { editStageDate, editStageStatus, changeCrop, displayWarning, displayThirdModal } from '../redux_files/actions'
 import { constructDate } from '../helpers/dates'
@@ -16,15 +16,9 @@ class SidebarForm extends React.Component {
         super(props)
         this.state = {
             cropWriter: false,
-            newCropWriter: false
+            // newCropWriter: false
         }
     }
-
-    useStyles = makeStyles(theme => ({
-        selectEmpty: {
-            marginTop: theme.spacing(2),
-        }
-    }))
 
     openCropWriter = () => {
         this.setState({cropWriter: true})
@@ -56,7 +50,6 @@ class SidebarForm extends React.Component {
 
 
     render() {
-        const materialClasses = this.useStyles
         const {cropWriter} = this.state
         const {start_date, due_date, status, crop } = this.props.stage
         const cropOptions = this.props.crops.map(crop => (
@@ -96,7 +89,7 @@ class SidebarForm extends React.Component {
             <ListItem button>
                 <ListItemIcon><EcoIcon /></ListItemIcon>
                 <FormControl style={{display: 'flex'}}>
-                    <Select value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty className={materialClasses.selectEmpty}>
+                    <Select value={status} onChange={(e) => this.props.editStageStatus(e.target.value)} displayEmpty>
                         <MenuItem value='unused'><em>Unused</em></MenuItem>
                         <MenuItem value='tilled'>Tilled</MenuItem>
                         <MenuItem value='planted'>Planted</MenuItem>
@@ -113,30 +106,24 @@ class SidebarForm extends React.Component {
 
             {/* Display/Change Start Date */}
             <ListItem button>
-                <span className='vert-center-span'>
-                    <ListItemIcon><CalIcon /></ListItemIcon>
-                    Stage Start Date: <DatePicker 
-                        value={constructDate(start_date)}
-                        minDate={'2015-01-01'}
-                        showTodayButton
-                        onChange={(date) => this.props.editStageDate('start_date', date)}
-                        animateYearScrolling /> 
-                </span>
+                Stage Start Date: <SuccotashDatePicker className='vert-center-span'
+                    value={constructDate(start_date)}
+                    name='stage-start-date'
+                    dateChangeAction={(date) => this.props.editStageDate('start_date', date)}
+                    showToday
+                />
             </ListItem>
             <Divider />
 
             {/* Display/Change End Date */}
             <ListItem button>
-                <span className='vert-center-span'>
-                    <ListItemIcon><CalIcon /></ListItemIcon>
-                    Stage End Date: <DatePicker 
-                        value={constructDate(due_date)}
-                        minDate={'2015-01-01'}
-                        showTodayButton
-                        clearable
-                        onChange={this.changeDueDate}
-                        animateYearScrolling /> 
-                </span>
+                Stage End Date: <SuccotashDatePicker className='vert-center-span'
+                    value={constructDate(due_date)}
+                    name='stage-end-date'
+                    showToday
+                    clearable
+                    dateChangeAction={this.changeDueDate}
+                    animateYearScrolling /> 
             </ListItem>
         </ThemeProvider>
             <Divider />
@@ -149,6 +136,4 @@ class SidebarForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({stage, sidebar, crops}) => ({stage, sidebar, crops})
-
-export default connect(mapStateToProps, { editStageDate, displayWarning, editStageStatus, changeCrop, displayThirdModal})(SidebarForm)
+export default connect(({stage, sidebar, crops}) => ({stage, sidebar, crops}), { editStageDate, displayWarning, editStageStatus, changeCrop, displayThirdModal})(SidebarForm)

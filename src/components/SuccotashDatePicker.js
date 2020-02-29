@@ -4,8 +4,8 @@ import { ThemeProvider } from '@material-ui/core'
 import {DatePicker} from '@material-ui/pickers'
 import {datePickerOverride} from '../helpers/themeOverrides'
 
-const SuccotashDatePicker = ({value, name, showToday, dateChangeAction}) => <ThemeProvider theme={datePickerOverride}>
-    <span>
+const SuccotashDatePicker = ({value, name, showToday, dateChangeAction, className, clearable}) => <ThemeProvider theme={datePickerOverride}>
+    <span className={className}>
         <CalIcon />
         <DatePicker 
             value={value}
@@ -13,6 +13,7 @@ const SuccotashDatePicker = ({value, name, showToday, dateChangeAction}) => <The
             onChange={dateChangeAction}
             name={name}
             showTodayButton={showToday}
+            clearable={clearable}
             animateYearScrolling /> 
     </span>
 </ThemeProvider>
