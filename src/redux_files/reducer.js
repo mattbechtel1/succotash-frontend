@@ -15,6 +15,8 @@ function dateReducer(state=today, action) {
 
 function userReducer(state=null, action) {
     switch (action.type) {
+        case 'INITIALIZE_APP':
+            return action.user
         case 'LOGIN':
             return action.user
         case 'LOGOUT':
@@ -30,6 +32,8 @@ function loadingReducer(state=false, action) {
             return true
         case 'NOT_LOADING':
             return false
+        case 'INITIALIZE_APP':
+            return false
         default:
             return state
     }
@@ -40,6 +44,8 @@ function fieldsReducer(state={
     loading: false 
 }, action) {
         switch(action.type) {
+            case 'INITIALIZE_APP':
+                return {...state, fields: action.user.fields, loading: false}
             case 'LOGIN':
                 return {...state, fields: action.user.fields, loading: false}
             case 'SEED_FIELDS':
@@ -247,6 +253,8 @@ function todoReducer(state={
     loading: false
 }, action) {
     switch (action.type) {
+        case 'INITIALIZE_APP':
+            return {loading: false, todos: sortDueDates(action.user.todos)}
         case 'LOGIN':
             return {loading: false, todos: sortDueDates(action.user.todos)}
         case 'ADD_TODO':
@@ -300,6 +308,8 @@ function todoReducer(state={
 
 function cropReducer(state=[], action) {
     switch(action.type) {
+        case 'INITIALIZE_APP':
+            return action.crops
         case 'SEED_CROPS':
             return action.crops
         case 'ADD_CROP':
@@ -314,6 +324,11 @@ function favoritesReducer(state={
     loading: false
 }, action) {
     switch(action.type) {
+        case 'INITIALIZE_APP':
+            return {
+                loading: false,
+                favorites: sortCropNameAlphabetically(action.user.favorites)
+            }
         case 'LOGIN':
             return {
                 loading: false,
