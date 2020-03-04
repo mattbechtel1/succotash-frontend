@@ -5,7 +5,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded, setInitialState } from './redux_files/actions'
+import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setInitialState } from './redux_files/actions'
 
 import Field from './field_view/Field'
 import Footer from './components/Footer'
@@ -64,7 +64,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {user, loading, fields, crops} = this.props
+    const {user, loading, fields} = this.props
     
     return <div className="App">
           <Navigation />
@@ -126,4 +126,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading, fields, crops}) => ({user, loading, fields, crops}), {setUser, loadPage, seedCrops, pageLoaded, setInitialState})(App);
+export default connect(({user, loading, fields}) => ({user, loading, fields}), {loadPage, seedCrops, pageLoaded, setInitialState})(App);
