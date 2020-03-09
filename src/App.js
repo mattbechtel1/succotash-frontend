@@ -18,6 +18,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Home from './home_view/Home'
 import HowToPage from './about_view/HowTo'
+import DeveloperPage from './developer_view/Developers'
 
 class App extends React.Component {
 
@@ -110,6 +111,10 @@ class App extends React.Component {
                 <Logout />
               </Route>
               
+              <Route exact path='/developers'>
+                <DeveloperPage />
+              </Route>
+
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />
               
               <Route path='/'>
