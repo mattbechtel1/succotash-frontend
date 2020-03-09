@@ -1,7 +1,10 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core/';
+
 import { Link } from 'react-router-dom'
+
 import { connect } from 'react-redux'
+
+import { Button, Menu, MenuItem } from '@material-ui/core/';
 
 const FieldMenu = ({classes, fields: {fields}}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

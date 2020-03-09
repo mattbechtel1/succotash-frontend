@@ -3,6 +3,10 @@ import {capitalize} from '../helpers/conversions'
 
 const URL_DOMAIN = process.env.REACT_APP_DOMAIN
 
+export function setInitialState(initialState) {
+    return {type: 'INITIALIZE_APP', ...initialState}
+}
+
 export function setNewDate(date, urlSlug, history) {
     return (dispatch) => {
         dispatch({type: 'SET_DATE', date})

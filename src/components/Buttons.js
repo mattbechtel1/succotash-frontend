@@ -1,6 +1,7 @@
 import React from 'react'
-import {Button} from '@material-ui/core'
+
 import { withStyles } from '@material-ui/core/styles'
+import {Button} from '@material-ui/core'
 
 
 export const CancelButton = ({onClick}) => <Button onClick={onClick} color="secondary">Cancel</Button>

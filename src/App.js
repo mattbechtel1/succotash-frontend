@@ -1,11 +1,15 @@
 import React from 'react';
+
 import './App.css';
+
+import { Route, Switch, Redirect } from 'react-router-dom'
+
+import { connect } from 'react-redux'
+import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setInitialState } from './redux_files/actions'
+
 import Field from './field_view/Field'
 import Footer from './components/Footer'
-import { connect } from 'react-redux'
 import Navigation from './components/Header'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { saveNewUser, setUser, seedCrops, loginUser, loadPage, pageLoaded } from './redux_files/actions'
 import Profile from './profile_view/Profile'
 // import TestComponent from './TestComponent'
 import NewFieldForm from './components/NewFieldForm'
@@ -20,6 +24,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.loadPage()
     let token = localStorage.getItem('token')
+    let action = {}
     
     if (token) {
       // if token found, get both user and crop list
@@ -30,14 +35,22 @@ class App extends React.Component {
         }),
         fetch(process.env.REACT_APP_DOMAIN + '/crops')
       ])
-      .then(responses => {
-        responses[0].json()
-        .then(this.props.setUser)
-
-        responses[1].json()
-        .then(this.props.seedCrops)
+      .then(async (responses) => {
+        
+        await responses[0].json()
+        .then(user => {
+          action['user'] = user
+        })
+  
+        await responses[1].json()
+        .then(crops => {
+          action['crops'] = crops
+        })
+        return action
       })
-      .then(this.props.pageLoaded)
+      .then(data => {
+        this.props.setInitialState(data)
+      })
 
     } else {
       // if no token, load only crop list
@@ -113,4 +126,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading, fields}) => ({user, loading, fields}), {setUser, loadPage, seedCrops, pageLoaded})(App);
+export default connect(({user, loading, fields}) => ({user, loading, fields}), {loadPage, seedCrops, pageLoaded, setInitialState})(App);
