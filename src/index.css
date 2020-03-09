@@ -126,9 +126,9 @@ code {
 }
 
 .dimmer {
-    z-index: 1;
-    color: '#fff';
-  }
+  z-index: 1;
+  color: '#fff';
+}
 
 .wrapper {
   position: relative
