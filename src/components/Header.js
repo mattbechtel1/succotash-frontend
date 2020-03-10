@@ -1,9 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Toolbar, Button, Typography, Container } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
-import FieldMenu from './FieldMenu'
+
 import { connect } from 'react-redux'
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Toolbar, Button, Typography, Container } from '@material-ui/core';
+import FieldMenu from './FieldMenu'
+
+import { topOfPage } from '../helpers/conversions'
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -34,7 +39,8 @@ const LogButton = ({text, url, className}) => {
 
   return <Link 
     to={url}
-    className={className || classes.topToolbarLink}>
+    className={className || classes.topToolbarLink}
+    onClick={topOfPage}>
       <Button size="small">{text}</Button>
   </Link>
 }
@@ -71,6 +77,7 @@ const Header = ({user}) => {
         <Link
           to='/'
           className={classes.toolbarLink}
+          onClick={topOfPage}
         >
           <Button>
             Home
@@ -80,6 +87,7 @@ const Header = ({user}) => {
         <Link
           to='/guide'
           className={classes.toolbarLink}
+          onClick={topOfPage}
         >
           <Button>
             Guide
@@ -90,6 +98,7 @@ const Header = ({user}) => {
           <><Link
             to='/profile'
             className={classes.toolbarLink}
+            onClick={topOfPage}
           >
             <Button>
               Profile

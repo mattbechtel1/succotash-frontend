@@ -7,6 +7,8 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
+import {topOfPage} from '../helpers/conversions'
+
 const useStyles = makeStyles(theme => ({
   sidebarAboutBox: {
     padding: theme.spacing(2),
@@ -55,7 +57,7 @@ const StandardCards = ({user}) => {
           </Typography>
           <Typography>
             Succotash helps farmers and gardeners track and plan crop cycles. 
-            {user ? null : <Link to='/signup' className='text-link'> Sign up today!</Link>}
+            {user ? null : <Link to='/signup' className='text-link' onClick={topOfPage}> Sign up today!</Link>}
           </Typography>
         </Paper>
       </Grid>

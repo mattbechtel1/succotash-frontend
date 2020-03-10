@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Card, CardActionArea, CardContent, CardMedia, Hidden } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { unformatThenFormat } from '../helpers/dates'
+import { topOfPage } from '../helpers/conversions'
 import wheat from '../assets/wheat.jpg'
 import basil from '../assets/basil.jpg'
 import chickpeas from '../assets/chickpeas.jpg'
@@ -39,7 +40,7 @@ export default function FieldLink({field: {slug, updated_at, name, pic_opt}}) {
 
   return (
     <Grid item xs={12} md={6}>
-      <Link to={`/field/${slug}`} className='text-link'>
+      <Link to={`/field/${slug}`} className='text-link' onClick={topOfPage}>
         <CardActionArea>
           <Card className={classes.card}>
             <div className={classes.cardDetails}>

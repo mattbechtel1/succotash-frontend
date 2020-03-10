@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 
 import { Button, Menu, MenuItem } from '@material-ui/core/';
 
+import { topOfPage } from '../helpers/conversions'
+
 const FieldMenu = ({classes, fields: {fields}}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -33,6 +35,7 @@ const FieldMenu = ({classes, fields: {fields}}) => {
           return <Link key={field.name}
             to={`/field/${field.slug}`}
             className={classes.toolbarLink}
+            onClick={topOfPage}
           >
             <MenuItem key={field.name} onClick={handleClose}>
               <Button>{field.name}</Button>
@@ -43,6 +46,7 @@ const FieldMenu = ({classes, fields: {fields}}) => {
         {/* New field option always to appear at bottom */}
         <Link to='/field/new'
           className={classes.toolbarLink}
+          onClick={topOfPage}
         >
           <MenuItem onClick={handleClose}>
             <Button>Add New Field</Button>

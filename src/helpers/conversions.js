@@ -25,3 +25,7 @@ export function sortAlphabetically(list) {
 export function sortCropNameAlphabetically(favList) {
     return favList.sort((a,b) => a.crop.name > b.crop.name ? 1 : -1)
 }
+
+export function topOfPage() {
+    window.scrollTo({behavior: 'smooth', left: 0, top: 0})
+}
