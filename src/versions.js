@@ -1,6 +1,6 @@
 export const versions = [
     {
-        title: 'Preview v0.1',
+        title: 'Preview v0.1.1',
         release: new Date('February 7, 2020'),
         notes: [
             "Preview deployment",
@@ -8,7 +8,7 @@ export const versions = [
             "Field grid view and dynamic calendar introduced"
         ]
     }, {
-        title: 'Preview v0.2',
+        title: 'Preview v0.1.2',
         release: new Date('February 8, 2020'),
         notes: [
             'Environment preparations for v1.0 release',
@@ -55,10 +55,13 @@ export const versions = [
             'Rendering performance improvements',
         ]
     }, {
-        title: 'v1.0.04',
+        title: 'v1.0.05',
         release: new Date('March 9, 2020'),
         notes: [
-            'Developer page added'
+            'Developer page added',
+            'Improvements made to view changes initiated by links',
+            'Updated Puma to v4.3.3',
+            'Updated Nokogiri to v1.10.8'
         ]
     }
 ]
