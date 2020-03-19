@@ -5,7 +5,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setInitialState } from './redux_files/actions'
+import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setUser, setInitialState } from './redux_files/actions'
 
 import Field from './field_view/Field'
 import Footer from './components/Footer'
@@ -25,10 +25,9 @@ class App extends React.Component {
   componentDidMount() {
     this.props.loadPage()
     let token = localStorage.getItem('token')
-    let action = {}
+    // let action = {}
     
     if (token) {
-      // if token found, get both user and crop list
       Promise.all([
         fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
           method: 'GET',
@@ -36,22 +35,48 @@ class App extends React.Component {
         }),
         fetch(process.env.REACT_APP_DOMAIN + '/crops')
       ])
-      .then(async (responses) => {
+      .then(responses => {
         
-        await responses[0].json()
+        responses[0].json()
         .then(user => {
-          action['user'] = user
+          this.props.setUser(user)
         })
   
-        await responses[1].json()
+        responses[1].json()
         .then(crops => {
-          action['crops'] = crops
+          this.props.seedCrops(crops)
         })
-        return action
+        return Promise.resolve(true)
       })
-      .then(data => {
-        this.props.setInitialState(data)
-      })
+      .then(() => this.props.pageLoaded())
+
+
+
+      // if token found, get both user and crop list
+
+      // Promise.all([
+      //   fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
+      //     method: 'GET',
+      //     headers: {'Authorization': `Bearer ${token}` }
+      //   }),
+      //   fetch(process.env.REACT_APP_DOMAIN + '/crops')
+      // ])
+      // .then(async (responses) => {
+        
+      //   await responses[0].json()
+      //   .then(user => {
+      //     action['user'] = user
+      //   })
+  
+      //   await responses[1].json()
+      //   .then(crops => {
+      //     action['crops'] = crops
+      //   })
+      //   return action
+      // })
+      // .then(data => {
+      //   this.props.setInitialState(data)
+      // })
 
     } else {
       // if no token, load only crop list
@@ -65,7 +90,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {user, loading, fields} = this.props
+    const {user, loading, fields, crops} = this.props
+    
+    console.log('user:', user)
+    console.log('crops:', crops)
+    console.log('loading:', loading)
     
     return <div className="App">
           <Navigation />
@@ -131,4 +160,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading, fields}) => ({user, loading, fields}), {loadPage, seedCrops, pageLoaded, setInitialState})(App);
+export default connect(({user, loading, fields, crops}) => ({user, loading, fields, crops}), {loadPage, seedCrops, pageLoaded, setUser, setInitialState})(App);
