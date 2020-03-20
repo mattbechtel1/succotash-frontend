@@ -69,7 +69,8 @@ export const versions = [
         notes: [
             'Favorite crops now appear at top of crop dropdown list for stages',
             'Last modified date for fields now update on changes to bed names & bed stages',
-            'Upgraded Acorn to v5.7.4'
+            'Upgraded Acorn to v5.7.4',
+            'Upgraded Rails & Actionview to v6.0.2.2'
         ]
     }
 ]
