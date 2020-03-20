@@ -62,7 +62,7 @@ class SidebarForm extends React.Component {
         const cropOptions = this.props.crops.map(crop => (
             { key: crop.id, value: crop.id, text: crop.name }
         ))
-        const favOptions = this.props.favorites.favorites.map(favorite => (
+        const favOptions = this.props.favorites.map(favorite => (
             { key: `f-${favorite.crop_id}`, value: favorite.crop_id, text: favorite.crop.name }
         ))
 
@@ -156,6 +156,6 @@ class SidebarForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({stage, sidebar, crops, favorites}) => ({stage, sidebar, crops, favorites})
+const mapStateToProps = ({stage, sidebar, crops, favorites: {favorites}}) => ({stage, sidebar, crops, favorites})
 
 export default connect(mapStateToProps, { editStageDate, displayWarning, editStageStatus, changeCrop, displayThirdModal})(SidebarForm)
