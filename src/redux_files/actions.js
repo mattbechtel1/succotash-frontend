@@ -87,10 +87,11 @@ export function saveStage(stage, date) {
             })
             .then(response => response.json())
             .then(updatedBed => {
+                debugger
                 setTimeout(() => {
                     dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
                     dispatch({type: 'SET_BED', bed: updatedBed, date})
-                    dispatch({type: 'SAVE_SUCCESS'})
+                    dispatch({type: 'SAVE_SUCCESS', fieldId: updatedBed.field_id, time: updatedBed.updated_at})
                 }, 2000)
                 setTimeout(() => {
                     dispatch({type: 'SAVE_RESET'})

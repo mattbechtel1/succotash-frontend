@@ -63,5 +63,14 @@ export const versions = [
             'Updated Puma to v4.3.3',
             'Updated Nokogiri to v1.10.8'
         ]
+    }, {
+        title: 'v1.0.06',
+        release: 'TBD',
+        notes: [
+            'Favorite crops now appear at top of crop dropdown list for stages',
+            'Last modified date for fields now update on changes to bed names & bed stages',
+            'Upgraded Acorn to v5.7.4',
+            'Upgraded Rails & Actionview to v6.0.2.2'
+        ]
     }
 ]
