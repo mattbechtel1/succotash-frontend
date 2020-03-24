@@ -70,7 +70,9 @@ export const versions = [
             'Favorite crops now appear at top of crop dropdown list for stages',
             'Last modified date for fields now update on changes to bed names & bed stages',
             'Upgraded Acorn to v5.7.4',
-            'Upgraded Rails & Actionview to v6.0.2.2'
+            'Upgraded Rails & Actionview to v6.0.2.2',
+            'Changes to login proceedure. No longer accepting non-alphanumeric usernames',
+            
         ]
     }
 ]

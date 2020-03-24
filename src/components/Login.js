@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import WarningToast from './WarningToast'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
-import { changeTextField } from '../redux_files/actions'
+import { changeTextField, displayWarning } from '../redux_files/actions'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,12 +41,18 @@ const ButtonLink = ({url, text}) => {
   return <Link to={url} className={classes.link}><GreenButton text={text} /></Link>
 }
 
-const Login = ({submitAction, displayText, login, changeTextField}) => {
+const Login = ({submitAction, displayText, displayWarning, login, changeTextField}) => {
   const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitAction(login.username, login.password)
+    let expr = /^[0-9a-zA-Z]+$/
+    if (!expr.test(login.username)) {
+      debugger
+      displayWarning("Username must only contain alphanumeric characters")
+    } else {
+      submitAction(login.username, login.password)
+    }
   }
 
   const handleChange = (e) => {
@@ -132,7 +138,8 @@ const Login = ({submitAction, displayText, login, changeTextField}) => {
 const mapDispatchToProps = (dispatch, {submitAction}) => {
   return {
     changeTextField: (fieldName, value) => dispatch(changeTextField(fieldName, value)),
-    submitAction: (username, password) => dispatch(submitAction(username, password))
+    submitAction: (username, password) => dispatch(submitAction(username, password)),
+    displayWarning: (text) => dispatch(displayWarning(text))
   }
 }
 
