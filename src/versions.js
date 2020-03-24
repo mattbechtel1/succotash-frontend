@@ -27,7 +27,7 @@ export const versions = [
             'Field name changes allowed',
         ]
     }, {
-        title: 'v1.0.01',
+        title: 'v1.0.1',
         release: new Date('February 13, 2020'),
         notes: [
             'Changed validation scopes to allow different users to have same field name',
@@ -36,26 +36,26 @@ export const versions = [
             'Favorites list is sorted alphabetically'            
         ]
     }, {
-        title: 'v1.0.02',
+        title: 'v1.0.2',
         release: new Date('February 20, 2020'),
         notes: [
             'Adjusted stage logic to no longer create overlapping stages.',
             'Loaders added to favorites and todo/deadline components'
         ]
     }, {
-        title: 'v1.0.03',
+        title: 'v1.0.3',
         release: new Date('February 27, 2020'),
         notes: [
             'Guide page added',
         ]
     }, {
-        title: 'v1.0.04',
+        title: 'v1.0.4',
         release: new Date('March 4, 2020'),
         notes: [
             'Rendering performance improvements',
         ]
     }, {
-        title: 'v1.0.05',
+        title: 'v1.0.5',
         release: new Date('March 9, 2020'),
         notes: [
             'Developer page added',
@@ -64,15 +64,14 @@ export const versions = [
             'Updated Nokogiri to v1.10.8'
         ]
     }, {
-        title: 'v1.0.06',
-        release: 'TBD',
+        title: 'v1.0.6',
+        release: new Date('March 24, 2020'),
         notes: [
             'Favorite crops now appear at top of crop dropdown list for stages',
             'Last modified date for fields now update on changes to bed names & bed stages',
             'Upgraded Acorn to v5.7.4',
             'Upgraded Rails & Actionview to v6.0.2.2',
-            'Changes to login proceedure. No longer accepting non-alphanumeric usernames',
-            
+            'Changes to login proceedure. No longer accepts non-alphanumeric usernames',            
         ]
     }
 ]
