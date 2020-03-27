@@ -75,10 +75,10 @@ export const versions = [
         ]
     }, {
         title: 'v1.0.7',
-        release: 'TBD',
+        release: new Date('March 27, 2020'),
         notes: [
             'Changed process that modifies updated dates',
-            'Username validations moved to backend'
+            'Username and password validations added to backend, allowing users with old usernames to continue to access product'
         ]
     }
 ]
