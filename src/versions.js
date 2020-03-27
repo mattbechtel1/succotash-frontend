@@ -73,5 +73,12 @@ export const versions = [
             'Upgraded Rails & Actionview to v6.0.2.2',
             'Changes to login proceedure. No longer accepts non-alphanumeric usernames',            
         ]
+    }, {
+        title: 'v1.0.7',
+        release: 'TBD',
+        notes: [
+            'Changed process that modifies updated dates',
+            'Username validations moved to backend'
+        ]
     }
 ]

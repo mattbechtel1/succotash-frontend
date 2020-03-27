@@ -46,13 +46,7 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let expr = /^[0-9a-zA-Z]+$/
-    if (!expr.test(login.username)) {
-      debugger
-      displayWarning("Username must only contain alphanumeric characters")
-    } else {
-      submitAction(login.username, login.password)
-    }
+    submitAction(login.username, login.password)
   }
 
   const handleChange = (e) => {
