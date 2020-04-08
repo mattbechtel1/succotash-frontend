@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import {displayModal} from '../redux_files/actions'
+import {zoomImage} from '../redux_files/actions'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Grid, Paper } from '@material-ui/core'
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Step = ({imagePosition, title, text, image, displayModal}) => {
+const Step = ({imagePosition, title, text, image, zoomImage}) => {
     const classes = useStyles()
 
     const Info = () => <Grid item xs={7}>
@@ -37,7 +37,7 @@ const Step = ({imagePosition, title, text, image, displayModal}) => {
                 src={image}
                 disableSpinner
                 aspectRatio={(16/9)}
-                onClick={displayModal}
+                onClick={() => zoomImage(image)}
                 style={{cursor: 'zoom-in'}}
             />
         </Paper>
@@ -47,15 +47,15 @@ const Step = ({imagePosition, title, text, image, displayModal}) => {
         return <>
             <Info />
             <Animation />
-            <ImageZoom image={image} />
+            <ImageZoom />
         </>
     } else {
         return <>
             <Animation />
             <Info />
-            <ImageZoom image={image} />
+            <ImageZoom />
         </>
     }
 }
 
-export default connect(null, {displayModal})(Step)
+export default connect(null, {zoomImage})(Step)

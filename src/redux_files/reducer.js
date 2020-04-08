@@ -171,6 +171,26 @@ function modalReducer(state=false, action) {
     }
 }
 
+function imageZoomReducer(state={
+    image: '',
+    display: false
+}, action) {
+    switch(action.type) {
+        case 'DISPLAY_IMAGE':
+            return {
+                image: action.image,
+                display: true
+            }
+        case 'REMOVE_MODAL':
+            return {
+                image: '',
+                display: false
+            }
+        default:
+            return state
+    }
+}
+
 function modal2Reducer(state=false, action) {
     switch(action.type) {
         case 'DISPLAY_SECONDARY_MODAL':
@@ -373,6 +393,7 @@ const rootReducer = combineReducers({
     bed: bedReducer,
     sidebar: sidebarStateReducer,
     stage: stageReducer,
+    imageZoom: imageZoomReducer,
     modal: modalReducer,
     modal2: modal2Reducer,
     modal3: modal3Reducer,
