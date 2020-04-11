@@ -293,6 +293,10 @@ export function displayWarning(text) {
     return {type: 'DISPLAY_TOAST', text}
 }
 
+export function zoomImage(image) {
+    return {type: 'DISPLAY_IMAGE', image}
+}
+
 export function displayModal() {
     return {type: 'DISPLAY_MODAL'}
 }
