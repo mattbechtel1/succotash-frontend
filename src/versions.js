@@ -80,5 +80,11 @@ export const versions = [
             'Changed process that modifies updated dates',
             'Username and password validations added to backend, allowing users with old usernames to continue to access product'
         ]
+    }, {
+        title: 'v1.0.8',
+        release: 'TBD',
+        notes: [
+            'Reoriented backend functionality to better work for developers working in test and development'
+        ]
     }
 ]
