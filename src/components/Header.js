@@ -47,6 +47,8 @@ const LogButton = ({text, url, className}) => {
 
 const SignUpButton = ({className}) => <LogButton text='Register' url='/signup' className={className} />
 
+const LogInButton = ({className}) => <LogButton text='Log in' url='/login' className={className} />
+
 const LogoutButton = ({className}) => <LogButton text='Log out' url='/logout' className={className} />
 
 const Header = ({user}) => {
@@ -66,7 +68,7 @@ const Header = ({user}) => {
         >
           Succotash
         </Typography>
-      { user ? <LogoutButton /> : <SignUpButton />}
+      { user ? <LogoutButton /> : <LogInButton />}
       </Toolbar>
 
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>

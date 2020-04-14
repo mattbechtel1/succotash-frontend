@@ -23,7 +23,9 @@
     "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
     "react-scripts": "3.3.0",
+    "react-socks": "^2.1.0",
     "react-thunk": "^1.0.0",
+    "redis": "^3.0.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },

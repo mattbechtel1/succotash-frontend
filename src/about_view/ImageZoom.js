@@ -8,13 +8,15 @@ import { GreenButton } from '../components/Buttons'
 import Image from 'material-ui-image'
 
 
-const ImageZoom = ({modal, image, removeModal}) => <Dialog 
-    open={modal}
+const ImageZoom = ({imageZoom, removeModal}) => {
+
+return <Dialog 
+    open={imageZoom.display}
     onClose={removeModal}
     fullWidth>
 
         <Image
-            src={image}
+            src={imageZoom.image}
             disableSpinner
             aspectRatio={(16/9)}
         />
@@ -25,5 +27,6 @@ const ImageZoom = ({modal, image, removeModal}) => <Dialog
             />
         </DialogActions>
     </Dialog>
+}
 
-export default connect(({modal}) => ({modal}), {removeModal})(ImageZoom)
+export default connect(({imageZoom}) => ({imageZoom}), {removeModal})(ImageZoom)

@@ -3,7 +3,9 @@ import React from 'react'
 import HowToHeader from './HowToHeader'
 import {Container, Grid} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Breakpoint } from 'react-socks'
 import Step from './Step'
+import MobileStep from './MobileStep'
 
 import step1 from '../assets/how-to-animations/step1animation.gif'
 import step2 from '../assets/how-to-animations/step2animation.gif'
@@ -49,15 +51,27 @@ const HowToPage = () => {
     return <Container maxWidth='lg'>
         <main style={{paddingTop: '10px'}}>
             <HowToHeader />
-            <Grid container spacing={5} className={classes.mainGrid}>
-                {steps.map((step, index) => <Step 
-                    imagePosition={alternator[index%2]} 
-                    title={step.title} 
-                    image={step.gif} 
-                    text={step.paragraph} 
-                    key={step.title}
-                />)}
-            </Grid>
+            <Breakpoint large up>
+                <Grid container spacing={5} className={classes.mainGrid}>
+                        {steps.map((step, index) => <Step 
+                            imagePosition={alternator[index%2]} 
+                            title={step.title} 
+                            image={step.gif} 
+                        text={step.paragraph} 
+                        key={step.title}
+                    />)}
+                </Grid>
+            </Breakpoint>
+
+            <Breakpoint medium down>
+                <Grid container spacing={5} className={classes.mainGrid}>
+                    {steps.map(step => <MobileStep 
+                        title={step.title}
+                        text={step.paragraph}
+                        key={`m${step.title}`}
+                    />)}
+                </Grid>
+            </Breakpoint>
         </main>
     </Container>
 }

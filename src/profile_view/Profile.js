@@ -8,6 +8,7 @@ import FavoritesBar from './FavoritesBar'
 import WarningToast from '../components/WarningToast'
 import StandardCards from '../components/StandardCards';
 import TodoContainer from '../components/TodoContainer'
+import {constructDate} from '../helpers/dates'
 
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = ({fields: {fields, loading}, todos: {todos}}) => {
   const classes = useStyles();
+  fields.sort((a, b) => constructDate(b.updated_at) - constructDate(a.updated_at))
 
   return (
     <React.Fragment>

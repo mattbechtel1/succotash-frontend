@@ -43,6 +43,7 @@ function fieldsReducer(state={
     fields: [],
     loading: false 
 }, action) {
+    let fieldIdx
         switch(action.type) {
             case 'INITIALIZE_APP':
                 return {...state, fields: action.user.fields, loading: false}
@@ -58,7 +59,7 @@ function fieldsReducer(state={
                 const targetFieldIdx = state.fields.findIndex(field => field.id === action.bed.field_id)
                 const replacementBedIdx = state.fields[targetFieldIdx].beds.findIndex(bed => bed.id === action.bed.id)
                 const reconstructedFieldBedList = [...state.fields[targetFieldIdx].beds.slice(0, replacementBedIdx), action.bed, ...state.fields[targetFieldIdx].beds.slice(replacementBedIdx + 1)]
-                const reconstrutedField = {...state.fields[targetFieldIdx], beds: reconstructedFieldBedList}
+                const reconstrutedField = {...state.fields[targetFieldIdx], beds: reconstructedFieldBedList, updated_at: action.bed.updated_at}
                 
                 return {...state, 
                     fields: [...state.fields.slice(0, targetFieldIdx), reconstrutedField, ...state.fields.slice(targetFieldIdx + 1)]
@@ -69,12 +70,22 @@ function fieldsReducer(state={
                     fields: state.fields.filter(field => field.id !== action.id)
                 }
             case 'REPLACE_SINGLE_FIELD':
-                const fieldIdx = state.fields.findIndex(field => field.id === action.field.id)
+                fieldIdx = state.fields.findIndex(field => field.id === action.field.id)
                 return {
                     ...state,
                     loading: false,
                     fields: [...state.fields.slice(0, fieldIdx), action.field, ...state.fields.slice(fieldIdx + 1)]
                  }
+            case 'SAVE_SUCCESS':
+                fieldIdx = state.fields.findIndex(field => field.id === action.fieldId)
+                let editedField = state.fields[fieldIdx] = {
+                    ...state.fields[fieldIdx],
+                    updated_at: action.time
+                }
+                return {
+                    ...state,
+                    fields: [...state.fields.slice(0, fieldIdx), editedField, ...state.fields.slice(fieldIdx + 1)]
+                }
             case 'STOP_LOAD':
                 return {
                     ...state,
@@ -155,6 +166,26 @@ function modalReducer(state=false, action) {
             return true 
         case 'REMOVE_MODAL':
             return false
+        default:
+            return state
+    }
+}
+
+function imageZoomReducer(state={
+    image: '',
+    display: false
+}, action) {
+    switch(action.type) {
+        case 'DISPLAY_IMAGE':
+            return {
+                image: action.image,
+                display: true
+            }
+        case 'REMOVE_MODAL':
+            return {
+                image: '',
+                display: false
+            }
         default:
             return state
     }
@@ -362,6 +393,7 @@ const rootReducer = combineReducers({
     bed: bedReducer,
     sidebar: sidebarStateReducer,
     stage: stageReducer,
+    imageZoom: imageZoomReducer,
     modal: modalReducer,
     modal2: modal2Reducer,
     modal3: modal3Reducer,

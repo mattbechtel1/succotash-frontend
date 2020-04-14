@@ -1,7 +1,7 @@
 import React from 'react'
 import SaveButton from '../components/SaveButton'
 import WarningToast from '../components/WarningToast'
-import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, InputLabel, ListItem, Divider, ListItemText, ListItemIcon } from '@material-ui/core'
+import { FormControl, Select, MenuItem, FormHelperText, ThemeProvider, InputLabel, ListItem, Divider, ListItemText, ListItemIcon, ListSubheader } from '@material-ui/core'
 import { DatePicker } from '@material-ui/pickers'
 import { Edit as EditIcon, Eco as EcoIcon, Event as CalIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,7 +60,10 @@ class SidebarForm extends React.Component {
         const {cropWriter} = this.state
         const {start_date, due_date, status, crop } = this.props.stage
         const cropOptions = this.props.crops.map(crop => (
-            { key: crop.id, value: crop.id, text: crop.name}
+            { key: crop.id, value: crop.id, text: crop.name }
+        ))
+        const favOptions = this.props.favorites.map(favorite => (
+            { key: `f-${favorite.crop_id}`, value: favorite.crop_id, text: favorite.crop.name }
         ))
 
         return <>
@@ -80,6 +83,10 @@ class SidebarForm extends React.Component {
                             onChange={this.changeCrop}
                             onBlur={this.closeCropWriter}
                         >
+                            {favOptions.length ? <ListSubheader disableSticky>Favorites</ListSubheader> : null }
+                            {favOptions.length ? menuItemsByOptions(favOptions) : null }
+                            {favOptions.length ? <ListSubheader>All Crops</ListSubheader> : null }
+                            
                             {menuItemsByOptions(cropOptions)}
                             <MenuItem value={'unknown'}>Add a New Option</MenuItem>
                         </Select>
@@ -149,6 +156,6 @@ class SidebarForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({stage, sidebar, crops}) => ({stage, sidebar, crops})
+const mapStateToProps = ({stage, sidebar, crops, favorites: {favorites}}) => ({stage, sidebar, crops, favorites})
 
 export default connect(mapStateToProps, { editStageDate, displayWarning, editStageStatus, changeCrop, displayThirdModal})(SidebarForm)

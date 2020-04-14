@@ -46,37 +46,13 @@ class App extends React.Component {
         .then(crops => {
           this.props.seedCrops(crops)
         })
-        return Promise.resolve(true)
+
+        return action
+      })
+      .then(data => {
+        this.props.setInitialState(data)
       })
       .then(() => this.props.pageLoaded())
-
-
-
-      // if token found, get both user and crop list
-
-      // Promise.all([
-      //   fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
-      //     method: 'GET',
-      //     headers: {'Authorization': `Bearer ${token}` }
-      //   }),
-      //   fetch(process.env.REACT_APP_DOMAIN + '/crops')
-      // ])
-      // .then(async (responses) => {
-        
-      //   await responses[0].json()
-      //   .then(user => {
-      //     action['user'] = user
-      //   })
-  
-      //   await responses[1].json()
-      //   .then(crops => {
-      //     action['crops'] = crops
-      //   })
-      //   return action
-      // })
-      // .then(data => {
-      //   this.props.setInitialState(data)
-      // })
 
     } else {
       // if no token, load only crop list
