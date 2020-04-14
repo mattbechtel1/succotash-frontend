@@ -47,6 +47,7 @@ class App extends React.Component {
         .then(crops => {
           action['crops'] = crops
         })
+
         return action
       })
       .then(data => {

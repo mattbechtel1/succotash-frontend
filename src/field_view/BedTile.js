@@ -13,10 +13,15 @@ import { setBed } from '../redux_files/actions'
 import { convertBedToCurrentStage, capitalize } from '../helpers/conversions'
 
 const useStyles = makeStyles(theme => ({
-    root: {
+    card: {
         maxWidth: 345,
         backgroundColor: theme.palette.primary.main,
         borderRadius: 25
+    },
+    root: {
+        // display: 'flex',
+        // flex: 'flexWrap',
+        marginBottom: theme.spacing(4)
     }
 }))
 
@@ -39,8 +44,8 @@ const BedTile = ({bed, date, setBed}) => {
     const cropImg = stage.crop ? stage.crop.pic_url : null
 
     
-    return <div onClick={() => setBed(bed, date)} className='extend-bottom'>
-        <Card className={classes.root}>
+    return <div onClick={() => setBed(bed, date)} className={classes.root}>
+        <Card className={classes.card}>
             <CardActionArea>
                 <Image src={picDictionary[cropCat]} className='rounded-corner' />
                 <CardContent>
