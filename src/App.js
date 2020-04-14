@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.loadPage()
     let token = localStorage.getItem('token')
-    // let action = {}
+    let action = {}
     
     if (token) {
       Promise.all([
@@ -35,16 +35,16 @@ class App extends React.Component {
         }),
         fetch(process.env.REACT_APP_DOMAIN + '/crops')
       ])
-      .then(responses => {
+      .then(async (responses) => {
         
-        responses[0].json()
+        await responses[0].json()
         .then(user => {
-          this.props.setUser(user)
+          action['user'] = user
         })
   
-        responses[1].json()
+        await responses[1].json()
         .then(crops => {
-          this.props.seedCrops(crops)
+          action['crops'] = crops
         })
 
         return action

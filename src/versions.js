@@ -90,7 +90,8 @@ export const versions = [
             'Logic that is used to create default beds and stages upon the creation of a new field was migrated from controller-based creation to model-based creation',
             'Default creation values for various backend models were added.',
             'Eliminated large view header boxes for mobile devices',
-            'Removed animations on how to pages for mobile devices'
+            'Removed animations on how to pages for mobile devices',
+            'Mass update of node packages'
         ]
     }
 ]
