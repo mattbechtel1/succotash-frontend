@@ -82,7 +82,7 @@ export const versions = [
         ]
     }, {
         title: 'v1.0.8',
-        release: 'TBD',
+        release: new Date('April 14, 2020'),
         notes: [
             'Reoriented backend functionality to better work for developers working in test and development',
             'Fixed major sorting issue that caused beds to be displayed in nonsensical order',
