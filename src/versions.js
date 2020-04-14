@@ -80,5 +80,14 @@ export const versions = [
             'Changed process that modifies updated dates',
             'Username and password validations added to backend, allowing users with old usernames to continue to access product'
         ]
+    }, {
+        title: 'v1.0.8',
+        release: 'TBD"',
+        notes: [
+            'Fixed major sorting issue that caused beds to be displayed in nonsensical order',
+            'Fixed rendering issue on the guide page that caused incorrect image to zoom',
+            'Logic that is used to create default beds and stages upon the creation of a new field was migrated from controller-based creation to model-based creation',
+            'Default creation values for various backend models were added.'
+        ]
     }
 ]

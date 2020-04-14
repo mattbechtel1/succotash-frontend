@@ -91,6 +91,26 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
     // display if field is matched from URL
     } else {
         const {x_axis_count, y_axis_count, name: fieldName} = field
+
+
+        // const bedTotal = x_axis_count * y_axis_count
+        // let bedCounter = 0
+        // const rows = []
+
+        // while (bedCounter < bedTotal) {
+        //     rows.push(
+        //         <Grid 
+        //             item
+        //             xs={Math.floor(12/x_axis_count)}
+        //             key={`bed-${bedCounter + 1}`}
+        //         >
+        //             <BedTile bed={beds[bedCounter]} />
+        //         </Grid>
+        //     )
+        //     bedCounter++
+        // }
+
+
         let rows = []
         let rowCounter = 0
 
@@ -139,7 +159,7 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
 
             <Grid
                 container
-                direction='row'
+                // direction='row'
                 spacing={1}
                 justify='space-evenly'
                 alignItems='center'  
