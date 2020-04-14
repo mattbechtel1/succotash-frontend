@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Paper, Typography, Grid } from '@material-ui/core'
+import { Breakpoint } from 'react-socks'
 
 
 const staticHeaderStyles = makeStyles(theme => ({
@@ -35,7 +36,7 @@ const staticHeaderStyles = makeStyles(theme => ({
 const PageHeader = ({onClick, text, image, Tag}) => {
     const classes = staticHeaderStyles()
     
-    return <>
+    return <Breakpoint medium up>
         <Paper 
             className={classes.mainFeaturedPost}
             style={{ backgroundImage: `url(${image})` }} 
@@ -63,7 +64,7 @@ const PageHeader = ({onClick, text, image, Tag}) => {
                 </Grid>
             </Grid>
         </Paper>
-    </>
+    </Breakpoint>
 }
 
 export default PageHeader

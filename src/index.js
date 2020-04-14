@@ -9,6 +9,7 @@ import { ThemeProvider } from '@material-ui/styles/';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
+import {BreakpointProvider } from 'react-socks'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -49,8 +50,10 @@ ReactDOM.render(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <CssBaseline />
-                    <App />
+                    <BreakpointProvider>
+                        <CssBaseline />
+                        <App />
+                    </BreakpointProvider>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>
         </Provider>
