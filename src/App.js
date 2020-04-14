@@ -67,11 +67,7 @@ class App extends React.Component {
 
   render() {
     const {user, loading, fields, crops} = this.props
-    
-    console.log('user:', user)
-    console.log('crops:', crops)
-    console.log('loading:', loading)
-    
+        
     return <div className="App">
           <Navigation />
           
