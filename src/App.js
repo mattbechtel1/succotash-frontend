@@ -66,7 +66,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {user, loading, fields, crops} = this.props
+    const {user, loading, fields} = this.props
         
     return <div className="App">
           <Navigation />
@@ -132,4 +132,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(({user, loading, fields, crops}) => ({user, loading, fields, crops}), {loadPage, seedCrops, pageLoaded, setUser, setInitialState})(App);
+export default connect(({user, loading, fields}) => ({user, loading, fields}), {loadPage, seedCrops, pageLoaded, setUser, setInitialState})(App);
