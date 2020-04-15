@@ -86,11 +86,17 @@ export const versions = [
         notes: [
             'Reoriented backend functionality to better work for developers working in test and development',
             'Fixed major sorting issue that caused beds to be displayed in nonsensical order',
-            'Default creation values for various backend models were added.',
+            'Default creation values for various backend models were added',
             'Fixed rendering issue on the guide page that caused incorrect image to zoom',
             'Eliminated large view header boxes for mobile devices',
             'Removed animations on how to pages for mobile devices',
             'Mass update of node packages'
+        ]
+    }, {
+        title: 'v.1.0.9',
+        release: 'TBD',
+        notes: [
+            'Upgraded to react-scripts v4'
         ]
     }
 ]
