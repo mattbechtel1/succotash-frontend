@@ -19,6 +19,7 @@
     "moment": "^2.24.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-https-redirect": "^1.1.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",

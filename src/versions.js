@@ -60,8 +60,8 @@ export const versions = [
         notes: [
             'Developer page added',
             'Improvements made to view changes initiated by links',
-            'Updated Puma to v4.3.3',
-            'Updated Nokogiri to v1.10.8'
+            'Upgraded Puma to v4.3.3',
+            'Upgraded Nokogiri to v1.10.8'
         ]
     }, {
         title: 'v1.0.6',
@@ -96,7 +96,7 @@ export const versions = [
         title: 'v.1.0.9',
         release: 'TBD',
         notes: [
-            'Upgraded to react-scripts v4'
+            'Added HTTPS redirect to force users onto secure website. (Previously, website was useless while working on unsecure website.'
         ]
     }
 ]

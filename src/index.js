@@ -16,6 +16,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './redux_files/reducer'
 
+import HttpsRedirect from 'react-https-redirect'
+
 import App from './App';
 
 
@@ -46,16 +48,18 @@ const theme = createMuiTheme({
 })
 
 ReactDOM.render(
-    <Router>
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <BreakpointProvider>
-                        <CssBaseline />
-                        <App />
-                    </BreakpointProvider>
-                </MuiPickersUtilsProvider>
-            </ThemeProvider>
-        </Provider>
-    </Router>
+    <HttpsRedirect>
+        <Router>
+            <Provider store={store}>
+                <ThemeProvider theme={theme}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <BreakpointProvider>
+                            <CssBaseline />
+                            <App />
+                        </BreakpointProvider>
+                    </MuiPickersUtilsProvider>
+                </ThemeProvider>
+            </Provider>
+        </Router>
+    </HttpsRedirect>
     , document.getElementById('root'));
