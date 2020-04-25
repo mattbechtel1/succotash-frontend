@@ -122,7 +122,8 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
                 columns.push(
                     <Grid 
                         item
-                        xs={Math.min(Math.floor(12/x_axis_count), 4)}
+                        md={Math.min(Math.floor(12/x_axis_count), 4)}
+                        xs={6}
                         key={`bed-${bedCounter}`}
                     >
                         <BedTile className={classes.gridPad} bed={beds[bedCounter]} />
@@ -134,8 +135,6 @@ const FieldGrid = ({modal, modal3, modal4, history, field, todos: {todos}, loadi
             rows.push(
                 <Grid
                     container
-                    item
-                    xs={12}
                     spacing={3}
                     key={`row-${rowCounter}`}
                 >
