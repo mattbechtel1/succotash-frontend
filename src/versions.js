@@ -94,10 +94,10 @@ export const versions = [
         ]
     }, {
         title: 'v.1.0.9',
-        release: 'TBD',
+        release: new Date('April 25, 2020'),
         notes: [
             'Added HTTPS redirect to force users onto secure website. (Web app does not function when using HTTP.)',
-            'Field view was adjusted for small screen devices.'
+            'Field view was adjusted for small screen devices.',
         ]
     }
 ]
