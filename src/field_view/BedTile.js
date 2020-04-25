@@ -19,8 +19,6 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 25
     },
     root: {
-        // display: 'flex',
-        // flex: 'flexWrap',
         marginBottom: theme.spacing(4)
     }
 }))

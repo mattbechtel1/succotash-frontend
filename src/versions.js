@@ -96,7 +96,8 @@ export const versions = [
         title: 'v.1.0.9',
         release: 'TBD',
         notes: [
-            'Added HTTPS redirect to force users onto secure website. (Previously, website was useless while working on unsecure website.'
+            'Added HTTPS redirect to force users onto secure website. (Web app does not function when using HTTP.)',
+            'Field view was adjusted for small screen devices.'
         ]
     }
 ]
