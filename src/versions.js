@@ -99,5 +99,12 @@ export const versions = [
             'Added HTTPS redirect to force users onto secure website. (Web app does not function when using HTTP.)',
             'Field view was adjusted for small screen devices.',
         ]
+    }, {
+        title: 'v1.0.10',
+        release: 'TBD',
+        notes: [
+            'Styling adjustments to developer page for small screen devices and other minor changes',
+            'Test suite added to API'
+        ]
     }
 ]

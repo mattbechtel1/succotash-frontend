@@ -52,10 +52,14 @@ const DeveloperPage = () => {
                 alignItems='flex-start' 
                 className={classes.mainGrid}>
                     
-                    <Grid item xs={7}>
+                    <Grid item 
+                        md={7}
+                        xs={12}
+                    >
                         <Paper 
                             elevation={2}
                             className={classes.versionBox}>
+                                <Typography variant='h4' gutterBottom>Version History</Typography>
                                 {versions.map(({notes, release, title}) => <Version
                                     title={`Succotash ${title}`}
                                     releaseDate={release}
@@ -65,7 +69,10 @@ const DeveloperPage = () => {
                         </Paper>
                     </Grid>
                     
-                    <Grid item xs={5}>
+                    <Grid 
+                        item 
+                        md={5}
+                        xs={12}>
                         <Paper
                             elevation={1}
                             className={classes.linkBox}>
