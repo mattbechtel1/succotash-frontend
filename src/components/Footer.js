@@ -22,11 +22,23 @@ const DevLink = () => {
   
   return <Link 
     to='/developers'
-    className={classes.footerLink} 
+    className={classes.footerLink1} 
     onClick={topOfPage}
     >
       <Button>For Developers</Button>
   </Link>
+}
+
+const ContactLink = () => {
+  const classes= useStyles()
+
+  return <Link
+    to='/suggestions'
+    className={classes.footerLink2}
+    onClick={topOfPage}
+    >
+      <Button>Suggestion Box</Button>
+    </Link>
 }
 
 const useStyles = makeStyles(theme => ({
@@ -37,11 +49,17 @@ const useStyles = makeStyles(theme => ({
   footerTitle: {
     flex: 1,
   },
-  footerLink: {
+  footerLink1: {
     position: 'absolute',
     left: 0,
     flexShrink: 0,
     textDecoration: 'none'    
+  },
+  footerLink2: {
+    position: 'absolute',
+    right: 0,
+    flexShrink: 0,
+    textDecoration: 'none'
   }
 }));
 
@@ -59,6 +77,7 @@ export default function Footer() {
             </Typography>
             <Copyright />
           </Container>
+          <ContactLink />
         </Toolbar>
       </Container>
     </footer>
