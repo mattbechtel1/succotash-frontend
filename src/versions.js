@@ -99,5 +99,13 @@ export const versions = [
             'Added HTTPS redirect to force users onto secure website. (Web app does not function when using HTTP.)',
             'Field view was adjusted for small screen devices.',
         ]
+    }, {
+        title: 'v1.0.10',
+        release: new Date('June 14, 2020'),
+        notes: [
+            'Upgraded Websocket-Extensions to v0.1.4',
+            'Upgraded Puma to v4.3.5',
+            'Upgraded Rails to v6.0.3'
+        ]
     }
 ]
