@@ -122,7 +122,7 @@ export function saveNewUser(username, password) {
         .then(response => response.json())
         .then(data => {
             if (!data.error) {
-                localStorage.setItem('token', data.jwt)
+                localStorage.setItem('user_29E6C4D', data.jwt)
                 dispatch({type: 'LOGIN', user: data.user})
             } else {
                 dispatch(displayWarning(data.error))
@@ -140,7 +140,7 @@ export function setUser(user) {
 }
 
 export function unsetUser() {
-    localStorage.removeItem('token')
+    localStorage.removeItem('user_29E6C4D')
     return {type: 'LOGOUT'}
 }
 
@@ -171,7 +171,7 @@ export function loginUser(username, password) {
                 setTimeout(() => dispatch(hideToast), 3000)
                 dispatch(pageLoaded())
             } else {
-                localStorage.setItem('token', data.jwt)
+                localStorage.setItem('user_29E6C4D', data.jwt)
                 dispatch(pageLoaded())
                 dispatch(setUser(data.user))
             }

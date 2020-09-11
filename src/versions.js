@@ -107,5 +107,16 @@ export const versions = [
             'Upgraded Puma to v4.3.5',
             'Upgraded Rails to v6.0.3'
         ]
+    }, {
+        title: 'v1.0.11',
+        release: new Date(),
+        notes: [
+            'Upgraded Markdown-to-JSX to v6.11.4',
+            'Upgraded elliptic to v6.5.3',
+            'Upgraded node-http-proxy to v1.18.1',
+            'Upgraded Lodash to v4.17.19',
+            'Upgraded Rack to v2.2.3',
+            'Minor updates to automated login'
+        ]
     }
 ]

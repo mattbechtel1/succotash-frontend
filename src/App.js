@@ -24,14 +24,14 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.loadPage()
-    let token = localStorage.getItem('token')
+    const user_token = localStorage.getItem('user_29E6C4D')
     let action = {}
     
-    if (token) {
+    if (user_token) {
       Promise.all([
         fetch(process.env.REACT_APP_DOMAIN + '/api/v1/profile', {
           method: 'GET',
-          headers: {'Authorization': `Bearer ${token}` }
+          headers: {'Authorization': `Bearer ${user_token}` }
         }),
         fetch(process.env.REACT_APP_DOMAIN + '/crops')
       ])
