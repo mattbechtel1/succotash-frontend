@@ -116,7 +116,8 @@ export const versions = [
             'Upgraded node-http-proxy to v1.18.1',
             'Upgraded Lodash to v4.17.19',
             'Upgraded Rack to v2.2.3',
-            'Minor updates to automated login'
+            'Upgraded NPM packages',
+            'Minor updates to automated login feature'
         ]
     }
 ]
