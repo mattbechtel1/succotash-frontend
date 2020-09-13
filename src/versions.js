@@ -109,8 +109,9 @@ export const versions = [
         ]
     }, {
         title: 'v1.0.11',
-        release: new Date(),
+        release: new Date('September 12, 2020'),
         notes: [
+            'Added warning informing the user that stage data will be overwritten when changing the date on an existing stage',
             'Upgraded Markdown-to-JSX to v6.11.4',
             'Upgraded elliptic to v6.5.3',
             'Upgraded node-http-proxy to v1.18.1',
