@@ -87,7 +87,6 @@ export function saveStage(stage, date) {
             })
             .then(response => response.json())
             .then(updatedBed => {
-                debugger
                 setTimeout(() => {
                     dispatch({type: 'REPLACE_SINGLE_BED', bed: updatedBed})
                     dispatch({type: 'SET_BED', bed: updatedBed, date})
@@ -141,6 +140,7 @@ export function setUser(user) {
 
 export function unsetUser() {
     localStorage.removeItem('user_29E6C4D')
+    localStorage.removeItem('autosave_CA9D01F')
     return {type: 'LOGOUT'}
 }
 
@@ -397,11 +397,19 @@ export function removeThirdModal() {
 }
 
 export function displayFourthModal() {
-    return {type: 'DISPLAY_QUARTERNARY_MODAL'}
+    return {type: 'DISPLAY_QUATERNARY_MODAL'}
 }
 
 export function removeFourthModal() {
-    return {type: 'REMOVE_QUARTERNARY_MODAL'}
+    return {type: 'REMOVE_QUATERNARY_MODAL'}
+}
+
+export function displayFifthModal() {
+    return {type: 'DISPLAY_QUINARY_MODAL'}
+}
+
+export function removeFifthModal() {
+    return {type: 'REMOVE_QUINARY_MODAL'}
 }
 
 export function seedCrops(crops) {

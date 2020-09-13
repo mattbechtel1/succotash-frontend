@@ -215,9 +215,20 @@ function modal3Reducer(state=false, action) {
 
 function modal4Reducer(state=false, action) {
     switch(action.type) {
-        case 'DISPLAY_QUARTERNARY_MODAL':
+        case 'DISPLAY_QUATERNARY_MODAL':
             return true
-        case 'REMOVE_QUARTERNARY_MODAL':
+        case 'REMOVE_QUATERNARY_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
+function modal5Reducer(state=false, action) {
+    switch(action.type) {
+        case 'DISPLAY_QUINARY_MODAL':
+            return true
+        case 'REMOVE_QUINARY_MODAL':
             return false
         default:
             return state
@@ -233,7 +244,8 @@ function stageReducer(state=null, action) {
         case 'EDIT_STAGE_DATE':
             return {
                 ...state,
-                [action.dateType]: action.date
+                [action.dateType]: action.date,
+                dateChanged: true,
             }
         case 'EDIT_STAGE_STATUS':
             return {
@@ -398,6 +410,7 @@ const rootReducer = combineReducers({
     modal2: modal2Reducer,
     modal3: modal3Reducer,
     modal4: modal4Reducer,
+    modal5: modal5Reducer,
     login: loginReducer,
     toast: toastReducer,
     loading: loadingReducer,
