@@ -58,6 +58,22 @@ export function constructDate(date) {
     }
 }
 
+export function deconstructDate(date) {
+    switch(typeof date) {
+        case 'string':
+            return date
+        case 'object':
+            switch (date) {
+                case null:
+                    return null
+                default:
+                    return dateFormatter(date)
+            }
+        default:
+            return null
+    }
+}
+
 export function sortDueDates(array) {
     return array.sort((a, b) => constructDate(a.due_date) - constructDate(b.due_date))
 }

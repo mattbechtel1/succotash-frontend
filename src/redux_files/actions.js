@@ -1,4 +1,4 @@
-import {constructDate, formatUSA} from '../helpers/dates'
+import {constructDate, formatUSA, deconstructDate} from '../helpers/dates'
 import {capitalize} from '../helpers/conversions'
 
 const URL_DOMAIN = process.env.REACT_APP_DOMAIN
@@ -80,8 +80,8 @@ export function saveStage(stage, date) {
                 body: JSON.stringify({
                     status: stage.status,
                     bed_id: stage.bed_id,
-                    start_date: stage.start_date,
-                    due_date: stage.due_date,
+                    start_date: deconstructDate(stage.start_date),
+                    due_date: deconstructDate(stage.due_date),
                     crop_id: stage.crop ? stage.crop.id : null
                 })
             })

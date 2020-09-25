@@ -118,7 +118,16 @@ export const versions = [
             'Upgraded Lodash to v4.17.19',
             'Upgraded Rack to v2.2.3',
             'Upgraded NPM packages',
-            'Minor updates to automated login feature'
+            'Minor updates to automated login feature',
+            'Removed failing default React test'
+        ]
+    }, {
+        title: 'v1.0.12',
+        release: new Date(null),
+        notes: [
+            'Corrected issue where dates of stages were sometimes off by 1 day after saving'
         ]
     }
+
+    // Remember to also change the README.md when a new version is ready.
 ]

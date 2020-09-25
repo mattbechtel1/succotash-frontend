@@ -36,7 +36,6 @@ class App extends React.Component {
         fetch(process.env.REACT_APP_DOMAIN + '/crops')
       ])
       .then(async (responses) => {
-        
         await responses[0].json()
         .then(user => {
           action['user'] = user
