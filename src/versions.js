@@ -125,7 +125,8 @@ export const versions = [
         title: 'v1.0.12',
         release: new Date(null),
         notes: [
-            'Corrected issue where dates of stages were sometimes off by 1 day after saving'
+            'Corrected issue where dates of stages were sometimes off by 1 day after saving',
+            "Added direct link to latest version note on developer page"
         ]
     }
 

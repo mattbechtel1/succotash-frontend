@@ -2,7 +2,7 @@ import React from 'react'
 
 import DeveloperHeader from './DeveloperHeader'
 import Version from './Version'
-import {Container, Grid, Paper, Typography, ListItem, ListItemText, List} from '@material-ui/core'
+import {Container, Grid, Paper, Typography, ListItem, ListItemText, List, Button} from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -42,6 +42,12 @@ const GitLink = ({url, text}) => {
 
 const DeveloperPage = () => {
     const classes = useStyles()
+    const mostRecentVersion = versions[versions.length -1].title
+
+    const scrollToLatest = () => {
+        const latest = document.getElementById(mostRecentVersion)
+        latest.scrollIntoView();
+    }
 
     return <Container maxWidth='lg'>
         <main style={{paddingTop: '10px'}}>
@@ -56,11 +62,15 @@ const DeveloperPage = () => {
                         <Paper 
                             elevation={2}
                             className={classes.versionBox}>
+                                <Button onClick={scrollToLatest}>
+                                    See latest version notes
+                                </Button>
                                 {versions.map(({notes, release, title}) => <Version
                                     title={`Succotash ${title}`}
                                     releaseDate={release}
                                     notes={notes} 
                                     key={title}
+                                    id={title}
                                 />)}
                         </Paper>
                     </Grid>
