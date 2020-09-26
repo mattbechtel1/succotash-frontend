@@ -127,7 +127,7 @@ export const versions = [
         notes: [
             'Corrected issue where dates of stages were sometimes off by 1 day after saving',
             "Added direct link to latest version note on developer page",
-            "Upgraded frontend dateIO and moment utilities"
+            "Upgraded frontend @date-io and moment utilities"
         ]
     }
 
