@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Succotash is a farm management application built to track crop cycles and other farming activities.
 
-## [Live Application of v1.0.12](https://succotash-app.herokuapp.com)
+## [Live Application of v1.0.13](https://succotash-app.herokuapp.com)
 
 ## Setup
 

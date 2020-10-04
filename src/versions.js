@@ -133,7 +133,7 @@ export const versions = [
         title: 'v1.0.13',
         release: new Date("October 3, 2020"),
         notes: [
-            'Upgraded to Rails v6.0.3.3',
+            'Upgraded Rails to v6.0.3.3',
             'Upgraded selfsigned to v1.10.8 and node-forge to v0.0.10',
             'Small increase in test coverage',
             'Vastly improved README documentation'
