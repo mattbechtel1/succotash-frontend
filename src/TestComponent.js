@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
  const TestComponent = (props) => {
         const classes = useStyles()
-        debugger
+        // debugger
         return           <div>
 
             <Button onClick={props.loadPage}>LOADING</Button>

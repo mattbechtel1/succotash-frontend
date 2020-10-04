@@ -129,6 +129,15 @@ export const versions = [
             "Added direct link to latest version note on developer page",
             "Upgraded frontend @date-io and moment utilities"
         ]
+    }, {
+        title: 'v1.0.13',
+        release: new Date("October 3, 2020"),
+        notes: [
+            'Upgraded to Rails v6.0.3.3',
+            'Upgraded selfsigned to v1.10.8 and node-forge to v0.0.10',
+            'Small increase in test coverage',
+            'Vastly improved README documentation'
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.

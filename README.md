@@ -1,10 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Succotash
+# Welcome to the Succotash Website
 
 Succotash is a farm management application built to track crop cycles and other farming activities.
 
 ## [Live Application of v1.0.12](https://succotash-app.herokuapp.com)
+
+## Setup
+
+### NVM Version
+Succotash is built with React, which depends on Node and NPM. In order to
+install Node, it is required that you install NodeJS on your system. We
+recommend that you install NVM. Once sourced into your profile,
+run `nvm install 12.0.0` and/or `nvm use 12.0.0`. 
 
 Global Dependencies:
 
@@ -33,7 +41,14 @@ We invite other developers to contribute towards the growth and features of the 
 
 It is advised that you also fork and clone the [backend API](https://github.com/mattbechtel1/succotash-backend). Otherwise, frontend builds will stall in a perpetual loading phase. The backend should run on localhost:2020 for the development server to correctly fetch data.
 
-Pull requests will be reviewed in a timely manner. Editing the versions.js file is not recommended. The Github repository owners will review 
+Pull requests will be reviewed in a timely manner. Editing the versions.js file is not recommended. The Github repository owners will review your request and update the versions.js
+file if necessary.
+
+## Connecting to the API
+
+In order to connect to the API, you will need to run the API on a separate port.
+Instructions for building and developing the API can be found on the 
+[Succotash Backend Repo](https://github.com/mattbechtel1/succotash-backend).
 
 ## Available Scripts
 
