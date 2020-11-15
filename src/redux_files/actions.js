@@ -102,7 +102,8 @@ export function saveStage(stage, date) {
     }
 }
 
-export function saveNewUser(username, password) {
+export function saveNewUser(username, password, email) {
+    debugger
     return (dispatch) => {
         dispatch(loadPage())
         fetch(URL_DOMAIN + '/api/v1/users', {
@@ -114,7 +115,8 @@ export function saveNewUser(username, password) {
             body: JSON.stringify({
                 user: {
                     username,
-                    password
+                    password,
+                    email
                 }
             })
         })
@@ -152,7 +154,7 @@ export function pageLoaded() {
     return ({type: 'NOT_LOADING'})
 }
 
-export function loginUser(username, password) {
+export function loginUser(username, password, email) {
     
     return (dispatch) => {
         dispatch(loadPage())

@@ -46,7 +46,7 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitAction(login.username, login.password)
+    submitAction(login.username, login.password, login.email)
   }
 
   const handleChange = (e) => {
@@ -83,6 +83,24 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
                 autoFocus
               />
             </Grid>
+            { displayText !== 'Log in' ?
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="email"
+                  value={login.email}
+                  color='secondary'
+                  id="email"
+                  label="Email Address"
+                  onChange={handleChange}
+                  autoComplete="off"
+                  type="email"
+                  />
+              </Grid>
+              : null
+            }
 
             <Grid item xs={12}>
               <TextField
@@ -132,7 +150,7 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
 const mapDispatchToProps = (dispatch, {submitAction}) => {
   return {
     changeTextField: (fieldName, value) => dispatch(changeTextField(fieldName, value)),
-    submitAction: (username, password) => dispatch(submitAction(username, password)),
+    submitAction: (username, password, email) => dispatch(submitAction(username, password, email)),
     displayWarning: (text) => dispatch(displayWarning(text))
   }
 }

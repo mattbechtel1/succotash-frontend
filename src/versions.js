@@ -138,6 +138,14 @@ export const versions = [
             'Small increase in test coverage',
             'Vastly improved README documentation'
         ]
+    }, {
+        title: 'v1.0.14',
+        release: new Date("November 15, 2020"),
+        notes: [
+            "Added e-mail requirement on sign-up",
+            "Upgraded NPM packages",
+            "Fixed issue where page failed to load on creating a new field"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.
