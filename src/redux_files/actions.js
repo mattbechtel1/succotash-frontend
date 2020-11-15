@@ -103,7 +103,6 @@ export function saveStage(stage, date) {
 }
 
 export function saveNewUser(username, password, email) {
-    debugger
     return (dispatch) => {
         dispatch(loadPage())
         fetch(URL_DOMAIN + '/api/v1/users', {
