@@ -264,14 +264,15 @@ function stageReducer(state=null, action) {
 
 function loginReducer(state={
     username: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
 }, action) {
     switch(action.type) {
         case 'CHANGE_TEXT_FIELD':
             return {...state, 
                 [action.fieldName]: action.text}
         case 'CLEAR_FORM':
-            return {username: '', password: ''}
+            return {username: '', password: '', confirmPassword: ''}
         default:
             return state
     }
@@ -279,13 +280,14 @@ function loginReducer(state={
 
 function toastReducer(state={
     text: '',
+    severity: '',
     open: false
 }, action) {
     switch (action.type) {
         case 'DISPLAY_TOAST':
-            return {open: true, text: action.text}
+            return {open: true, text: action.text, severity: action.severity}
         case 'HIDE_TOAST':
-            return {open: false, text: ''}
+            return {open: false, text: '', severity: ''}
         default:
             return state
     }

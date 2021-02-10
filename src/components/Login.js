@@ -6,7 +6,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import WarningToast from './WarningToast'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
-import { changeTextField, displayWarning } from '../redux_files/actions'
+import { changeTextField } from '../redux_files/actions'
+import { withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
   link: {
-    textDecoration: 'none'
+    textDecoration: 'none',
+    margin: theme.spacing(3)
   }
 }));
 
@@ -41,12 +43,12 @@ const ButtonLink = ({url, text}) => {
   return <Link to={url} className={classes.link}><GreenButton text={text} /></Link>
 }
 
-const Login = ({submitAction, displayText, displayWarning, login, changeTextField}) => {
+const Login = ({submitAction, displayText, login, resetCode, changeTextField}) => {
   const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitAction(login.username, login.password, login.email)
+    submitAction(login.email, login.username, login.password, login.confirmPassword, resetCode)
   }
 
   const handleChange = (e) => {
@@ -101,7 +103,7 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
               </Grid>
               : null
             }
-
+            { displayText !== 'Send password reset' ? 
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -117,6 +119,25 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
                 autoComplete="current-password"
               />
             </Grid>
+            : null
+          }
+          { resetCode ?
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="confirm_password"
+                value={login.confirmPassword}
+                color='secondary'
+                label="Confirm Password"
+                type="password"
+                id="confirm_password"
+                onChange={handleChange}
+              />
+            </Grid>
+            : null
+          }
           </Grid>
           <Button
             type="submit"
@@ -130,9 +151,12 @@ const Login = ({submitAction, displayText, displayWarning, login, changeTextFiel
           <Grid container justify='center' style={{padding: '10px'}}>
             <Grid item>
               { displayText === 'Log in' ? 
+                <Container style={{padding: 'inherit'}}>
                   <ButtonLink 
                     url='/signup'
                     text="Don't have an account? Sign up!" />
+                  <Link to='/reset-password'>Forgot your password? Click here.</Link>
+                </Container>
                 :
                   <ButtonLink 
                     url='/login'
@@ -151,8 +175,7 @@ const mapDispatchToProps = (dispatch, {submitAction}) => {
   return {
     changeTextField: (fieldName, value) => dispatch(changeTextField(fieldName, value)),
     submitAction: (username, password, email) => dispatch(submitAction(username, password, email)),
-    displayWarning: (text) => dispatch(displayWarning(text))
   }
 }
 
-export default connect(({login}) => ({login}), mapDispatchToProps)(Login)
+export default withRouter(connect(({login}, {match}) => ({login, resetCode: match.params.slug}), mapDispatchToProps)(Login))

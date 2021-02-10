@@ -5,7 +5,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setUser, setInitialState } from './redux_files/actions'
+import { saveNewUser, seedCrops, loginUser, loadPage, pageLoaded, setUser, setInitialState, emailResetCode, resetPassword } from './redux_files/actions'
 
 import Field from './field_view/Field'
 import Footer from './components/Footer'
@@ -113,6 +113,14 @@ class App extends React.Component {
               
               <Route exact path='/developers'>
                 <DeveloperPage />
+              </Route>
+
+              <Route path='/reset-password/:slug'>
+              { user ? <Redirect to='/profile' /> : <Login submitAction={resetPassword} displayText='Set new password'/> }
+              </Route>
+
+              <Route path='/reset-password'>
+                { user ? <Redirect to='/profile' /> : <Login submitAction={emailResetCode} displayText='Send password reset' /> }
               </Route>
 
               <Route exact path='/github' component={() => window.location = 'https://github.com/mattbechtel1/succotash-frontend'} />

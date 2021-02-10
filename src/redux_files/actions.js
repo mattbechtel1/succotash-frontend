@@ -102,7 +102,7 @@ export function saveStage(stage, date) {
     }
 }
 
-export function saveNewUser(username, password, email) {
+export function saveNewUser(email, username, password) {
     return (dispatch) => {
         dispatch(loadPage())
         fetch(URL_DOMAIN + '/api/v1/users', {
@@ -153,7 +153,7 @@ export function pageLoaded() {
     return ({type: 'NOT_LOADING'})
 }
 
-export function loginUser(username, password, email) {
+export function loginUser(email, username, password) {
     
     return (dispatch) => {
         dispatch(loadPage())
@@ -162,7 +162,8 @@ export function loginUser(username, password, email) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 username,
-                password
+                password,
+                email
             })
         })
         .then(response => response.json())
@@ -290,8 +291,8 @@ export function hideToast() {
     return {type: 'HIDE_TOAST'}
 }
 
-export function displayWarning(text) {
-    return {type: 'DISPLAY_TOAST', text}
+export function displayWarning(text, severity='error') {
+    return {type: 'DISPLAY_TOAST', text, severity}
 }
 
 export function zoomImage(image) {
@@ -486,6 +487,61 @@ export function removeFavorite(favorite_id) {
                 dispatch(displayWarning(data.error))
             } else {
                 dispatch({type: 'REMOVE_FAVORITE', favorite_id})
+            }
+        })
+    }
+}
+
+export function emailResetCode(reset_email) {
+    return (dispatch) => {
+        fetch(`${URL_DOMAIN}/api/v1/forgot`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: reset_email
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(displayWarning(data.error))
+            } else {
+                dispatch(displayWarning(data.message, 'info'))
+            }
+        })
+    }
+}
+
+export function resetPassword(email, username, password, confirmPassword, resetToken) {
+    return (dispatch) => {
+        dispatch(loadPage())
+        fetch(`${URL_DOMAIN}/api/v1/reset`, {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                username,
+                password: password,
+                confirm_password: confirmPassword,
+                token: resetToken
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                dispatch(pageLoaded())
+                dispatch(displayWarning(data.error))
+            } else {
+                dispatch(pageLoaded())
+                dispatch(displayWarning(data.message, 'success'))
+                localStorage.setItem('user_29E6C4D', data.jwt)
+                dispatch({type: 'LOGIN', user: data.user})
             }
         })
     }
