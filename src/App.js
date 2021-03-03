@@ -49,6 +49,7 @@ class App extends React.Component {
         return action
       })
       .then(data => {
+        debugger
         this.props.setInitialState(data)
       })
       .then(() => this.props.pageLoaded())

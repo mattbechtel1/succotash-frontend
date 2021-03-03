@@ -127,12 +127,12 @@ const Login = ({submitAction, displayText, login, resetCode, changeTextField}) =
                 variant="outlined"
                 required
                 fullWidth
-                name="confirm_password"
+                name="confirmPassword"
                 value={login.confirmPassword}
                 color='secondary'
                 label="Confirm Password"
                 type="password"
-                id="confirm_password"
+                id="confirmPassword"
                 onChange={handleChange}
               />
             </Grid>
@@ -174,7 +174,7 @@ const Login = ({submitAction, displayText, login, resetCode, changeTextField}) =
 const mapDispatchToProps = (dispatch, {submitAction}) => {
   return {
     changeTextField: (fieldName, value) => dispatch(changeTextField(fieldName, value)),
-    submitAction: (username, password, email) => dispatch(submitAction(username, password, email)),
+    submitAction: (username, password, email, confirmPassword, resetCode) => dispatch(submitAction(username, password, email, confirmPassword, resetCode)),
   }
 }
 
