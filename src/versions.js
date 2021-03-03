@@ -146,6 +146,15 @@ export const versions = [
             "Upgraded NPM packages",
             "Fixed issue where page failed to load on creating a new field"
         ]
+    }, {
+        title: 'v1.0.15',
+        release: new Date("March 2, 2021"),
+        notes: [
+            "Upgraded Rails to v6.0.3.5",
+            "Upgraded Nokogiri to v1.11.1",
+            "Bump ini to 1.3.8",
+            "Upgraded react-scripts to 4.0.3"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.
