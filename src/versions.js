@@ -160,7 +160,7 @@ export const versions = [
         release: new Date("March 7, 2021"),
         notes: [
             "Implemented password reset system after enabling e-mail addresses",
-            "Developed simple e-mail delivery system with ActionMailer"
+            "Implemented simple e-mail delivery system with ActionMailer"
         ]
     }
 
