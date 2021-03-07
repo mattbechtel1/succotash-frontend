@@ -146,6 +146,13 @@ export const versions = [
             "Upgraded NPM packages",
             "Fixed issue where page failed to load on creating a new field"
         ]
+    }, {
+        title: 'v1.1.0',
+        release: new Date("March 7, 2021"),
+        notes: [
+            "Implemented password reset system after enabling e-mail addresses",
+            "Developed simple e-mail delivery system with ActionMailer"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.
