@@ -162,6 +162,14 @@ export const versions = [
             "Implemented password reset system after enabling e-mail addresses",
             "Implemented simple e-mail delivery system with ActionMailer"
         ]
+    }, {
+        title: 'v1.1.1',
+        release: new Date("May 31, 2021"),
+        notes: [
+            "Upgraded Nokogiri to v1.11.6",
+            "Upgraded Puma to v4.3.8",
+            "Upgraded NPM packages including lodash and react-dev-utils"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.
