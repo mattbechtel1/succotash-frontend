@@ -175,7 +175,8 @@ export const versions = [
         release: new Date("January 12, 2023"),
         notes: [
             "Various dependency upgrades",
-            "Heroku-22 support"
+            "Heroku-22 support",
+            "Upgraded Node.js version to v14.0.0"
         ]
     }
 

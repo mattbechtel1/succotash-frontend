@@ -12,7 +12,7 @@ Succotash is a farm management application built to track crop cycles and other 
 Succotash is built with React, which depends on Node and NPM. In order to
 install Node, it is required that you install NodeJS on your system. We
 recommend that you install NVM. Once sourced into your profile,
-run `nvm install 12.0.0` and/or `nvm use 12.0.0`. 
+run `nvm install 14.0.0` and/or `nvm use 14.0.0`. 
 
 Global Dependencies:
 
