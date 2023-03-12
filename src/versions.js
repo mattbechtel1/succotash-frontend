@@ -170,6 +170,13 @@ export const versions = [
             "Upgraded Puma to v4.3.8",
             "Upgraded NPM packages including lodash and react-dev-utils"
         ]
+    }, {
+        title: 'v.1.2.0',
+        release: new Date("January 12, 2023"),
+        notes: [
+            "Various dependency upgrades",
+            "Heroku-22 support"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.
