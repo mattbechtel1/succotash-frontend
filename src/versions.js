@@ -176,7 +176,7 @@ export const versions = [
         notes: [
             "Various dependency upgrades",
             "Heroku-22 support",
-            "Upgraded Node.js version to v14.0.0"
+            "Upgraded Node.js version support to v18.15.0"
         ]
     }
 
