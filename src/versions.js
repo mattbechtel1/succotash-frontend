@@ -178,6 +178,12 @@ export const versions = [
             "Heroku-22 support",
             "Upgraded Node.js version support to v18.15.0"
         ]
+    }, {
+        title: 'v1.2.1',
+        release: new Date("September 12, 2026"),
+        notes: [
+            "Merged dependabot updates for babel/traverse, css-tools, form-data, websocket-driver, browserslist, colord, nanoid, brace-expansion, and shell-quote"
+        ]
     }
 
     // Remember to also change the README.md when a new version is ready.

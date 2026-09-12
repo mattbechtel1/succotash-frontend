@@ -24,3 +24,6 @@ yarn-error.log*
 
 /src/TestComponent.js
 dump.rdb
+
+# personal notes, not for the public repo
+/FEATURES.md
